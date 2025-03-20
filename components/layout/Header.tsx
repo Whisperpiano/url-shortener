@@ -1,8 +1,6 @@
-import { cn } from "@/lib/utils";
-
-import Link from "next/link";
-import { buttonVariants } from "../ui/button";
-import { GithubLogo } from "../icons/GithubLogo";
+import { Button } from "../ui/button";
+import SearchBar from "./SearchBar";
+import ToggleTheme from "./ToggleTheme";
 
 export default function Header() {
   return (
@@ -12,15 +10,10 @@ export default function Header() {
           Shortly
         </h1>
       </div>
-      <div>
-        <Link
-          href="https://github.com/Whisperpiano/url-shortener"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(buttonVariants({ variant: "outline", size: "icon" }))}
-        >
-          <GithubLogo />
-        </Link>
+      <div className="flex items-center gap-2">
+        <SearchBar />
+        <ToggleTheme />
+        <Button variant={"default"}>Get started</Button>
       </div>
     </header>
   );
