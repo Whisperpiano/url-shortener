@@ -13,7 +13,9 @@ export default function Header() {
       <div className="flex items-center gap-2">
         <SearchBar />
         <ToggleTheme />
-        <Button variant={"default"}>Get started</Button>
+        <Button variant={"default"} className="cursor-pointer">
+          Sign in
+        </Button>
       </div>
     </header>
   );

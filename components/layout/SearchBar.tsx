@@ -32,13 +32,13 @@ export default function SearchBar() {
     <>
       <Button
         variant={"outline"}
-        className="cursor-pointer text-muted-foreground transition-colors duration-300"
+        className="cursor-pointer text-muted-foreground transition-colors duration-300 hover:text-muted-foreground"
         onClick={() => setIsOpen(true)}
       >
         <Search />
 
-        <span className="font-normal">Search</span>
-        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+        <span className="font-normal">Search documentation</span>
+        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
