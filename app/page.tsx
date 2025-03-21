@@ -1,10 +1,19 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+"use server";
 
-export default function Home() {
+import { auth } from "@/app/auth";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+
+export default async function Home() {
+  const session = await auth();
+
+  if (session?.user) {
+    return <h1>Welcome back {session.user.name}</h1>;
+  }
   return (
     <>
-      <main className="max-w-7xl mx-auto px-4 min-h-screen">
+      <main className="max-w-7xl mx-auto px-4">
         <h2 className="font-mono font-semibold text-3xl ">
           Shorten your links{" "}
           <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
@@ -19,10 +28,15 @@ export default function Home() {
           Transform long, messy URLs into short and shareable links in seconds.
           Start simplifying your links today!
         </p>
-        <Button variant={"default"} className="cursor-pointer group">
+
+        <Link
+          href={"/dashboard"}
+          className={cn(buttonVariants({ variant: "default" }))}
+        >
           Get started
-          <ArrowRight className="group-hover:translate-x-0.5 transition-transform duration-300" />
-        </Button>
+        </Link>
+
+        {/* <LoginButton /> */}
       </main>
     </>
   );
