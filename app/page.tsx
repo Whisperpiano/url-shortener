@@ -1,9 +1,7 @@
 "use server";
 
 import { auth } from "@/app/auth";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+import Login from "@/components/layout/Login";
 
 export default async function Home() {
   const session = await auth();
@@ -29,12 +27,7 @@ export default async function Home() {
           Start simplifying your links today!
         </p>
 
-        <Link
-          href={"/dashboard"}
-          className={cn(buttonVariants({ variant: "default" }))}
-        >
-          Get started
-        </Link>
+        <Login btnText="Get started" />
 
         {/* <LoginButton /> */}
       </main>

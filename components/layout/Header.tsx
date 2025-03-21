@@ -1,13 +1,9 @@
-import { auth } from "@/app/auth";
-
 import SearchBar from "./SearchBar";
 import ToggleTheme from "./ToggleTheme";
 import Link from "next/link";
 import Login from "./Login";
 
 export default async function Header() {
-  const session = await auth();
-  console.log(session);
   return (
     <header className="max-w-7xl mx-auto p-4 flex items-center justify-between">
       <div className="flex items-center gap-1">
@@ -20,7 +16,6 @@ export default async function Header() {
       <div className="flex items-center gap-2">
         <SearchBar />
         <ToggleTheme />
-        {/* <Link href={"/dashboard"}>here</Link> */}
         <Login />
         {/* {session?.user ? (
           <img

@@ -15,7 +15,7 @@ import { buttonVariants } from "../ui/button";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export default function Login() {
+export default function Login({ btnText = "Sign in" }) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -29,7 +29,6 @@ export default function Login() {
     const params = new URLSearchParams(window.location.search);
 
     if (isOpen) {
-      params.delete("login");
       const paramString = params.toString();
       const newUrl =
         window.location.pathname +
@@ -51,7 +50,7 @@ export default function Login() {
       <SheetTrigger
         className={cn(buttonVariants({ variant: "default" }), "cursor-pointer")}
       >
-        Sign in
+        {btnText}
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
