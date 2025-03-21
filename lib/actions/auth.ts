@@ -2,8 +2,10 @@
 
 import { signIn, signOut } from "@/app/auth";
 
-export const login = async () => {
-  await signIn("github", { redirectTo: "/dashboard" });
+type Provider = "github" | "google";
+
+export const login = async (provider: Provider) => {
+  await signIn(provider, { redirectTo: "/dashboard" });
 };
 
 export const logout = async () => {

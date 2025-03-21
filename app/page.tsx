@@ -2,12 +2,21 @@
 
 import { auth } from "@/app/auth";
 import Login from "@/components/layout/Login";
+import { Button } from "@/components/ui/button";
+import { logout } from "@/lib/actions/auth";
 
 export default async function Home() {
   const session = await auth();
 
   if (session?.user) {
-    return <h1>Welcome back {session.user.name}</h1>;
+    return (
+      <>
+        <h1>Welcome back {session.user.name}</h1>
+        <Button variant={"default"} className="cursor-pointer" onClick={logout}>
+          Logout
+        </Button>
+      </>
+    );
   }
   return (
     <>

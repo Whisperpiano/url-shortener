@@ -10,10 +10,14 @@ import {
 } from "@/components/ui/sheet";
 
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 
 import { useEffect } from "react";
 import { useState } from "react";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { Input } from "../ui/input";
+import { login } from "@/lib/actions/auth";
 
 export default function Login({ btnText = "Sign in" }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,10 +58,49 @@ export default function Login({ btnText = "Sign in" }) {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Are you absolutely sure?</SheetTitle>
+          <SheetTitle className="py-5 border-b border-b-muted">
+            <span className="font-mono tracking-wide font-medium">Shortly</span>
+          </SheetTitle>
           <SheetDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            <p>
+              Log in to Shortly to access your account and manage your links.
+            </p>
+            <div className="flex flex-col gap-4">
+              <Input placeholder="Email" className="py-5" />
+              <Input placeholder="Password" className="py-5" />
+              <Button
+                variant={"default"}
+                size={"lg"}
+                className="cursor-pointer"
+              >
+                Sign in
+              </Button>
+            </div>
+            <p className="mt-6 py-4 border-t border-t-muted">
+              Or sign in with your Google or GitHub account.
+            </p>
+            <div className="flex flex-col gap-4">
+              <Button
+                variant={"outline"}
+                size={"lg"}
+                className="cursor-pointer"
+                onClick={() => login("github")}
+              >
+                <FcGoogle />
+                Sign in with GitHub
+              </Button>
+
+              <Button
+                variant={"outline"}
+                size={"lg"}
+                className="cursor-pointer"
+                onClick={() => login("google")}
+              >
+                <FaGithub />
+                Sign in with Google
+              </Button>
+            </div>
+            <span className="mb-auto">Shortly TM</span>
           </SheetDescription>
         </SheetHeader>
       </SheetContent>
