@@ -2,17 +2,21 @@ import SearchBar from "./SearchBar";
 import ToggleTheme from "./ToggleTheme";
 import Link from "next/link";
 import Login from "./Login";
+import { FaLink } from "react-icons/fa";
 
 export default async function Header() {
   return (
     <header className="max-w-7xl mx-auto p-4 flex items-center justify-between">
-      <div className="flex items-center gap-1">
-        <Link href={"/"}>
-          <h1 className="font-mono tracking-widest font-medium text-base">
-            Shortly
-          </h1>
-        </Link>
-      </div>
+      <Link
+        href={"/"}
+        className="flex items-center gap-2 hover:opacity-85 transition-opacity duration-200"
+      >
+        <FaLink />
+        <h1 className="font-mono tracking-widest font-medium text-base">
+          Shortly
+        </h1>
+      </Link>
+
       <div className="flex items-center gap-2">
         <SearchBar />
         <ToggleTheme />

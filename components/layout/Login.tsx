@@ -62,45 +62,47 @@ export default function Login({ btnText = "Sign in" }) {
             <span className="font-mono tracking-wide font-medium">Shortly</span>
           </SheetTitle>
           <SheetDescription>
-            <p>
-              Log in to Shortly to access your account and manage your links.
-            </p>
-            <div className="flex flex-col gap-4">
-              <Input placeholder="Email" className="py-5" />
-              <Input placeholder="Password" className="py-5" />
-              <Button
-                variant={"default"}
-                size={"lg"}
-                className="cursor-pointer"
-              >
-                Sign in
-              </Button>
-            </div>
-            <p className="mt-6 py-4 border-t border-t-muted">
-              Or sign in with your Google or GitHub account.
-            </p>
-            <div className="flex flex-col gap-4">
-              <Button
-                variant={"outline"}
-                size={"lg"}
-                className="cursor-pointer"
-                onClick={() => login("github")}
-              >
-                <FcGoogle />
-                Sign in with GitHub
-              </Button>
+            <>
+              <div>
+                Log in to Shortly to access your account and manage your links.
+              </div>
+              <div className="flex flex-col gap-4">
+                <Input placeholder="Email" className="py-5" />
+                <Input placeholder="Password" className="py-5" />
+                <Button
+                  variant={"default"}
+                  size={"lg"}
+                  className="cursor-pointer"
+                >
+                  Sign in
+                </Button>
+              </div>
+              <div className="mt-6 py-4 border-t border-t-muted">
+                Or sign in with your Google or GitHub account.
+              </div>
+              <div className="flex flex-col gap-4">
+                <Button
+                  variant={"outline"}
+                  size={"lg"}
+                  className="cursor-pointer"
+                  onClick={() => login("github")}
+                >
+                  <FcGoogle />
+                  Sign in with GitHub
+                </Button>
 
-              <Button
-                variant={"outline"}
-                size={"lg"}
-                className="cursor-pointer"
-                onClick={() => login("google")}
-              >
-                <FaGithub />
-                Sign in with Google
-              </Button>
-            </div>
-            <span className="mb-auto">Shortly TM</span>
+                <Button
+                  variant={"outline"}
+                  size={"lg"}
+                  className="cursor-pointer"
+                  onClick={() => login("google")}
+                >
+                  <FaGithub />
+                  Sign in with Google
+                </Button>
+              </div>
+              <span className="mb-auto">Shortly TM</span>
+            </>
           </SheetDescription>
         </SheetHeader>
       </SheetContent>
