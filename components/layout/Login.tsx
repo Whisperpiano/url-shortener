@@ -4,6 +4,7 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -58,53 +59,56 @@ export default function Login({ btnText = "Sign in" }) {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle className="py-5 border-b border-b-muted">
-            <span className="font-mono tracking-wide font-medium">Shortly</span>
+          <SheetTitle className="font-mono mt-4 text-base font-medium">
+            Get started
           </SheetTitle>
-          <SheetDescription>
-            <>
-              <div>
-                Log in to Shortly to access your account and manage your links.
-              </div>
-              <div className="flex flex-col gap-4">
-                <Input placeholder="Email" className="py-5" />
-                <Input placeholder="Password" className="py-5" />
-                <Button
-                  variant={"default"}
-                  size={"lg"}
-                  className="cursor-pointer"
-                >
-                  Sign in
-                </Button>
-              </div>
-              <div className="mt-6 py-4 border-t border-t-muted">
-                Or sign in with your Google or GitHub account.
-              </div>
-              <div className="flex flex-col gap-4">
-                <Button
-                  variant={"outline"}
-                  size={"lg"}
-                  className="cursor-pointer"
-                  onClick={() => login("github")}
-                >
-                  <FcGoogle />
-                  Sign in with GitHub
-                </Button>
-
-                <Button
-                  variant={"outline"}
-                  size={"lg"}
-                  className="cursor-pointer"
-                  onClick={() => login("google")}
-                >
-                  <FaGithub />
-                  Sign in with Google
-                </Button>
-              </div>
-              <span className="mb-auto">Shortly TM</span>
-            </>
+          <SheetDescription className="sr-only">
+            Log in form to access your account and manage your links.
           </SheetDescription>
         </SheetHeader>
+
+        <article className="p-4 border-t border-b-muted">
+          <p className="text-muted-foreground text-sm mb-4">
+            Continue with your email and password.
+          </p>
+          <div className="flex flex-col gap-4">
+            <Input placeholder="Email" className="py-5" />
+            <Input placeholder="Password" className="py-5" />
+            <Button variant={"default"} size={"lg"} className="cursor-pointer">
+              Sign in
+            </Button>
+          </div>
+          <p className="mt-6 py-4 border-t border-t-muted text-muted-foreground text-sm">
+            Quick sign in with your Google or GitHub account.
+          </p>
+          <div className="flex flex-col gap-4">
+            <Button
+              variant={"outline"}
+              size={"lg"}
+              className="cursor-pointer font-normal"
+              onClick={() => login("github")}
+            >
+              <FcGoogle />
+              Continue with Google
+            </Button>
+
+            <Button
+              variant={"outline"}
+              size={"lg"}
+              className="cursor-pointer font-normal"
+              onClick={() => login("google")}
+            >
+              <FaGithub />
+              Continue with GitHub
+            </Button>
+          </div>
+        </article>
+
+        <SheetFooter>
+          <span className="font-mono text-xs uppercase text-muted-foreground ml-auto font-medium">
+            Version 1.0.0
+          </span>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
