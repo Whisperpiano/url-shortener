@@ -18,7 +18,7 @@ import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Input } from "../ui/input";
-import { login } from "@/lib/actions/auth";
+import { login, register } from "@/lib/actions/auth";
 
 export default function Login({ btnText = "Sign in" }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,6 +50,26 @@ export default function Login({ btnText = "Sign in" }) {
     }
   }, [isOpen]);
 
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsOpen(false);
+    const formData = new FormData(e.currentTarget);
+    await login("credentials", formData);
+  };
+
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const result = await register(formData);
+
+    if (result?.error) {
+      alert(result.error);
+      return;
+    }
+
+    await login("credentials", formData);
+  };
+
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger
@@ -71,13 +91,46 @@ export default function Login({ btnText = "Sign in" }) {
           <p className="text-muted-foreground text-sm mb-4">
             Continue with your email and password.
           </p>
-          <div className="flex flex-col gap-4">
-            <Input placeholder="Email" className="py-5" />
-            <Input placeholder="Password" className="py-5" />
+          <form className="flex flex-col gap-4" onSubmit={handleSignUp}>
+            <Input
+              name="name"
+              type="text"
+              placeholder="Name"
+              className="py-5"
+            />
+            <Input
+              name="email"
+              type="email"
+              placeholder="Email"
+              className="py-5"
+            />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Password"
+              className="py-5"
+            />
+            <Button variant={"default"} size={"lg"} className="cursor-pointer">
+              Sign up
+            </Button>
+          </form>
+          <form className="flex flex-col gap-4" onSubmit={handleSignIn}>
+            <Input
+              name="email"
+              type="email"
+              placeholder="Email"
+              className="py-5"
+            />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Password"
+              className="py-5"
+            />
             <Button variant={"default"} size={"lg"} className="cursor-pointer">
               Sign in
             </Button>
-          </div>
+          </form>
           <p className="mt-6 py-4 border-t border-t-muted text-muted-foreground text-sm">
             Quick sign in with your Google or GitHub account.
           </p>
@@ -86,7 +139,7 @@ export default function Login({ btnText = "Sign in" }) {
               variant={"outline"}
               size={"lg"}
               className="cursor-pointer font-normal"
-              onClick={() => login("github")}
+              onClick={() => login("google")}
             >
               <FcGoogle />
               Continue with Google
@@ -96,7 +149,7 @@ export default function Login({ btnText = "Sign in" }) {
               variant={"outline"}
               size={"lg"}
               className="cursor-pointer font-normal"
-              onClick={() => login("google")}
+              onClick={() => login("github")}
             >
               <FaGithub />
               Continue with GitHub

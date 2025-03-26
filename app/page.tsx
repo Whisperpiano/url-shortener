@@ -7,6 +7,7 @@ import { logout } from "@/lib/actions/auth";
 
 export default async function Home() {
   const session = await auth();
+  console.log(session);
 
   if (session?.user) {
     return (
@@ -39,8 +40,6 @@ export default async function Home() {
 
           <Login btnText="Get started" />
         </section>
-
-        {/* <LoginButton /> */}
       </main>
     </>
   );

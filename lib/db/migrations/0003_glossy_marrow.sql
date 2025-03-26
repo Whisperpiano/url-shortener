@@ -1,1 +1,0 @@
-ALTER TABLE `users` ADD `test` text NOT NULL;
