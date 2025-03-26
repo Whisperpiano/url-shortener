@@ -1,13 +1,12 @@
 "use server";
 
 import { auth } from "@/app/auth";
-import Login from "@/components/layout/Login";
+import Login from "@/components/header/Login";
 import { Button } from "@/components/ui/button";
 import { logout } from "@/lib/actions/auth";
 
 export default async function Home() {
   const session = await auth();
-  console.log(session);
 
   if (session?.user) {
     return (

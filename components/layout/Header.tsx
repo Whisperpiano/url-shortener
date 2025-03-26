@@ -1,8 +1,9 @@
-import SearchBar from "./SearchBar";
-import ToggleTheme from "./ToggleTheme";
-import Link from "next/link";
-import Login from "./Login";
 import { FaLink } from "react-icons/fa";
+
+import Link from "next/link";
+import Login from "../header/Login";
+import SearchBar from "../header/SearchBar";
+import ToggleTheme from "../header/ToggleTheme";
 
 export default async function Header() {
   return (
@@ -21,26 +22,29 @@ export default async function Header() {
         <SearchBar />
         <ToggleTheme />
         <Login />
-        {/* {session?.user ? (
-          <img
-            src={session.user.image || ""}
-            alt={session.user.name || ""}
-            width={24}
-            height={24}
-            className="h-8 w-8 rounded"
-            referrerPolicy="no-referrer"
-          />
-        ) : (
-          <>
-            <Link
-              href="/dashboard"
-              className={cn(buttonVariants({ variant: "default" }))}
-            >
-              Sign in
-            </Link>
-          </>
-        )} */}
       </div>
     </header>
   );
+}
+
+{
+  /* {session?.user ? (
+  <img
+    src={session.user.image || ""}
+    alt={session.user.name || ""}
+    width={24}
+    height={24}
+    className="h-8 w-8 rounded"
+    referrerPolicy="no-referrer"
+  />
+) : (
+  <>
+    <Link
+      href="/dashboard"
+      className={cn(buttonVariants({ variant: "default" }))}
+    >
+      Sign in
+    </Link>
+  </>
+)} */
 }
