@@ -4,8 +4,9 @@ import { signIn, signOut } from "@/app/auth";
 import { db } from "@/lib/db/db";
 import { users } from "@/lib/db/schemas/users";
 import { eq } from "drizzle-orm";
-import bcrypt from "bcryptjs";
 import { z } from "zod";
+
+import bcrypt from "bcryptjs";
 
 type Provider = "github" | "google" | "credentials";
 

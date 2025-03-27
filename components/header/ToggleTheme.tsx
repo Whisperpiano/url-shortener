@@ -19,7 +19,9 @@ export default function ToggleTheme() {
         variant={"outline"}
         size={"icon"}
         className="cursor-pointer text-muted-foreground transition-colors duration-300"
-      ></Button>
+      >
+        <FaSun />
+      </Button>
     );
   }
   return (

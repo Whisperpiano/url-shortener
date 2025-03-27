@@ -22,6 +22,7 @@ import { login, register } from "@/lib/actions/auth";
 
 export default function Login({ btnText = "Sign in" }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -88,49 +89,69 @@ export default function Login({ btnText = "Sign in" }) {
         </SheetHeader>
 
         <article className="p-4 border-t border-b-muted">
+          <Button
+            variant={"default"}
+            size={"lg"}
+            className="cursor-pointer"
+            onClick={() => setShowRegister(!showRegister)}
+          >
+            Change
+          </Button>
+          {showRegister ? (
+            <form className="flex flex-col gap-4" onSubmit={handleSignUp}>
+              <Input
+                name="name"
+                type="text"
+                placeholder="Name"
+                className="py-5"
+              />
+              <Input
+                name="email"
+                type="email"
+                placeholder="Email"
+                className="py-5"
+              />
+              <Input
+                name="password"
+                type="password"
+                placeholder="Password"
+                className="py-5"
+              />
+              <Button
+                variant={"default"}
+                size={"lg"}
+                className="cursor-pointer"
+              >
+                Sign up
+              </Button>
+            </form>
+          ) : (
+            <form className="flex flex-col gap-4" onSubmit={handleSignIn}>
+              <Input
+                name="email"
+                type="email"
+                placeholder="Email"
+                className="py-5"
+              />
+              <Input
+                name="password"
+                type="password"
+                placeholder="Password"
+                className="py-5"
+              />
+              <Button
+                variant={"default"}
+                size={"lg"}
+                className="cursor-pointer"
+              >
+                Sign in
+              </Button>
+            </form>
+          )}
           <p className="text-muted-foreground text-sm mb-4">
             Continue with your email and password.
           </p>
-          <form className="flex flex-col gap-4" onSubmit={handleSignUp}>
-            <Input
-              name="name"
-              type="text"
-              placeholder="Name"
-              className="py-5"
-            />
-            <Input
-              name="email"
-              type="email"
-              placeholder="Email"
-              className="py-5"
-            />
-            <Input
-              name="password"
-              type="password"
-              placeholder="Password"
-              className="py-5"
-            />
-            <Button variant={"default"} size={"lg"} className="cursor-pointer">
-              Sign up
-            </Button>
-          </form>
-          <form className="flex flex-col gap-4" onSubmit={handleSignIn}>
-            <Input
-              name="email"
-              type="email"
-              placeholder="Email"
-              className="py-5"
-            />
-            <Input
-              name="password"
-              type="password"
-              placeholder="Password"
-              className="py-5"
-            />
-            <Button variant={"default"} size={"lg"} className="cursor-pointer">
-              Sign in
-            </Button>
-          </form>
+
           <p className="mt-6 py-4 border-t border-t-muted text-muted-foreground text-sm">
             Quick sign in with your Google or GitHub account.
           </p>

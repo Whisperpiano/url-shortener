@@ -1,9 +1,9 @@
 import { FaLink } from "react-icons/fa";
 
 import Link from "next/link";
-import Login from "../header/Login";
 import SearchBar from "../header/SearchBar";
 import ToggleTheme from "../header/ToggleTheme";
+import Login from "../header/Login";
 
 export default async function Header() {
   return (
