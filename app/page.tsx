@@ -1,4 +1,4 @@
-import Login from "@/components/header/Login";
+import AuthModal from "@/components/header/AuthModal";
 
 export default async function Home() {
   return (
@@ -20,7 +20,7 @@ export default async function Home() {
             seconds. Start simplifying your links today!
           </p>
 
-          <Login btnText="Get started" />
+          <AuthModal btnText="Get Started" />
         </section>
       </main>
     </>

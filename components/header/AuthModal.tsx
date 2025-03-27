@@ -17,17 +17,24 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { Input } from "../ui/input";
-import { login, register } from "@/lib/actions/auth";
+import { login } from "@/lib/actions/auth/login";
+import RegisterForm from "../forms/RegisterForm";
+import LoginForm from "../forms/LoginForm";
+import Link from "next/link";
 
-export default function Login({ btnText = "Sign in" }) {
+export default function AuthModal({ btnText = "Sign in" }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+
     if (params.has("login")) {
       setIsOpen(true);
+      setShowRegister(false);
+    } else if (params.has("register")) {
+      setIsOpen(true);
+      setShowRegister(true);
     }
   }, []);
 
@@ -35,41 +42,35 @@ export default function Login({ btnText = "Sign in" }) {
     const params = new URLSearchParams(window.location.search);
 
     if (isOpen) {
-      const paramString = params.toString();
-      const newUrl =
-        window.location.pathname +
-        (paramString ? `?${paramString}&login` : "?login");
+      if (showRegister) {
+        params.delete("login");
 
-      window.history.replaceState({}, "", newUrl);
+        const paramString = params.toString();
+        const newUrl =
+          window.location.pathname +
+          (paramString ? `?${paramString}&register` : "?register");
+
+        window.history.replaceState({}, "", newUrl);
+      } else {
+        params.delete("register");
+
+        const paramString = params.toString();
+        const newUrl =
+          window.location.pathname +
+          (paramString ? `?${paramString}&login` : "?login");
+
+        window.history.replaceState({}, "", newUrl);
+      }
     } else {
       params.delete("login");
+      params.delete("register");
       const newUrl =
         window.location.pathname +
         (params.toString() ? `?${params.toString()}` : "");
 
       window.history.replaceState({}, "", newUrl);
     }
-  }, [isOpen]);
-
-  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsOpen(false);
-    const formData = new FormData(e.currentTarget);
-    await login("credentials", formData);
-  };
-
-  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const result = await register(formData);
-
-    if (result?.error) {
-      alert(result.error);
-      return;
-    }
-
-    await login("credentials", formData);
-  };
+  }, [isOpen, showRegister]);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -89,68 +90,21 @@ export default function Login({ btnText = "Sign in" }) {
         </SheetHeader>
 
         <article className="p-4 border-t border-b-muted">
-          <Button
-            variant={"default"}
-            size={"lg"}
-            className="cursor-pointer"
-            onClick={() => setShowRegister(!showRegister)}
-          >
-            Change
-          </Button>
+          {showRegister ? <RegisterForm /> : <LoginForm />}
+
+          <Link href="/?register" replace>
+            Register
+          </Link>
+
           {showRegister ? (
-            <form className="flex flex-col gap-4" onSubmit={handleSignUp}>
-              <Input
-                name="name"
-                type="text"
-                placeholder="Name"
-                className="py-5"
-              />
-              <Input
-                name="email"
-                type="email"
-                placeholder="Email"
-                className="py-5"
-              />
-              <Input
-                name="password"
-                type="password"
-                placeholder="Password"
-                className="py-5"
-              />
-              <Button
-                variant={"default"}
-                size={"lg"}
-                className="cursor-pointer"
-              >
-                Sign up
-              </Button>
-            </form>
+            <Button variant="link" onClick={() => setShowRegister(false)}>
+              Already have an account? Log in
+            </Button>
           ) : (
-            <form className="flex flex-col gap-4" onSubmit={handleSignIn}>
-              <Input
-                name="email"
-                type="email"
-                placeholder="Email"
-                className="py-5"
-              />
-              <Input
-                name="password"
-                type="password"
-                placeholder="Password"
-                className="py-5"
-              />
-              <Button
-                variant={"default"}
-                size={"lg"}
-                className="cursor-pointer"
-              >
-                Sign in
-              </Button>
-            </form>
+            <Button variant="link" onClick={() => setShowRegister(true)}>
+              Don&apos;t have an account? Register
+            </Button>
           )}
-          <p className="text-muted-foreground text-sm mb-4">
-            Continue with your email and password.
-          </p>
 
           <p className="mt-6 py-4 border-t border-t-muted text-muted-foreground text-sm">
             Quick sign in with your Google or GitHub account.
@@ -187,3 +141,22 @@ export default function Login({ btnText = "Sign in" }) {
     </Sheet>
   );
 }
+// const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
+//   e.preventDefault();
+//   setIsOpen(false);
+//   const formData = new FormData(e.currentTarget);
+//   await login("credentials", formData);
+// };
+
+// const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+//   e.preventDefault();
+//   const formData = new FormData(e.currentTarget);
+//   const result = await register(formData);
+
+//   if (result?.error) {
+//     alert(result.error);
+//     return;
+//   }
+
+//   await login("credentials", formData);
+// };

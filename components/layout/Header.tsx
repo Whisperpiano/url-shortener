@@ -3,7 +3,7 @@ import { FaLink } from "react-icons/fa";
 import Link from "next/link";
 import SearchBar from "../header/SearchBar";
 import ToggleTheme from "../header/ToggleTheme";
-import Login from "../header/Login";
+import AuthModal from "../header/AuthModal";
 
 export default async function Header() {
   return (
@@ -21,7 +21,7 @@ export default async function Header() {
       <div className="flex items-center gap-2">
         <SearchBar />
         <ToggleTheme />
-        <Login />
+        <AuthModal />
       </div>
     </header>
   );
