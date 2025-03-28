@@ -7,13 +7,28 @@ import { RegisterFormSchema, RegisterFormTypes } from "@/lib/zod/auth";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
-import { Check } from "lucide-react";
+import { AlertCircle, Check } from "lucide-react";
+import {
+  RegisterErrors,
+  register as registerUser,
+} from "@/lib/actions/auth/register";
+import { Dispatch, SetStateAction } from "react";
+import { login } from "@/lib/actions/auth/login";
+import { toast } from "sonner";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { set } from "zod";
 
-export default function RegisterForm() {
+interface Props {
+  onSubmitting: Dispatch<SetStateAction<boolean>>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function RegisterForm({ onSubmitting, setIsOpen }: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors, dirtyFields },
+    reset,
+    formState: { errors, dirtyFields, isSubmitting },
   } = useForm<RegisterFormTypes>({
     resolver: zodResolver(RegisterFormSchema),
     mode: "onChange",
@@ -25,7 +40,30 @@ export default function RegisterForm() {
   });
 
   const onSubmit = async (data: RegisterFormTypes) => {
-    console.log(data);
+    try {
+      setError({});
+      onSubmitting(true);
+
+      const { success, errors } = await registerUser(data);
+
+      if (!success) {
+        return;
+      }
+
+      if (success) {
+        await login("credentials", data);
+      }
+
+      setIsOpen(false);
+    } catch (error) {
+      console.log(error);
+      // if (error instanceof Error) {
+      //   onError({ _global: [error.message] });
+      // }
+    } finally {
+      onSubmitting(false);
+      reset();
+    }
   };
 
   return (
@@ -33,6 +71,7 @@ export default function RegisterForm() {
       <p className="text-sm text-muted-foreground">
         Sign up to create your account.
       </p>
+
       <div>
         <div className="flex flex-row justify-between items-center mb-1">
           <Label htmlFor="registerName" className="text-sm">
@@ -120,9 +159,16 @@ export default function RegisterForm() {
         />
       </div>
 
-      <Button variant={"default"} size={"lg"} className="cursor-pointer">
+      <Button
+        variant={"default"}
+        size={"lg"}
+        className="cursor-pointer"
+        disabled={isSubmitting}
+      >
         Sign up
       </Button>
+
+      {/* {state.errors.user && <p>{state.errors.user[0]}</p>} */}
     </form>
   );
 }

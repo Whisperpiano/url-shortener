@@ -12,19 +12,20 @@ import {
 
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "../ui/button";
-
 import { useEffect } from "react";
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { login } from "@/lib/actions/auth/login";
+
 import RegisterForm from "../forms/RegisterForm";
 import LoginForm from "../forms/LoginForm";
 import Link from "next/link";
 
 export default function AuthModal({ btnText = "Sign in" }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [showRegister, setShowRegister] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -90,7 +91,14 @@ export default function AuthModal({ btnText = "Sign in" }) {
         </SheetHeader>
 
         <article className="p-4 border-t border-b-muted">
-          {showRegister ? <RegisterForm /> : <LoginForm />}
+          {showRegister ? (
+            <RegisterForm
+              onSubmitting={setIsSubmitting}
+              setIsOpen={setIsOpen}
+            />
+          ) : (
+            <LoginForm onSubmitting={setIsSubmitting} setIsOpen={setIsOpen} />
+          )}
 
           <Link href="/?register" replace>
             Register
@@ -115,6 +123,7 @@ export default function AuthModal({ btnText = "Sign in" }) {
               size={"lg"}
               className="cursor-pointer font-normal"
               onClick={() => login("google")}
+              disabled={isSubmitting}
             >
               <FcGoogle />
               Continue with Google
@@ -125,6 +134,7 @@ export default function AuthModal({ btnText = "Sign in" }) {
               size={"lg"}
               className="cursor-pointer font-normal"
               onClick={() => login("github")}
+              disabled={isSubmitting}
             >
               <FaGithub />
               Continue with GitHub

@@ -8,11 +8,21 @@ import { LoginFormSchema, LoginFormTypes } from "@/lib/zod/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
 import { Check } from "lucide-react";
+import { Dispatch, SetStateAction } from "react";
+import { login } from "@/lib/actions/auth/login";
+import { toast } from "sonner";
+import { useRouter } from "next/router";
 
-export default function LoginForm() {
+interface Props {
+  onSubmitting: Dispatch<SetStateAction<boolean>>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function LoginForm({ onSubmitting, setIsOpen }: Props) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, dirtyFields },
   } = useForm<LoginFormTypes>({
     resolver: zodResolver(LoginFormSchema),
@@ -24,7 +34,17 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data: LoginFormTypes) => {
-    console.log(data);
+    try {
+      await login("credentials", data);
+    } catch (error) {
+      console.error("Error during login:", error);
+
+      if (error instanceof Error) {
+        alert(`Login failed: ${error.message}`);
+      } else {
+        alert("An unexpected error occurred during login.");
+      }
+    }
   };
 
   return (

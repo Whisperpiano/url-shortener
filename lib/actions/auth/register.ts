@@ -3,15 +3,27 @@
 import { users } from "../../db/schemas/users";
 import { eq } from "drizzle-orm";
 import { db } from "../../db/db";
-import { RegisterFormSchema } from "@/lib/zod/auth";
+import { RegisterFormSchema, RegisterFormTypes } from "@/lib/zod/auth";
 import bcrypt from "bcryptjs";
+import { z } from "zod";
 
-export const register = async (formData: FormData) => {
+type DataSchemaErrors = Partial<
+  Record<keyof z.infer<typeof RegisterFormSchema>, string[]>
+>;
+
+export type RegisterErrors = DataSchemaErrors & {
+  user?: string[];
+  _global?: string[];
+};
+
+export const register = async (
+  data: RegisterFormTypes
+): Promise<{ success: boolean; errors: RegisterErrors }> => {
   // 1: Validate the form data
   const validatedFormData = RegisterFormSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    password: formData.get("password"),
+    name: data.name,
+    email: data.email,
+    password: data.password,
   });
 
   if (!validatedFormData.success) {

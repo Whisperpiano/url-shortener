@@ -1,14 +1,15 @@
 "use server";
 
 import { signIn } from "@/app/auth";
+import { LoginFormTypes } from "@/lib/zod/auth";
 
 type Provider = "github" | "google" | "credentials";
 
-export const login = async (provider: Provider, credentials?: FormData) => {
-  if (credentials) {
+export const login = async (provider: Provider, data?: LoginFormTypes) => {
+  if (data) {
     await signIn(provider, {
-      email: credentials.get("email"),
-      password: credentials.get("password"),
+      email: data.email,
+      password: data.password,
       redirectTo: "/dashboard",
     });
   } else {
