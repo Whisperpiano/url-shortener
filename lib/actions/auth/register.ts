@@ -7,7 +7,7 @@ import { RegisterFormSchema, RegisterFormTypes } from "@/lib/zod/auth";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 
-type DataSchemaErrors = Partial<
+export type DataSchemaErrors = Partial<
   Record<keyof z.infer<typeof RegisterFormSchema>, string[]>
 >;
 

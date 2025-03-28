@@ -20,7 +20,6 @@ import { login } from "@/lib/actions/auth/login";
 
 import RegisterForm from "../forms/RegisterForm";
 import LoginForm from "../forms/LoginForm";
-import Link from "next/link";
 
 export default function AuthModal({ btnText = "Sign in" }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -100,23 +99,34 @@ export default function AuthModal({ btnText = "Sign in" }) {
             <LoginForm onSubmitting={setIsSubmitting} setIsOpen={setIsOpen} />
           )}
 
-          <Link href="/?register" replace>
-            Register
-          </Link>
-
           {showRegister ? (
-            <Button variant="link" onClick={() => setShowRegister(false)}>
-              Already have an account? Log in
+            <Button
+              variant="secondary"
+              onClick={() => setShowRegister(false)}
+              className="w-full p-5 cursor-pointer mt-4"
+              disabled={isSubmitting}
+            >
+              Sign in
             </Button>
           ) : (
-            <Button variant="link" onClick={() => setShowRegister(true)}>
-              Don&apos;t have an account? Register
+            <Button
+              variant="secondary"
+              onClick={() => setShowRegister(true)}
+              className="w-full p-5 cursor-pointer mt-4"
+              disabled={isSubmitting}
+            >
+              Register
             </Button>
           )}
 
-          <p className="mt-6 py-4 border-t border-t-muted text-muted-foreground text-sm">
-            Quick sign in with your Google or GitHub account.
-          </p>
+          <div className="flex items-center">
+            <div className="flex-1 bg-muted-foreground h-0.5 opacity-50"></div>
+            <span className="uppercase px-3 py-6 font-mono font-medium text-muted-foreground text-sm">
+              or
+            </span>
+            <div className="flex-1 bg-muted-foreground h-0.5 opacity-50"></div>
+          </div>
+
           <div className="flex flex-col gap-4">
             <Button
               variant={"outline"}
@@ -151,22 +161,3 @@ export default function AuthModal({ btnText = "Sign in" }) {
     </Sheet>
   );
 }
-// const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
-//   e.preventDefault();
-//   setIsOpen(false);
-//   const formData = new FormData(e.currentTarget);
-//   await login("credentials", formData);
-// };
-
-// const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
-//   e.preventDefault();
-//   const formData = new FormData(e.currentTarget);
-//   const result = await register(formData);
-
-//   if (result?.error) {
-//     alert(result.error);
-//     return;
-//   }
-
-//   await login("credentials", formData);
-// };

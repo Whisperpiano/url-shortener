@@ -8,15 +8,10 @@ import { RegisterFormSchema, RegisterFormTypes } from "@/lib/zod/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
 import { AlertCircle, Check } from "lucide-react";
-import {
-  RegisterErrors,
-  register as registerUser,
-} from "@/lib/actions/auth/register";
-import { Dispatch, SetStateAction } from "react";
+import { register as registerUser } from "@/lib/actions/auth/register";
+import { Dispatch, SetStateAction, useState } from "react";
 import { login } from "@/lib/actions/auth/login";
-import { toast } from "sonner";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { set } from "zod";
+import { Alert, AlertDescription } from "../ui/alert";
 
 interface Props {
   onSubmitting: Dispatch<SetStateAction<boolean>>;
@@ -39,27 +34,39 @@ export default function RegisterForm({ onSubmitting, setIsOpen }: Props) {
     },
   });
 
+  const [errorAlert, setErrorAlert] = useState("");
+
   const onSubmit = async (data: RegisterFormTypes) => {
     try {
-      setError({});
       onSubmitting(true);
 
       const { success, errors } = await registerUser(data);
 
+      if ("user" in errors) {
+        const errorMessage = errors.user?.[0] || "Unknown error";
+        setErrorAlert(errorMessage);
+        reset();
+        return;
+      }
+
       if (!success) {
+        const errorMessage = errors._global?.[0] || "Unknown error";
+        setErrorAlert(errorMessage);
+        reset();
         return;
       }
 
       if (success) {
+        setErrorAlert("");
         await login("credentials", data);
+        window.location.href = "/dashboard";
       }
 
       setIsOpen(false);
     } catch (error) {
-      console.log(error);
-      // if (error instanceof Error) {
-      //   onError({ _global: [error.message] });
-      // }
+      if (error instanceof Error) {
+        setErrorAlert(error.message);
+      }
     } finally {
       onSubmitting(false);
       reset();
@@ -67,13 +74,15 @@ export default function RegisterForm({ onSubmitting, setIsOpen }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-      <p className="text-sm text-muted-foreground">
-        Sign up to create your account.
-      </p>
-
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 ">
+      {errorAlert && (
+        <Alert variant="destructive" className=" border-red-400 bg-red-300/15">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{errorAlert}</AlertDescription>
+        </Alert>
+      )}
       <div>
-        <div className="flex flex-row justify-between items-center mb-1">
+        <div className="flex flex-row justify-between items-center mb-1.5">
           <Label htmlFor="registerName" className="text-sm">
             Name <span className="text-red-400">*</span>
           </Label>
@@ -91,7 +100,7 @@ export default function RegisterForm({ onSubmitting, setIsOpen }: Props) {
           id="registerName"
           type="text"
           placeholder="John Doe"
-          className={`py-5 ${
+          className={`py-5 placeholder:text-sm text-sm ${
             errors.name && dirtyFields.name
               ? "border-red-400 focus-visible:ring-red-400/50"
               : dirtyFields.name
@@ -120,7 +129,7 @@ export default function RegisterForm({ onSubmitting, setIsOpen }: Props) {
           id="registerEmail"
           type="email"
           placeholder="john.doe@example.com"
-          className={`py-5 ${
+          className={`py-5 placeholder:text-sm text-sm ${
             errors.email && dirtyFields.email
               ? "border-red-400 focus-visible:ring-red-400/50"
               : dirtyFields.email
@@ -149,7 +158,7 @@ export default function RegisterForm({ onSubmitting, setIsOpen }: Props) {
           id="registerPassword"
           type="password"
           placeholder="••••••••"
-          className={`py-5 ${
+          className={`py-5 placeholder:text-sm text-sm ${
             errors.password && dirtyFields.password
               ? "border-red-400 focus-visible:ring-red-400/50"
               : dirtyFields.password
@@ -162,13 +171,11 @@ export default function RegisterForm({ onSubmitting, setIsOpen }: Props) {
       <Button
         variant={"default"}
         size={"lg"}
-        className="cursor-pointer"
+        className="cursor-pointer mt-3"
         disabled={isSubmitting}
       >
-        Sign up
+        Register
       </Button>
-
-      {/* {state.errors.user && <p>{state.errors.user[0]}</p>} */}
     </form>
   );
 }
