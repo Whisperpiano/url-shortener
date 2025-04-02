@@ -4,8 +4,13 @@ import Link from "next/link";
 import SearchBar from "../header/SearchBar";
 import ToggleTheme from "../header/ToggleTheme";
 import AuthModal from "../header/AuthModal";
+import AccountModal from "../header/AccountModal";
+import { auth } from "@/app/auth";
 
 export default async function Header() {
+  const session = await auth();
+  console.log(session);
+
   return (
     <header className="max-w-7xl mx-auto p-4 flex items-center justify-between">
       <Link
@@ -21,30 +26,8 @@ export default async function Header() {
       <div className="flex items-center gap-2">
         <SearchBar />
         <ToggleTheme />
-        <AuthModal />
+        {session ? <AccountModal session={session} /> : <AuthModal />}
       </div>
     </header>
   );
-}
-
-{
-  /* {session?.user ? (
-  <img
-    src={session.user.image || ""}
-    alt={session.user.name || ""}
-    width={24}
-    height={24}
-    className="h-8 w-8 rounded"
-    referrerPolicy="no-referrer"
-  />
-) : (
-  <>
-    <Link
-      href="/dashboard"
-      className={cn(buttonVariants({ variant: "default" }))}
-    >
-      Sign in
-    </Link>
-  </>
-)} */
 }
