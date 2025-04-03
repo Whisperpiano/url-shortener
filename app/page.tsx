@@ -24,6 +24,7 @@ export default async function Home() {
             Transform long, messy URLs into short and shareable links in
             seconds. Start simplifying your links today!
           </p>
+
           {session ? (
             <Link
               href="/dashboard"
