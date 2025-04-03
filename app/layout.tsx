@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import Background from "@/components/layout/Background";
 import Header from "@/components/layout/Header";
@@ -33,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <Analytics />
+      <SpeedInsights />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased relative h-full w-full min-h-screen`}
       >
