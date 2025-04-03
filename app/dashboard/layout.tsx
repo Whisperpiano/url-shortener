@@ -10,7 +10,6 @@ export default function DashboardLayout(props: DashboardLayoutProps) {
     <>
       <main>
         <DashboardNav />
-
         {props.children}
       </main>
     </>
