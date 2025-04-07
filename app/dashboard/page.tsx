@@ -36,6 +36,7 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import PixelCanvas from "@/components/PixelCanvas";
+import { QRCodeSVG } from "qrcode.react";
 
 const testLink = {
   id: 1,
@@ -88,8 +89,22 @@ export default async function Dashboard() {
                   <DialogTitle>QR Code</DialogTitle>
                   <DialogDescription className="relative"></DialogDescription>
                 </DialogHeader>
-
-                <PixelCanvas gap={6} speed={0.1} className="opacity-50" />
+                <div className="relative rounded-sm overflow-hidden border border-muted-foreground/50 p-12 bg-radial from-background to-transparent">
+                  <PixelCanvas
+                    gap={6}
+                    speed={0.1}
+                    className="opacity-100 absolute inset-0 w-full h-full -z-10 rounded-sm pl-1.5 pr-1 pt-1.5 pb-1"
+                  />
+                  <div className="flex justify-center items-center size-full ">
+                    <QRCodeSVG
+                      value="https://www.google.com"
+                      size={140}
+                      level="Q"
+                      className="p-2 bg-white rounded-sm "
+                    />
+                  </div>
+                </div>
+                <input type="color" className="" />
               </DialogContent>
             </Dialog>
 

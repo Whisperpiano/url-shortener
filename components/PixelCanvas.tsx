@@ -135,9 +135,7 @@ function PixelCanvas({
     };
   }, [gap, speed, colors]);
 
-  return (
-    <canvas ref={canvasRef} className={`w-full h-full block ${className}`} />
-  );
+  return <canvas ref={canvasRef} className={`${className}`} />;
 }
 
 export default PixelCanvas;
