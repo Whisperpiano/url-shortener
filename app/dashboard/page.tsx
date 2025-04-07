@@ -89,7 +89,6 @@ export default async function Dashboard() {
                   <DialogTitle>QR Code</DialogTitle>
                   <DialogDescription className="relative"></DialogDescription>
                 </DialogHeader>
-
                 <QRComponent />
               </DialogContent>
             </Dialog>
