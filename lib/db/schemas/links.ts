@@ -8,8 +8,8 @@ export const links = sqliteTable("link", {
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  originalUrl: text("originalUrl").notNull(),
-  shortUrl: text("shortUrl").notNull().unique(),
+  url: text("url").notNull(),
+  slug: text("slug").notNull().unique(),
   description: text("description"),
   createdAt: integer("createdAt", { mode: "timestamp_ms" }).$defaultFn(
     () => new Date()

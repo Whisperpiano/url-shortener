@@ -15,6 +15,7 @@ export const users = sqliteTable("user", {
   password: text("password"),
   emailVerified: integer("emailVerified", { mode: "timestamp_ms" }),
   image: text("image"),
+  // blocked: integer("blocked", { mode: "boolean" }).notNull().default(false),
 });
 
 export const accounts = sqliteTable(
@@ -85,3 +86,13 @@ export const authenticators = sqliteTable(
     }),
   })
 );
+
+export const blackList = sqliteTable("blackList", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  email: text("email").notNull(),
+});

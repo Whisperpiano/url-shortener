@@ -7,11 +7,12 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@radix-ui/react-tooltip";
+} from "@/components/ui/tooltip";
 import {
   Copy,
   CornerDownRight,
   EllipsisVertical,
+  Globe,
   MousePointerClick,
   Pencil,
   QrCode,
@@ -37,6 +38,8 @@ import {
 } from "@/components/ui/dialog";
 
 import QRComponent from "@/components/QRComponent";
+import CreateLinkForm from "@/components/links/CreateLinkForm";
+import Image from "next/image";
 
 const testLink = {
   id: 1,
@@ -68,7 +71,23 @@ export default async function Dashboard() {
         <Input placeholder="Search..." />
         <Button variant="outline">Filter</Button>
         <Button variant="outline">Display</Button>
-        <Button variant="default">Create link</Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="default">Create link</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>
+                <div className="flex items-center gap-2">
+                  <Globe size={16} />
+                  <span className="text-sm">New link</span>
+                </div>
+              </DialogTitle>
+              <DialogDescription className="relative"></DialogDescription>
+              <CreateLinkForm />
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <section className="flex gap-2">
@@ -122,11 +141,17 @@ export default async function Dashboard() {
                   <span className="text-sm text-muted-foreground">|</span>
                 </div>
                 <div className="flex gap-2 items-center">
-                  <img
-                    src={session?.user?.image ?? ""}
-                    alt={session?.user?.name ?? ""}
-                    className="w-4 h-4 rounded-full"
-                  />
+                  {session?.user?.image ? (
+                    <Image
+                      src={session.user.image}
+                      alt={session?.user?.name || ""}
+                      width={40}
+                      height={40}
+                      className="w-full h-full rounded"
+                    />
+                  ) : (
+                    <span>A</span>
+                  )}
                   <span className="text-xs text-muted-foreground">
                     04 April, 2025
                   </span>
