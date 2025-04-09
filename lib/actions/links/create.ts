@@ -8,6 +8,7 @@ import { blackList } from "@/lib/db/schemas/users";
 import { LIMIT_LINKS } from "@/lib/settings/constants";
 import { CreateLinkSchema, CreateLinkTypes } from "@/lib/zod/links";
 import { sql, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 export const createLink = async (data: CreateLinkTypes) => {
   // 1: Check if the user is logged in
@@ -77,6 +78,8 @@ export const createLink = async (data: CreateLinkTypes) => {
         description,
       })
       .execute();
+
+    revalidatePath("/dashboard");
 
     return {
       success: true,

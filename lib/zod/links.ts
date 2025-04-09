@@ -1,4 +1,8 @@
+import { InferSelectModel } from "drizzle-orm";
 import { z } from "zod";
+import { links } from "../db/schemas/links";
+
+export type Link = InferSelectModel<typeof links>;
 
 export const CreateLinkSchema = z.object({
   url: z.string().min(1, "URL is required.").url({
@@ -18,3 +22,9 @@ export const CreateLinkSchema = z.object({
 });
 
 export type CreateLinkTypes = z.infer<typeof CreateLinkSchema>;
+
+export const DeleteLinkSchema = z.object({
+  id: z.string().min(1, "ID is required."),
+});
+
+export type DeleteLinkTypes = z.infer<typeof DeleteLinkSchema>;
