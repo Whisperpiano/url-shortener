@@ -6,6 +6,7 @@ CREATE TABLE `click` (
 	`country` text,
 	`region` text,
 	`city` text,
+	`countryCode` text,
 	`deviceType` text,
 	`browser` text,
 	`os` text,

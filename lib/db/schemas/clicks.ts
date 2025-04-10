@@ -16,6 +16,7 @@ export const clicks = sqliteTable("click", {
   country: text("country"),
   region: text("region"),
   city: text("city"),
+  countryCode: text("countryCode"),
 
   deviceType: text("deviceType"),
   browser: text("browser"),

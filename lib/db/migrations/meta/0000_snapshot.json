@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "53e11492-7ce8-4227-bf80-e64c111dcc00",
+  "id": "3c4f8466-7eb7-4ed0-aa22-ea559fea0f76",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "click": {
@@ -51,6 +51,13 @@
         },
         "city": {
           "name": "city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "countryCode": {
+          "name": "countryCode",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
