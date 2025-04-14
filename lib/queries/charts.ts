@@ -2,13 +2,11 @@ import { auth } from "@/app/auth";
 import { cache } from "react";
 import { db } from "../db/db";
 import { clicks } from "../db/schemas/clicks";
-import { and, eq, sql } from "drizzle-orm";
+import { and, asc, eq, gt, lt } from "drizzle-orm";
 import { links } from "../db/schemas/links";
-import { subDays, subMonths, subYears } from "date-fns";
+import { toDate, format, parseISO } from "date-fns";
 
-type TimeRange = "week" | "month" | "year";
-
-export const getChartData = cache(async (range: TimeRange = "week") => {
+export const getChartData = cache(async (start: Date, end: Date) => {
   const session = await auth();
 
   if (!session?.user?.id) {
@@ -16,41 +14,43 @@ export const getChartData = cache(async (range: TimeRange = "week") => {
     return [];
   }
 
-  let startDate: Date;
-
-  switch (range) {
-    case "week":
-      startDate = subDays(new Date(), 7);
-      break;
-    case "month":
-      startDate = subMonths(new Date(), 1);
-      break;
-    case "year":
-      startDate = subYears(new Date(), 1);
-      break;
-    default:
-      startDate = subDays(new Date(), 7);
-      break;
-  }
-
-  const startTimestamp = Math.floor(startDate.getTime() / 1000);
-
   try {
-    const result = await db
+    const clicksData = await db
       .select({
         date: clicks.timestamp,
       })
       .from(clicks)
-      .innerJoin(links, eq(clicks.linkId, links.id))
+      .leftJoin(links, eq(clicks.linkId, links.id))
       .where(
         and(
           eq(links.userId, session.user.id),
-          sql`(${clicks.timestamp} / 1000) >= ${startTimestamp}`
+          gt(clicks.timestamp, toDate(start)),
+          lt(clicks.timestamp, toDate(end))
         )
       )
+      .orderBy(asc(clicks.timestamp))
       .execute();
 
-    return result;
+    const groupedByDay = clicksData.reduce((acc, item) => {
+      if (!item.date) {
+        return acc;
+      }
+
+      const dateKey = format(new Date(item.date), "yyyy-MM-dd");
+
+      acc[dateKey] = (acc[dateKey] || 0) + 1;
+
+      return acc;
+    }, {} as Record<string, number>);
+
+    const formattedData = Object.entries(groupedByDay).map(([key, value]) => {
+      return {
+        date: format(parseISO(key), "dd MMMM, yyyy"),
+        value,
+      };
+    });
+
+    return formattedData;
   } catch (error) {
     console.error(error);
   }

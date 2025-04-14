@@ -19,6 +19,8 @@ export default async function Dashboard() {
   // const session = await auth();
   const links = await getLinks();
 
+  console.log("LINKS", links);
+
   return (
     <section className="max-w-7xl mx-auto py-6 px-4">
       <h1>Links</h1>

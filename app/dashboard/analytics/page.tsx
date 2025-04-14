@@ -9,16 +9,28 @@ import {
 } from "@/components/ui/card";
 import { getChartData } from "@/lib/queries/charts";
 import ClickChart from "@/components/charts/ClickChart";
+import { subDays } from "date-fns";
 
 export default async function Analytics() {
   const links = await getLinksWithStats();
-  const chartData = await getChartData("week");
+  const chartData = await getChartData(subDays(new Date(), 7), new Date());
 
   if (!links) {
     return <h1>No links found</h1>;
   }
 
-  // console.log("CHART DATA", chartData);
+  if (!chartData) {
+    return <h1>No data found</h1>;
+  }
+
+  console.log("CHART DATA", chartData);
+
+  // const test = links.map((link) => {
+  //   link.clicks.map((click) => {
+  //     console.log("CLICK", click);
+  //   });
+
+  // console.log("LINK", links);
 
   return (
     <div className="max-w-7xl mx-auto mt-4 ">
@@ -61,8 +73,7 @@ export default async function Analytics() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {!chartData && <p>No data found</p>}
-              <ClickChart data={chartData} />
+              <ClickChart />
             </CardContent>
           </Card>
         </div>
