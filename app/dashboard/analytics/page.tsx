@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default async function Analytics({ searchParams }: Props) {
-  const { interval: intervalParams = "7d" } = await searchParams;
+  const { interval: intervalParams = "7d" } = searchParams;
 
   const startDate = getStartDate(intervalParams);
   const end = new Date();
