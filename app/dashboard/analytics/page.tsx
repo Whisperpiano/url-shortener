@@ -5,12 +5,13 @@ import ClickChart from "@/components/charts/ClickChart";
 import IntervalSwitcher from "@/components/analytics/interval-switcher";
 import { getStartDate } from "@/lib/analytics/get-start-date";
 
-type Props = {
-  searchParams: { interval: string };
+type PageProps = {
+  searchParams?: Record<string, string | string[] | undefined>;
 };
 
-export default async function Analytics({ searchParams }: Props) {
-  const { interval: intervalParams = "7d" } = searchParams;
+export default async function Analytics({ searchParams }: PageProps) {
+  const intervalParams =
+    typeof searchParams?.interval === "string" ? searchParams.interval : "7d";
 
   const startDate = getStartDate(intervalParams);
   const end = new Date();
