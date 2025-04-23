@@ -1,40 +1,35 @@
 import { getLinksWithStats } from "@/lib/queries/links";
-import {
-  Card,
-  CardContent,
-  // CardDescription,
-  // CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getChartData } from "@/lib/queries/charts";
 import ClickChart from "@/components/charts/ClickChart";
-import { subDays } from "date-fns";
+import IntervalSwitcher from "@/components/analytics/interval-switcher";
+import { getStartDate } from "@/lib/analytics/get-start-date";
 
-export default async function Analytics() {
+type Props = {
+  searchParams: { interval: string };
+};
+
+export default async function Analytics({ searchParams }: Props) {
+  const { interval: intervalParams = "7d" } = await searchParams;
+
+  const startDate = getStartDate(intervalParams);
+  const end = new Date();
+
   const links = await getLinksWithStats();
-  const chartData = await getChartData(subDays(new Date(), 7), new Date());
+
+  const { clicksChartData } = await getChartData(startDate, end);
 
   if (!links) {
     return <h1>No links found</h1>;
   }
 
-  if (!chartData) {
-    return <h1>No data found</h1>;
-  }
-
-  console.log("CHART DATA", chartData);
-
-  // const test = links.map((link) => {
-  //   link.clicks.map((click) => {
-  //     console.log("CLICK", click);
-  //   });
-
-  // console.log("LINK", links);
+  console.log(links);
 
   return (
     <div className="max-w-7xl mx-auto mt-4 ">
       {/* <h1>Analytics</h1> */}
+
+      <IntervalSwitcher />
       <section className="grid grid-cols-6 gap-4">
         <div className="grid grid-cols-2 gap-4 col-span-4">
           <Card>
@@ -73,7 +68,7 @@ export default async function Analytics() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <ClickChart />
+              <ClickChart data={clicksChartData} />
             </CardContent>
           </Card>
         </div>
@@ -106,19 +101,6 @@ export default async function Analytics() {
           </CardHeader>
         </Card>
       </section>
-
-      {/* 
-      {result?.map((link) => {
-        console.log("CLICKS", link.clicks);
-        return (
-          <div key={link.link.id}>
-            {link.link.url}
-            <div>
-              <span>{link.clicks.length}</span>
-            </div>
-          </div>
-        );
-      })} */}
     </div>
   );
 }

@@ -4,54 +4,51 @@ import { db } from "../db/db";
 import { clicks } from "../db/schemas/clicks";
 import { and, asc, eq, gt, lt } from "drizzle-orm";
 import { links } from "../db/schemas/links";
-import { toDate, format, parseISO } from "date-fns";
+import { toDate } from "date-fns";
 
-export const getChartData = cache(async (start: Date, end: Date) => {
-  const session = await auth();
+import { getGroupedData } from "../analytics/get-grouped-data";
 
-  if (!session?.user?.id) {
-    console.error("No user found");
-    return [];
-  }
+export const getChartData = cache(
+  async (
+    start: Date,
+    end: Date
+  ): Promise<{
+    clicksChartData: Array<{ date: string; value: number }>;
+  }> => {
+    const session = await auth();
 
-  try {
-    const clicksData = await db
-      .select({
-        date: clicks.timestamp,
-      })
-      .from(clicks)
-      .leftJoin(links, eq(clicks.linkId, links.id))
-      .where(
-        and(
-          eq(links.userId, session.user.id),
-          gt(clicks.timestamp, toDate(start)),
-          lt(clicks.timestamp, toDate(end))
-        )
-      )
-      .orderBy(asc(clicks.timestamp))
-      .execute();
-
-    const groupedByDay = clicksData.reduce((acc, item) => {
-      if (!item.date) {
-        return acc;
-      }
-
-      const dateKey = format(new Date(item.date), "yyyy-MM-dd");
-
-      acc[dateKey] = (acc[dateKey] || 0) + 1;
-
-      return acc;
-    }, {} as Record<string, number>);
-
-    const formattedData = Object.entries(groupedByDay).map(([key, value]) => {
+    if (!session?.user?.id) {
+      console.error("No user found");
       return {
-        date: format(parseISO(key), "dd MMMM, yyyy"),
-        value,
+        clicksChartData: [],
       };
-    });
+    }
 
-    return formattedData;
-  } catch (error) {
-    console.error(error);
+    try {
+      const clicksData = await db
+        .select({
+          date: clicks.timestamp,
+        })
+        .from(clicks)
+        .leftJoin(links, eq(clicks.linkId, links.id))
+        .where(
+          and(
+            eq(links.userId, session.user.id),
+            gt(clicks.timestamp, toDate(start)),
+            lt(clicks.timestamp, toDate(end))
+          )
+        )
+        .orderBy(asc(clicks.timestamp))
+        .execute();
+
+      const clicksChartData = getGroupedData(clicksData, start, end);
+
+      return { clicksChartData };
+    } catch (error) {
+      console.error(error);
+      return {
+        clicksChartData: [],
+      };
+    }
   }
-});
+);
