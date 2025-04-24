@@ -4,6 +4,7 @@ import { getClicksData, getLinksData } from "@/lib/queries/charts";
 import ClickChart from "@/components/charts/ClickChart";
 import IntervalSwitcher from "@/components/analytics/interval-switcher";
 import { getStartDate } from "@/lib/analytics/get-start-date";
+import InformationTabs from "@/components/analytics/information-tabs";
 
 export default async function Analytics({
   searchParams,
@@ -104,7 +105,11 @@ export default async function Analytics({
         <Card className="min-h-[300px]">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              Country, Region, City, Clicks
+              <InformationTabs
+                countryChart={countryChart}
+                regionChart={regionChart}
+                cityChart={cityChart}
+              />
             </CardTitle>
             <CardContent></CardContent>
           </CardHeader>
