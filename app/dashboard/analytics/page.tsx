@@ -1,4 +1,4 @@
-import { getLinksWithStats } from "@/lib/queries/links";
+import { getLinks } from "@/lib/queries/links";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getClicksData, getLinksData } from "@/lib/queries/charts";
 import ClickChart from "@/components/charts/ClickChart";
@@ -15,7 +15,7 @@ export default async function Analytics({
   const startDate = getStartDate(intervalParam);
   const end = new Date();
 
-  const links = await getLinksWithStats();
+  const links = await getLinks();
 
   const { clicksChartData } = await getClicksData(startDate, end);
 
@@ -28,7 +28,7 @@ export default async function Analytics({
     osChart,
   } = await getLinksData();
 
-  if (!links) return <h1>No links found</h1>;
+  console.log("LINKS DATA", links);
 
   console.log("LINKS DATA", {
     countryChart,
@@ -57,7 +57,7 @@ export default async function Analytics({
                 URLs
               </CardTitle>
             </CardHeader>
-            {/* <CardContent>{links.length}</CardContent> */}
+            <CardContent>{links.length}</CardContent>
           </Card>
 
           <Card>
@@ -70,9 +70,9 @@ export default async function Analytics({
                 Clicks
               </CardTitle>
             </CardHeader>
-            {/* <CardContent>
-              {links.reduce((acc, curr) => acc + curr.clicks.length, 0)}
-            </CardContent> */}
+            <CardContent>
+              {links.reduce((acc, curr) => acc + curr.clickCount, 0)}
+            </CardContent>
           </Card>
 
           <Card className="min-h-[500px] col-span-2  ">
