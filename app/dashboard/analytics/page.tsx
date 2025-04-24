@@ -106,6 +106,7 @@ export default async function Analytics({
             <CardTitle className="flex items-center gap-2">
               Country, Region, City, Clicks
             </CardTitle>
+            <CardContent></CardContent>
           </CardHeader>
         </Card>
         <Card className="min-h-[300px]">

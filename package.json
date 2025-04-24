@@ -32,6 +32,7 @@
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.41.0",
     "drizzle-zod": "^0.7.0",
+    "framer-motion": "^12.8.2",
     "lucide": "^0.483.0",
     "lucide-react": "^0.483.0",
     "next": "15.2.3",
