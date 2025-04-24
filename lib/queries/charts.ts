@@ -7,6 +7,7 @@ import { links } from "../db/schemas/links";
 import { toDate } from "date-fns";
 
 import { getGroupedData } from "../analytics/get-grouped-data";
+import { groupByKey } from "../analytics/group-by-key";
 
 export const getClicksData = cache(
   async (
@@ -52,3 +53,63 @@ export const getClicksData = cache(
     }
   }
 );
+
+export const getLinksData = cache(async () => {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    console.error("No user found");
+    return {
+      countryChart: [],
+      regionChart: [],
+      cityChart: [],
+      deviceChart: [],
+      browserChart: [],
+      osChart: [],
+    };
+  }
+  try {
+    const result = await db
+      .select({
+        country: clicks.country,
+        region: clicks.region,
+        city: clicks.city,
+        device: clicks.deviceType,
+        browser: clicks.browser,
+        os: clicks.os,
+        countryCode: clicks.countryCode,
+      })
+      .from(clicks)
+      .leftJoin(links, eq(clicks.linkId, links.id))
+      .where(eq(links.userId, session.user.id))
+      .orderBy(asc(clicks.timestamp))
+      .execute();
+
+    const countryChart = groupByKey(result, "country");
+    const regionChart = groupByKey(result, "region");
+    const cityChart = groupByKey(result, "city");
+
+    const deviceChart = groupByKey(result, "device");
+    const browserChart = groupByKey(result, "browser");
+    const osChart = groupByKey(result, "os");
+
+    return {
+      countryChart,
+      regionChart,
+      cityChart,
+      deviceChart,
+      browserChart,
+      osChart,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      countryChart: [],
+      regionChart: [],
+      cityChart: [],
+      deviceChart: [],
+      browserChart: [],
+      osChart: [],
+    };
+  }
+});

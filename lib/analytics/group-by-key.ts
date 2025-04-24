@@ -1,16 +1,96 @@
-export function groupByKey<T extends string>(
-  data: Array<Record<T, string | null>>,
-  key: T
-): Array<{ [K in T]: string } & { value: number }> {
-  const grouped = data.reduce((acc, item) => {
-    const k = item[key];
-    if (!k) return acc;
-    acc[k] = (acc[k] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
+import { LinkDataType } from "../zod/analytics";
 
-  return Object.entries(grouped).map(([k, value]) => ({
-    [key]: k,
-    value,
-  })) as Array<{ [K in T]: string } & { value: number }>;
+type GroupedResultWithCountryCode<K extends keyof LinkDataType> = {
+  [P in K]: string;
+} & {
+  countryCode: string;
+  value: number;
+};
+
+type GroupedResultSimple<K extends keyof LinkDataType> = {
+  [P in K]: string;
+} & {
+  value: number;
+};
+
+type KeysWithCountryCode = "country" | "region" | "city";
+
+type Accumulator = Record<
+  string,
+  { count: number; countryCode: string } | number
+>;
+
+export function groupByKey<K extends keyof LinkDataType>(
+  data: LinkDataType[],
+  key: K
+): Array<
+  K extends KeysWithCountryCode
+    ? GroupedResultWithCountryCode<K>
+    : GroupedResultSimple<K>
+> {
+  const keysWithCountryCode: KeysWithCountryCode[] = [
+    "country",
+    "region",
+    "city",
+  ];
+
+  const grouped = data.reduce((acc: Accumulator, item: LinkDataType) => {
+    const k = item[key];
+
+    if (k === null || k === undefined) {
+      return acc;
+    }
+
+    const groupKey = String(k);
+
+    if (keysWithCountryCode.includes(key as KeysWithCountryCode)) {
+      if (!acc[groupKey]) {
+        acc[groupKey] = {
+          count: 0,
+          countryCode: item.countryCode ?? "unknown",
+        };
+      }
+
+      const currentEntry = acc[groupKey];
+      if (
+        typeof currentEntry === "object" &&
+        currentEntry !== null &&
+        "count" in currentEntry
+      ) {
+        currentEntry.count += 1;
+      } else {
+        console.warn(`Inconsistent accumulator state for key ${groupKey}`);
+        acc[groupKey] = {
+          count: 1,
+          countryCode: item.countryCode ?? "unknown",
+        };
+      }
+    } else {
+      const currentCount =
+        typeof acc[groupKey] === "number" ? acc[groupKey] : 0;
+      acc[groupKey] = currentCount + 1;
+    }
+
+    return acc;
+  }, {});
+
+  return Object.entries(grouped).map(([k, value]) => {
+    if (keysWithCountryCode.includes(key as KeysWithCountryCode)) {
+      const typedValue = value as { count: number; countryCode: string };
+      return {
+        [key]: k,
+        countryCode: typedValue.countryCode,
+        value: typedValue.count,
+      };
+    } else {
+      return {
+        [key]: k,
+        value: value as number,
+      };
+    }
+  }) as Array<
+    K extends KeysWithCountryCode
+      ? GroupedResultWithCountryCode<K>
+      : GroupedResultSimple<K>
+  >;
 }

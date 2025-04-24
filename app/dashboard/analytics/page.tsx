@@ -1,6 +1,6 @@
 import { getLinksWithStats } from "@/lib/queries/links";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getClicksData } from "@/lib/queries/charts";
+import { getClicksData, getLinksData } from "@/lib/queries/charts";
 import ClickChart from "@/components/charts/ClickChart";
 import IntervalSwitcher from "@/components/analytics/interval-switcher";
 import { getStartDate } from "@/lib/analytics/get-start-date";
@@ -19,15 +19,32 @@ export default async function Analytics({
 
   const { clicksChartData } = await getClicksData(startDate, end);
 
+  const {
+    countryChart,
+    regionChart,
+    cityChart,
+    deviceChart,
+    browserChart,
+    osChart,
+  } = await getLinksData();
+
   if (!links) return <h1>No links found</h1>;
 
-  console.log("LINKS", links);
+  console.log("LINKS DATA", {
+    countryChart,
+    regionChart,
+    cityChart,
+    deviceChart,
+    browserChart,
+    osChart,
+  });
 
   return (
     <div className="max-w-7xl mx-auto mt-4 ">
       {/* <h1>Analytics</h1> */}
 
       <IntervalSwitcher />
+
       <section className="grid grid-cols-6 gap-4">
         <div className="grid grid-cols-2 gap-4 col-span-4">
           <Card>
@@ -40,7 +57,7 @@ export default async function Analytics({
                 URLs
               </CardTitle>
             </CardHeader>
-            <CardContent>{links.length}</CardContent>
+            {/* <CardContent>{links.length}</CardContent> */}
           </Card>
 
           <Card>
@@ -53,9 +70,9 @@ export default async function Analytics({
                 Clicks
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            {/* <CardContent>
               {links.reduce((acc, curr) => acc + curr.clicks.length, 0)}
-            </CardContent>
+            </CardContent> */}
           </Card>
 
           <Card className="min-h-[500px] col-span-2  ">
