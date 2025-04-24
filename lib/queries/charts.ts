@@ -8,7 +8,7 @@ import { toDate } from "date-fns";
 
 import { getGroupedData } from "../analytics/get-grouped-data";
 
-export const getChartData = cache(
+export const getClicksData = cache(
   async (
     start: Date,
     end: Date

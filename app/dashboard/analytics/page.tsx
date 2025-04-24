@@ -1,6 +1,6 @@
 import { getLinksWithStats } from "@/lib/queries/links";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getChartData } from "@/lib/queries/charts";
+import { getClicksData } from "@/lib/queries/charts";
 import ClickChart from "@/components/charts/ClickChart";
 import IntervalSwitcher from "@/components/analytics/interval-switcher";
 import { getStartDate } from "@/lib/analytics/get-start-date";
@@ -17,11 +17,11 @@ export default async function Analytics({
 
   const links = await getLinksWithStats();
 
-  const { clicksChartData } = await getChartData(startDate, end);
+  const { clicksChartData } = await getClicksData(startDate, end);
 
   if (!links) return <h1>No links found</h1>;
 
-  console.log(links);
+  console.log("LINKS", links);
 
   return (
     <div className="max-w-7xl mx-auto mt-4 ">
