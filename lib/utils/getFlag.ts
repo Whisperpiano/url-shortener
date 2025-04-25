@@ -1,2 +1,2 @@
 export const getFlag = (code: string) =>
-  `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
+  `https://flagcdn.com/32x24/${code.toLowerCase()}.png`;

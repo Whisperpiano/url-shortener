@@ -60,12 +60,16 @@ export const getLinksData = cache(async () => {
   if (!session?.user?.id) {
     console.error("No user found");
     return {
-      countryChart: [],
-      regionChart: [],
-      cityChart: [],
-      deviceChart: [],
-      browserChart: [],
-      osChart: [],
+      location: {
+        Country: [],
+        Region: [],
+        City: [],
+      },
+      device: {
+        Device: [],
+        Browser: [],
+        OS: [],
+      },
     };
   }
   try {
@@ -93,23 +97,33 @@ export const getLinksData = cache(async () => {
     const browserChart = groupByKey(result, "browser");
     const osChart = groupByKey(result, "os");
 
+    console.log("FETCHING");
+
     return {
-      countryChart,
-      regionChart,
-      cityChart,
-      deviceChart,
-      browserChart,
-      osChart,
+      location: {
+        Country: countryChart,
+        Region: regionChart,
+        City: cityChart,
+      },
+      device: {
+        Device: deviceChart,
+        Browser: browserChart,
+        OS: osChart,
+      },
     };
   } catch (error) {
     console.error(error);
     return {
-      countryChart: [],
-      regionChart: [],
-      cityChart: [],
-      deviceChart: [],
-      browserChart: [],
-      osChart: [],
+      location: {
+        Country: [],
+        Region: [],
+        City: [],
+      },
+      device: {
+        Device: [],
+        Browser: [],
+        OS: [],
+      },
     };
   }
 });

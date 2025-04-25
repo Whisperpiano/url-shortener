@@ -4,6 +4,7 @@ import { getClicksData, getLinksData } from "@/lib/queries/charts";
 import ClickChart from "@/components/charts/ClickChart";
 import IntervalSwitcher from "@/components/analytics/interval-switcher";
 import { getStartDate } from "@/lib/analytics/get-start-date";
+
 import InformationTabs from "@/components/analytics/information-tabs";
 
 export default async function Analytics({
@@ -20,25 +21,8 @@ export default async function Analytics({
 
   const { clicksChartData } = await getClicksData(startDate, end);
 
-  const {
-    countryChart,
-    regionChart,
-    cityChart,
-    deviceChart,
-    browserChart,
-    osChart,
-  } = await getLinksData();
-
-  console.log("LINKS DATA", links);
-
-  console.log("LINKS DATA", {
-    countryChart,
-    regionChart,
-    cityChart,
-    deviceChart,
-    browserChart,
-    osChart,
-  });
+  const { location, device } = await getLinksData();
+  console.log(location);
 
   return (
     <div className="max-w-7xl mx-auto mt-4 ">
@@ -105,11 +89,10 @@ export default async function Analytics({
         <Card className="min-h-[300px]">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <InformationTabs
-                countryChart={countryChart}
-                regionChart={regionChart}
-                cityChart={cityChart}
-              />
+              {device && (
+                <InformationTabs data={{ type: "location", data: location }} />
+              )}
+              {/* {location && <LocationTabs data={location} />} */}
             </CardTitle>
             <CardContent></CardContent>
           </CardHeader>
@@ -117,7 +100,10 @@ export default async function Analytics({
         <Card className="min-h-[300px]">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              Device, Browser, OS, Clicks
+              {device && (
+                <InformationTabs data={{ type: "device", data: device }} />
+              )}
+              {/* {device && <DeviceTabs data={device} />} */}
             </CardTitle>
           </CardHeader>
         </Card>
