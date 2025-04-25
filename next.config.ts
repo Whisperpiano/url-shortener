@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx"],
   images: {
     domains: ["lh3.googleusercontent.com", "avatars.githubusercontent.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.google.com",
+      },
+    ],
   },
 };
 

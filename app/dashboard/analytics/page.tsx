@@ -6,6 +6,7 @@ import IntervalSwitcher from "@/components/analytics/interval-switcher";
 import { getStartDate } from "@/lib/analytics/get-start-date";
 
 import InformationTabs from "@/components/analytics/information-tabs";
+import TopLinks from "@/components/analytics/top-links";
 
 export default async function Analytics({
   searchParams,
@@ -19,10 +20,15 @@ export default async function Analytics({
 
   const links = await getLinks();
 
+  const topLinks = links
+    .sort((a, b) => b.clickCount - a.clickCount)
+    .slice(0, 3);
+
+  console.log("TOP", topLinks);
+
   const { clicksChartData } = await getClicksData(startDate, end);
 
   const { location, device } = await getLinksData();
-  console.log(location);
 
   return (
     <div className="max-w-7xl mx-auto mt-4 ">
@@ -82,7 +88,9 @@ export default async function Analytics({
               Top
             </CardTitle>
           </CardHeader>
-          <CardContent>123</CardContent>
+          <CardContent>
+            <TopLinks topLinks={topLinks} />
+          </CardContent>
         </Card>
       </section>
       <section className="mt-4 grid grid-cols-2 gap-4">
