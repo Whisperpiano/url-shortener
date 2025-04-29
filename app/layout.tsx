@@ -7,9 +7,6 @@ import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-import Background from "@/components/layout/Background";
-import Header from "@/components/layout/Header";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -44,8 +41,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Background />
-          <Header />
           {children}
           <Toaster richColors />
         </ThemeProvider>

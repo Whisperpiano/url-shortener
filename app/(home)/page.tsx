@@ -1,8 +1,9 @@
 import AuthModal from "@/components/header/AuthModal";
-import { auth } from "./auth";
+
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { auth } from "../auth";
 
 export default async function Home() {
   const session = await auth();
