@@ -25,7 +25,7 @@ export default async function Dashboard() {
   return (
     <>
       <DashboardHeader group="Dashboard" pageTitle="Links" />
-      <section className="mt-10 px-6">
+      <section className="mt-10 px-6 max-w-7xl mx-auto">
         <div className="flex gap-4 items-center">
           <Input placeholder="Search..." />
           <Button variant="outline">Filter</Button>

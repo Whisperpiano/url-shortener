@@ -2,7 +2,6 @@ import {
   Copy,
   CornerDownRight,
   EllipsisVertical,
-  MousePointerClick,
   Pencil,
   QrCode,
   Trash,
@@ -18,13 +17,6 @@ import {
 } from "../ui/dialog";
 
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
-
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -32,13 +24,13 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-import { Button } from "../ui/button";
-
 import QRComponent from "../QRComponent";
 import Image from "next/image";
 import { auth } from "@/app/auth";
 import Link from "next/link";
 import { Link as LinkType } from "@/lib/zod/links";
+import { Button } from "@/components/ui/button";
+import { getFaviconFromUrl } from "@/lib/utils/getFaviconFromUrl";
 
 interface LinkCardProps {
   link: LinkType;
@@ -49,24 +41,18 @@ export default async function LinkCard({ link }: LinkCardProps) {
   return (
     <article className="border border-muted-foreground/20 rounded-lg p-6 mt-10 flex items-center justify-between flex-1">
       <div className="flex gap-3 items-center">
-        <Dialog>
-          <DialogTrigger asChild>
-            <button
-              role="checkbox"
-              aria-checked
-              className="aspect-square w-12 rounded-full overflow-hidden cursor-pointer group hover:border-ring hover:ring-ring/50 hover:ring-[3px] transition-all duration-200 flex items-center justify-center bg-muted-foreground/20"
-            >
-              <QrCode />
-            </button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>QR Code</DialogTitle>
-              <DialogDescription className="relative"></DialogDescription>
-            </DialogHeader>
-            <QRComponent />
-          </DialogContent>
-        </Dialog>
+        <Button
+          variant="outline"
+          size={"icon"}
+          className="aspect-square w-14 h-full rounded-full overflow-hidden cursor-pointer group hover:border-ring hover:ring-ring/50 hover:ring-[3px] transition-all duration-200 flex items-center justify-center bg-muted-foreground/20"
+        >
+          <Image
+            src={getFaviconFromUrl(link.url)}
+            alt={link.url}
+            width={24}
+            height={24}
+          />
+        </Button>
 
         <div className="flex flex-col">
           <div className="flex gap-2 items-center">
@@ -115,23 +101,32 @@ export default async function LinkCard({ link }: LinkCardProps) {
           </div>
         </div>
       </div>
-      <div className="flex gap-3 items-center">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="secondary" className="text-xs ">
-                <MousePointerClick className="dark:text-blue-300 text-blue-600" />
-                3 clicks
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent className="bg-secondary rounded-md p-2 text-xs mb-2">
-              <p>Last clicked: 12 minutes ago</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+      <div>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              variant={"outline"}
+              className="text-xs rounded-r-none cursor-pointer"
+            >
+              <QrCode />
+              QR code
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>QR Code</DialogTitle>
+              <DialogDescription className="relative"></DialogDescription>
+            </DialogHeader>
+            <QRComponent />
+          </DialogContent>
+        </Dialog>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size={"icon"} className="cursor-pointer">
+            <Button
+              variant="outline"
+              size={"icon"}
+              className="cursor-pointer rounded-l-none"
+            >
               <EllipsisVertical />
             </Button>
           </DropdownMenuTrigger>

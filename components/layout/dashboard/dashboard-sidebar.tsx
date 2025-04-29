@@ -24,6 +24,8 @@ import {
 import { FaLink } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
 
 const items = [
   {
@@ -88,7 +90,27 @@ export default function DashboardSidebar() {
           </SidebarGroup>
         ))}
       </SidebarContent>
-      <SidebarFooter>culo</SidebarFooter>
+      <SidebarFooter className="border-t border-muted-foreground/20 py-6">
+        <span className="text-sm text-muted-foreground">
+          Storage usage &gt;
+        </span>
+        <div className="flex items-center justify-between text-sm text-accent-foreground">
+          <span className="inline-flex items-center gap-1">
+            <LinkIcon size={14} />
+            Links
+          </span>
+          <div className="flex items-center gap-1.5 text-accent-foreground">
+            <span>4 of 25</span>
+            <span className="text-accent-foreground/50">
+              ({(4 / 25) * 100}%)
+            </span>
+          </div>
+        </div>
+        <Progress value={(4 / 25) * 100} />
+        <Button variant="default" className="cursor-pointer">
+          Get Shortly Pro
+        </Button>
+      </SidebarFooter>
     </Sidebar>
   );
 }
