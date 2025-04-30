@@ -8,13 +8,18 @@ import { getStartDate } from "@/lib/analytics/get-start-date";
 import InformationTabs from "@/components/analytics/information-tabs";
 import TopLinks from "@/components/analytics/top-links";
 import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
+import UrlSwitcher from "@/components/analytics/url-switcher";
+import { Button } from "@/components/ui/button";
 
 export default async function Analytics({
   searchParams,
 }: {
-  searchParams: Promise<{ interval: string }>;
+  searchParams: Promise<{ interval: string; key: string }>;
 }) {
-  const { interval: intervalParam = "7d" } = await searchParams;
+  const { interval: intervalParam = "7d", key: keyParam = "all" } =
+    await searchParams;
+
+  console.log("KEY", keyParam);
 
   const startDate = getStartDate(intervalParam);
   const end = new Date();
@@ -32,13 +37,21 @@ export default async function Analytics({
   const { location, device } = await getLinksData();
 
   return (
-    <main>
+    <main className="px-4">
       <DashboardHeader group="Dashboard" pageTitle="Analytics" />
 
       <div className="max-w-7xl mx-auto mt-4 ">
         {/* <h1>Analytics</h1> */}
 
-        <IntervalSwitcher />
+        <div className="flex items-center justify-between pb-6 pt-2">
+          <div className="flex items-center gap-2 ">
+            <UrlSwitcher links={links} />
+            <IntervalSwitcher />
+          </div>
+          <Button variant="default" className="cursor-pointer">
+            Download as CSV
+          </Button>
+        </div>
 
         <section className="grid grid-cols-6 gap-4">
           <div className="grid grid-cols-2 gap-4 col-span-4">
