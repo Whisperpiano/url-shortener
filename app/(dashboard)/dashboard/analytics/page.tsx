@@ -6,7 +6,6 @@ import IntervalSwitcher from "@/components/analytics/interval-switcher";
 import { getStartDate } from "@/lib/analytics/get-start-date";
 
 import InformationTabs from "@/components/analytics/information-tabs";
-import TopLinks from "@/components/analytics/top-links";
 import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
 import UrlSwitcher from "@/components/analytics/url-switcher";
 import { Button } from "@/components/ui/button";
@@ -54,47 +53,34 @@ export default async function Analytics({
         </div>
 
         <section className="grid grid-cols-6 gap-4">
-          <div className="grid grid-cols-2 gap-4 col-span-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <div
-                    className="aspect-square w-3 bg-blue-300 rounded-xs"
-                    aria-hidden="true"
-                  ></div>
-                  URLs
-                </CardTitle>
-              </CardHeader>
-              <CardContent>{links.length}</CardContent>
-            </Card>
+          <Card className="col-span-2">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <div
+                  className="aspect-square w-3 bg-blue-300 rounded-xs"
+                  aria-hidden="true"
+                ></div>
+                Clicks
+              </CardTitle>
+            </CardHeader>
+            <CardContent>{links.length}</CardContent>
+          </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <div
-                    className="aspect-square w-3 bg-green-300 rounded-xs"
-                    aria-hidden="true"
-                  ></div>
-                  Clicks
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {links.reduce((acc, curr) => acc + curr.clickCount, 0)}
-              </CardContent>
-            </Card>
+          <Card className="col-span-2">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <div
+                  className="aspect-square w-3 bg-green-300 rounded-xs"
+                  aria-hidden="true"
+                ></div>
+                Visitors
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {links.reduce((acc, curr) => acc + curr.clickCount, 0)}
+            </CardContent>
+          </Card>
 
-            <Card className="min-h-[500px] col-span-2  ">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 justify-between">
-                  Analitic clicks
-                  <div>clicks, urls</div>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ClickChart data={clicksChartData} />
-              </CardContent>
-            </Card>
-          </div>
           <Card className="col-span-2">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -102,11 +88,23 @@ export default async function Analytics({
                   className="aspect-square w-3 bg-purple-300 rounded-xs"
                   aria-hidden="true"
                 ></div>
-                Top
+                Last click
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <TopLinks topLinks={topLinks} />
+              {links.reduce((acc, curr) => acc + curr.clickCount, 0)}
+            </CardContent>
+          </Card>
+
+          <Card className="min-h-[500px] col-span-6 ">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 justify-between">
+                Analitic clicks
+                <div>clicks, urls</div>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ClickChart data={clicksChartData} />
             </CardContent>
           </Card>
         </section>
