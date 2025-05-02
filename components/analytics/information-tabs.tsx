@@ -62,7 +62,7 @@ export default function InformationTabs({
                 key={label}
                 onClick={() => setActiveTab(label)}
                 className={cn(
-                  "relative px-2 cursor-pointer text-accent-foreground/50 font-medium hover:text-accent-foreground",
+                  "relative px-2 cursor-pointer text-accent-foreground/50 font-medium hover:text-accent-foreground transition-colors",
                   activeTab === label && "text-accent-foreground"
                 )}
               >
@@ -128,7 +128,11 @@ export default function InformationTabs({
 
                   <div className="bg-primary/20 relative h-1.5 w-full overflow-hidden rounded-full">
                     <motion.div
-                      className="bg-primary relative h-2 w-full overflow-hidden rounded-full"
+                      className={`relative h-2 w-full overflow-hidden rounded-full ${
+                        type === "device"
+                          ? "bg-[var(--color-chart-3)]"
+                          : "bg-[var(--color-chart-5)]"
+                      }`}
                       initial={{ width: 0, opacity: 0 }}
                       animate={{ width: `${percentage}%`, opacity: 1 }}
                       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -139,7 +143,7 @@ export default function InformationTabs({
             })}
           </ul>
 
-          <div className="border-t border-muted-foreground/20 p-4 cursor-pointer hover:bg-muted/50 flex items-center justify-center gap-2">
+          <div className="border-t border-muted-foreground/20 p-4 cursor-pointer hover:bg-muted/50 flex items-center justify-center gap-2 transition-colors">
             <Scan size={14} />
             <span className="text-sm font-normal">Details</span>
           </div>
