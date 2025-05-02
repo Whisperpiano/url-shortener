@@ -2,15 +2,29 @@ import { addMonths, format, isBefore, parseISO, startOfMonth } from "date-fns";
 
 type Click = {
   date: Date | null;
+  ip: string | null;
 };
 
 export function groupByMonth(clicks: Array<Click>, start: Date, end: Date) {
   const grouped = clicks.reduce((acc, item) => {
     if (!item.date) return acc;
     const key = format(startOfMonth(new Date(item.date)), "yyyy-MM");
-    acc[key] = (acc[key] || 0) + 1;
+
+    if (!acc[key]) {
+      acc[key] = {
+        clicks: 0,
+        visitors: new Set<string>(),
+      };
+    }
+
+    acc[key].clicks += 1;
+
+    if (item.ip) {
+      acc[key].visitors.add(item.ip);
+    }
+
     return acc;
-  }, {} as Record<string, number>);
+  }, {} as Record<string, { clicks: number; visitors: Set<string> }>);
 
   const months: string[] = [];
   let current = startOfMonth(start);
@@ -23,6 +37,7 @@ export function groupByMonth(clicks: Array<Click>, start: Date, end: Date) {
 
   return months.map((month) => ({
     date: format(parseISO(`${month}-01`), "MMMM yyyy"),
-    value: grouped[month] || 0,
+    clicks: grouped[month]?.clicks || 0,
+    visitors: grouped[month]?.visitors.size || 0,
   }));
 }

@@ -14,7 +14,7 @@ export const getClicksData = cache(
     start: Date,
     end: Date
   ): Promise<{
-    clicksChartData: Array<{ date: string; value: number }>;
+    clicksChartData: Array<{ date: string; clicks: number; visitors: number }>;
   }> => {
     const session = await auth();
 
@@ -29,6 +29,7 @@ export const getClicksData = cache(
       const clicksData = await db
         .select({
           date: clicks.timestamp,
+          ip: clicks.ip,
         })
         .from(clicks)
         .leftJoin(links, eq(clicks.linkId, links.id))
@@ -41,8 +42,10 @@ export const getClicksData = cache(
         )
         .orderBy(asc(clicks.timestamp))
         .execute();
-
+      console.log(clicksData);
       const clicksChartData = getGroupedData(clicksData, start, end);
+
+      console.log(clicksChartData);
 
       return { clicksChartData };
     } catch (error) {

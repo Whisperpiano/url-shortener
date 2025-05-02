@@ -5,13 +5,14 @@ import { groupByMonth } from "./group-by-month";
 
 type Click = {
   date: Date | null;
+  ip: string | null;
 };
 
 export function getGroupedData(
   clicks: Array<Click>,
   start: Date,
   end: Date
-): Array<{ date: string; value: number }> {
+): Array<{ date: string; clicks: number; visitors: number }> {
   const diff = differenceInDays(end, start);
 
   if (diff <= 1) return groupByHour(clicks, start, end);
