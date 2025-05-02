@@ -109,29 +109,13 @@ export default async function Analytics({
           </Card>
         </section>
         <section className="mt-4 grid grid-cols-2 gap-4">
-          <Card className="min-h-[300px]">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                {device && (
-                  <InformationTabs
-                    data={{ type: "location", data: location }}
-                  />
-                )}
-                {/* {location && <LocationTabs data={location} />} */}
-              </CardTitle>
-              <CardContent></CardContent>
-            </CardHeader>
-          </Card>
-          <Card className="min-h-[300px]">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                {device && (
-                  <InformationTabs data={{ type: "device", data: device }} />
-                )}
-                {/* {device && <DeviceTabs data={device} />} */}
-              </CardTitle>
-            </CardHeader>
-          </Card>
+          {device && (
+            <InformationTabs data={{ type: "location", data: location }} />
+          )}
+
+          {device && (
+            <InformationTabs data={{ type: "device", data: device }} />
+          )}
         </section>
       </div>
     </main>
