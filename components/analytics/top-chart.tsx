@@ -15,7 +15,6 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart";
-import { useState } from "react";
 
 type AggregatedItem = {
   label: string;
@@ -55,7 +54,6 @@ function ProcessChartConfig(data: AggregatedItem[] | AggregatedItem[]) {
 }
 
 export default function TopChart({ data }: { data: LocationData }) {
-  const [activeIndex, setActiveIndex] = useState();
   const processedData = ProcessDataChart(data.data.Country);
   const chartConfiguration = ProcessChartConfig(processedData);
 
