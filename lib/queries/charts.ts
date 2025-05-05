@@ -2,7 +2,7 @@ import { auth } from "@/app/auth";
 import { cache } from "react";
 import { db } from "../db/db";
 import { clicks } from "../db/schemas/clicks";
-import { and, asc, eq, gt, lt } from "drizzle-orm";
+import { and, asc, eq, gt, lt, sql } from "drizzle-orm";
 import { links } from "../db/schemas/links";
 import { toDate } from "date-fns";
 
@@ -12,7 +12,8 @@ import { groupByKey } from "../analytics/group-by-key";
 export const getClicksData = cache(
   async (
     start: Date,
-    end: Date
+    end: Date,
+    linkSlug: string
   ): Promise<{
     clicksChartData: Array<{ date: string; clicks: number; visitors: number }>;
   }> => {
@@ -36,6 +37,7 @@ export const getClicksData = cache(
         .where(
           and(
             eq(links.userId, session.user.id),
+            linkSlug === "all" ? sql`1=1` : eq(links.slug, linkSlug),
             gt(clicks.timestamp, toDate(start)),
             lt(clicks.timestamp, toDate(end))
           )

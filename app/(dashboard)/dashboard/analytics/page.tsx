@@ -23,11 +23,13 @@ export default async function Analytics({
 
   const links = await getLinks();
 
-  const { clicksChartData } = await getClicksData(startDate, end);
+  const { clicksChartData } = await getClicksData(startDate, end, keyParam);
 
   const { location, device } = await getLinksData();
 
   console.log(keyParam);
+
+  console.log(clicksChartData);
 
   return (
     <main className="px-4">
