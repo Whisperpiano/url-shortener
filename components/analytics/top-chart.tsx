@@ -14,9 +14,8 @@ import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
 } from "@/components/ui/chart";
+import { useState } from "react";
 
 type AggregatedItem = {
   label: string;
@@ -56,10 +55,10 @@ function ProcessChartConfig(data: AggregatedItem[] | AggregatedItem[]) {
 }
 
 export default function TopChart({ data }: { data: LocationData }) {
+  const [activeIndex, setActiveIndex] = useState();
   const processedData = ProcessDataChart(data.data.Country);
   const chartConfiguration = ProcessChartConfig(processedData);
 
-  console.log(chartConfiguration);
   return (
     <Card className="flex flex-col">
       <CardHeader className="text-center items-center pb-0">
@@ -72,10 +71,6 @@ export default function TopChart({ data }: { data: LocationData }) {
           className="mx-auto aspect-square max-h-[275px] "
         >
           <PieChart>
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
             <Pie data={processedData} dataKey="value" nameKey="countryCode">
               {processedData.map((entry, index) => (
                 <Cell
