@@ -9,6 +9,7 @@ import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
 import UrlSwitcher from "@/components/analytics/url-switcher";
 import { Button } from "@/components/ui/button";
 import { MainChart } from "@/components/analytics/main-chart";
+import TopChart from "@/components/analytics/top-chart";
 
 export default async function Analytics({
   searchParams,
@@ -98,10 +99,12 @@ export default async function Analytics({
           {device && (
             <InformationTabs data={{ type: "location", data: location }} />
           )}
+          <TopChart data={{ type: "location", data: location }} />
 
           {device && (
             <InformationTabs data={{ type: "device", data: device }} />
           )}
+          <TopChart data={{ type: "location", data: location }} />
         </section>
       </div>
     </main>

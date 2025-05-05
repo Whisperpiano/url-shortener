@@ -130,8 +130,8 @@ export default function InformationTabs({
                     <motion.div
                       className={`relative h-2 w-full overflow-hidden rounded-full ${
                         type === "device"
-                          ? "bg-[var(--color-chart-3)]"
-                          : "bg-[var(--color-chart-5)]"
+                          ? "bg-[var(--color-chart-2)]"
+                          : "bg-[var(--color-chart-2)]"
                       }`}
                       initial={{ width: 0, opacity: 0 }}
                       animate={{ width: `${percentage}%`, opacity: 1 }}
