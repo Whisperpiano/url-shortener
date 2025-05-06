@@ -1,3 +1,5 @@
+import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
+
 export default function QRGeneratorPage() {
-  return <div>QR Generator</div>;
+  return <DashboardHeader group="Dashboard" pageTitle="QR Generator" />;
 }
