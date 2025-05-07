@@ -18,7 +18,7 @@ import {
   Settings,
   Bug,
   ChartNoAxesCombined,
-  QrCodeIcon,
+  // QrCodeIcon,
   Link as LinkIcon,
 } from "lucide-react";
 
@@ -38,7 +38,7 @@ const items = [
         url: "/dashboard/analytics",
         icon: ChartNoAxesCombined,
       },
-      { title: "QR generator", url: "/dashboard/qr", icon: QrCodeIcon },
+      // { title: "QR generator", url: "/dashboard/qr", icon: QrCodeIcon },
     ],
   },
   {

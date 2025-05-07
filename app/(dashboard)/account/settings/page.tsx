@@ -1,6 +1,7 @@
 import { auth } from "@/app/auth";
 import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
-import ThemeSettings from "@/components/settings/theme-settings";
+import NameSettings from "@/components/settings/name-settings";
+// import ThemeSettings from "@/components/settings/theme-settings";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +20,6 @@ import Image from "next/image";
 
 export default async function Settings() {
   const session = await auth();
-  console.log(session);
 
   if (!session) {
     return <div>You are not signed in</div>;
@@ -39,25 +39,7 @@ export default async function Settings() {
                 name or a nickname.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <form>
-                <Input
-                  type="text"
-                  id="name"
-                  placeholder={session?.user?.name || "Enter your name"}
-                  className="max-w-1/2"
-                />
-              </form>
-            </CardContent>
-            <CardFooter className="flex items-center justify-between border-t border-muted-foreground/20">
-              <span className="text-sm text-muted-foreground">
-                Max 32 characters.
-              </span>
-              <Button variant="outline">
-                <Save />
-                Save changes
-              </Button>
-            </CardFooter>
+            <NameSettings name={session?.user?.name || ""} />
           </Card>
 
           {/* Email */}
@@ -149,7 +131,7 @@ export default async function Settings() {
           </Card>
 
           {/* Theme options */}
-          <Card>
+          {/* <Card>
             <CardHeader>
               <CardTitle>Theme</CardTitle>
               <CardDescription>
@@ -160,7 +142,9 @@ export default async function Settings() {
             <CardContent>
               <ThemeSettings />
             </CardContent>
-          </Card>
+          </Card> */}
+
+          {/* Delete account */}
 
           <Card className="border-[var(--destructive)]">
             <CardHeader>

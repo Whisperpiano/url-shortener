@@ -56,15 +56,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.email = user.email;
-      }
+      const userId = user?.id ?? token.id;
+
+      if (!userId || typeof userId !== "string") return token;
+
+      const [dbUser] = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, userId))
+        .limit(1);
+
+      if (!dbUser) return token;
+
+      token.id = dbUser.id;
+      token.email = dbUser.email;
+      token.name = dbUser.name;
+
       return token;
     },
     async session({ session, token }) {
       session.user.id = token.id as string;
       session.user.email = token.email as string;
+      session.user.name = token.name as string;
       return session;
     },
     authorized({ auth }) {
