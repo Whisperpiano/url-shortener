@@ -1,5 +1,6 @@
 import { auth } from "@/app/auth";
 import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
+import ThemeSettings from "@/components/settings/theme-settings";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -150,16 +151,14 @@ export default async function Settings() {
           {/* Theme options */}
           <Card>
             <CardHeader>
-              <CardTitle>Theme options</CardTitle>
+              <CardTitle>Theme</CardTitle>
               <CardDescription>
                 Select your preferred theme. You can choose dark, light, or
                 follow your system settings.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div>dark</div>
-              <div>light</div>
-              <div>system</div>
+              <ThemeSettings />
             </CardContent>
           </Card>
 
@@ -172,7 +171,7 @@ export default async function Settings() {
               </CardDescription>
             </CardHeader>
 
-            <CardFooter className="border-t border-[var(--destructive)]">
+            <CardFooter className="border-t border-[var(--destructive)]/50">
               <Button variant="destructive" className="ml-auto">
                 <Trash2 />
                 Delete
