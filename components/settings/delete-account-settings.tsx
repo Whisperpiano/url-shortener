@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
+import { AlertTriangle, Trash2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { CardFooter } from "../ui/card";
 
@@ -16,12 +16,31 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { useForm } from "react-hook-form";
+import {
+  DeleteAccountSettingsSchema,
+  DeleteAccountSettingsTypes,
+} from "@/lib/zod/settings";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function DeleteAccountSettings({
   session,
 }: {
   session: Session;
 }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<DeleteAccountSettingsTypes>({
+    resolver: zodResolver(DeleteAccountSettingsSchema),
+  });
+
+  const onSubmit = async (data: DeleteAccountSettingsTypes) => {
+    console.log(data);
+    console.log(errors.confirmation);
+  };
+
   console.log(session);
   return (
     <Dialog>
@@ -45,7 +64,15 @@ export default function DeleteAccountSettings({
         </DialogHeader>
 
         <DialogFooter>
-          <form className="w-full">
+          <form className="w-full relative" onSubmit={handleSubmit(onSubmit)}>
+            {errors.confirmation && (
+              <div className="absolute -top-4 left-0 right-0 flex items-center justify-center">
+                <span className="text-xs font-normal px-4 py-2  border border-[var(--destructive)] rounded-sm bg-[var(--destructive)]/10 backdrop-blur-xl flex items-center gap-2 text-[var(--destructive)]">
+                  <AlertTriangle size={14} />
+                  {errors.confirmation.message}
+                </span>
+              </div>
+            )}
             <div className="flex flex-col gap-6 w-full text-center bg-muted-foreground/8 border-t border-muted-foreground/20 p-10">
               <div className="flex flex-col gap-6 max-w-[350px] m-auto w-full">
                 <p className="text-sm text-muted-foreground">
@@ -55,7 +82,7 @@ export default function DeleteAccountSettings({
                   </span>{" "}
                   below:
                 </p>
-                <Input type="text" />
+                <Input {...register("confirmation")} type="text" />
               </div>
               <div className="flex gap-4 bg-muted-foreground/8 max-w-[350px] m-auto w-full">
                 <DialogClose asChild>
@@ -84,5 +111,3 @@ export default function DeleteAccountSettings({
     </Dialog>
   );
 }
-
-//
