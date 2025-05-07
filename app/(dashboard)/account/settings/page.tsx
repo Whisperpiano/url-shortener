@@ -1,5 +1,6 @@
 import { auth } from "@/app/auth";
 import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
+import DeleteAccountSettings from "@/components/settings/delete-account-settings";
 import NameSettings from "@/components/settings/name-settings";
 // import ThemeSettings from "@/components/settings/theme-settings";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -15,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { AlertTriangle, CloudUpload, Save, Trash2 } from "lucide-react";
+import { AlertTriangle, CloudUpload, Save } from "lucide-react";
 import Image from "next/image";
 
 export default async function Settings() {
@@ -154,13 +155,7 @@ export default async function Settings() {
                 stats. This action cannot be undone.
               </CardDescription>
             </CardHeader>
-
-            <CardFooter className="border-t border-[var(--destructive)]/50">
-              <Button variant="destructive" className="ml-auto">
-                <Trash2 />
-                Delete
-              </Button>
-            </CardFooter>
+            <DeleteAccountSettings session={session} />
           </Card>
         </section>
       </section>
