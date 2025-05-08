@@ -3,6 +3,7 @@ import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
 import DeleteAccountSettings from "@/components/settings/delete-account-settings";
 import NameSettings from "@/components/settings/name-settings";
 import ProductUpdatesSettings from "@/components/settings/product-updates-settings";
+import ThemeSettings from "@/components/settings/theme-settings";
 // import ThemeSettings from "@/components/settings/theme-settings";
 import { Button } from "@/components/ui/button";
 import {
@@ -103,7 +104,7 @@ export default async function Settings() {
           </Card>
 
           {/* Theme options */}
-          {/* <Card>
+          <Card>
             <CardHeader>
               <CardTitle>Theme</CardTitle>
               <CardDescription>
@@ -111,10 +112,9 @@ export default async function Settings() {
                 follow your system settings.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <ThemeSettings />
-            </CardContent>
-          </Card> */}
+
+            <ThemeSettings />
+          </Card>
 
           {/* Delete account */}
 

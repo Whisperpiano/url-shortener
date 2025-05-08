@@ -100,6 +100,7 @@ export default function ProductUpdatesSettings({ user }: { user: UserData }) {
             checked={currentUpdates}
             onCheckedChange={handleSwitchChange}
             disabled={isSubmitting}
+            className="cursor-pointer"
           />
           <span className="text-sm text-muted-foreground">
             Subscribed to product updates

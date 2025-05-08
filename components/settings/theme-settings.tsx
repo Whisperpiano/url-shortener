@@ -2,6 +2,9 @@
 
 import { MonitorSmartphone, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { CardContent } from "../ui/card";
+import { useEffect, useState } from "react";
+import clsx from "clsx";
 
 const themes = [
   {
@@ -16,7 +19,7 @@ const themes = [
     value: "light",
     icon: <Sun />,
     text: "Always use light theme",
-    description: "Optimized for bright enviroments.",
+    description: "Optimized for bright environments.",
   },
   {
     name: "Dark",
@@ -29,25 +32,36 @@ const themes = [
 
 export default function ThemeSettings() {
   const { theme: activeTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <ul>
-      {themes.map((theme) => (
-        <li
-          key={theme.value}
-          onClick={() => setTheme(theme.value)}
-          className={`group cursor-pointer hover:bg-muted/70 rounded-none transition-colors duration-400 p-4 flex items-center gap-4 ${
-            activeTheme === theme.value && "bg-muted hover:bg-muted"
-          }`}
-        >
-          {theme.icon}
-          <div className="flex flex-col">
-            <span className="text-sm font-normal">{theme.text}</span>
-            <span className="text-xs text-muted-foreground">
-              {theme.description}
-            </span>
-          </div>
-        </li>
-      ))}
-    </ul>
+    <CardContent>
+      <ul>
+        {themes.map((theme) => (
+          <li
+            key={theme.value}
+            onClick={() => setTheme(theme.value)}
+            className={clsx(
+              "group cursor-pointer hover:bg-muted/70 rounded-none transition-colors duration-400 p-4 flex items-center gap-4",
+              mounted &&
+                activeTheme === theme.value &&
+                "bg-muted hover:bg-muted"
+            )}
+          >
+            {theme.icon}
+            <div className="flex flex-col">
+              <span className="text-sm font-normal">{theme.text}</span>
+              <span className="text-xs text-muted-foreground">
+                {theme.description}
+              </span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </CardContent>
   );
 }
