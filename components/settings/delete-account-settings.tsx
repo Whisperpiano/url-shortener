@@ -22,6 +22,11 @@ import {
   DeleteAccountSettingsTypes,
 } from "@/lib/zod/settings";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { deleteAccount } from "@/lib/actions/account/delete-account";
+import { toast } from "sonner";
+import { logout } from "@/lib/actions/auth/logout";
+import { Spinner } from "../ui/spinner";
+import { useState } from "react";
 
 export default function DeleteAccountSettings({
   session,
@@ -36,12 +41,32 @@ export default function DeleteAccountSettings({
     resolver: zodResolver(DeleteAccountSettingsSchema),
   });
 
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const userID = session?.user?.id;
+
+  if (!userID) {
+    return null;
+  }
+
   const onSubmit = async (data: DeleteAccountSettingsTypes) => {
-    console.log(data);
-    console.log(errors.confirmation);
+    setIsDeleting(true);
+    const confirmed = data.confirmation === "confirm delete account";
+
+    if (!confirmed) {
+      return;
+    }
+    const { success, message } = await deleteAccount(userID);
+
+    if (success) {
+      toast.success(message);
+      await logout();
+    } else {
+      toast.error(message);
+      setIsDeleting(false);
+    }
   };
 
-  console.log(session);
   return (
     <Dialog>
       <CardFooter className="border-t border-[var(--destructive)]/50">
@@ -66,7 +91,7 @@ export default function DeleteAccountSettings({
         <DialogFooter>
           <form className="w-full relative" onSubmit={handleSubmit(onSubmit)}>
             {errors.confirmation && (
-              <div className="absolute -top-4 left-0 right-0 flex items-center justify-center">
+              <div className="absolute -top-4 left-0 right-0 flex items-center justify-center animate">
                 <span className="text-xs font-normal px-4 py-2  border border-[var(--destructive)] rounded-sm bg-[var(--destructive)]/10 backdrop-blur-xl flex items-center gap-2 text-[var(--destructive)]">
                   <AlertTriangle size={14} />
                   {errors.confirmation.message}
@@ -77,7 +102,7 @@ export default function DeleteAccountSettings({
               <div className="flex flex-col gap-6 max-w-[350px] m-auto w-full">
                 <p className="text-sm text-muted-foreground">
                   To verify, type{" "}
-                  <span className="text-accent-foreground font-medium ">
+                  <span className="text-accent-foreground font-medium animate-bouncing">
                     confirm delete account
                   </span>{" "}
                   below:
@@ -99,9 +124,16 @@ export default function DeleteAccountSettings({
                   type="submit"
                   variant="destructive"
                   className="cursor-pointer flex-1"
+                  disabled={isDeleting}
                 >
-                  <Trash2 />
-                  Delete
+                  {isDeleting ? (
+                    <Spinner size={16} />
+                  ) : (
+                    <span className="flex items-center gap-1.5">
+                      <Trash2 />
+                      Delete
+                    </span>
+                  )}
                 </Button>
               </div>
             </div>

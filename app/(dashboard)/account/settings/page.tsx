@@ -42,7 +42,6 @@ export default async function Settings() {
             </CardHeader>
             <NameSettings name={session?.user?.name || ""} />
           </Card>
-
           {/* Email */}
           <Card>
             <CardHeader>
