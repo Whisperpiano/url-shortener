@@ -2,8 +2,8 @@ import { auth } from "@/app/auth";
 import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
 import DeleteAccountSettings from "@/components/settings/delete-account-settings";
 import NameSettings from "@/components/settings/name-settings";
+import ProductUpdatesSettings from "@/components/settings/product-updates-settings";
 // import ThemeSettings from "@/components/settings/theme-settings";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,12 +15,17 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { AlertTriangle, CloudUpload, Save } from "lucide-react";
+import { getUserById } from "@/lib/queries/users";
+import { CloudUpload, Save } from "lucide-react";
 import Image from "next/image";
 
 export default async function Settings() {
   const session = await auth();
+  const user = await getUserById(session?.user?.id || "");
+
+  if (!user.data) {
+    return <div>{user.error}</div>;
+  }
 
   if (!session) {
     return <div>You are not signed in</div>;
@@ -51,40 +56,7 @@ export default async function Settings() {
                 notifications.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <form>
-                <Input
-                  type="email"
-                  id="email"
-                  placeholder={session?.user?.email || "Enter your name"}
-                  className="max-w-1/2"
-                  disabled
-                />
-
-                <Alert
-                  variant="default"
-                  className="mt-4 text-muted-foreground/90"
-                >
-                  <AlertTriangle size={16} />
-                  <AlertDescription className="text-muted-foreground/90">
-                    Your email address is fixed and cannot be edited. Use the
-                    toggle below to manage your subscription to product updates.
-                  </AlertDescription>
-                </Alert>
-              </form>
-            </CardContent>
-            <CardFooter className="flex items-center justify-between border-t border-muted-foreground/20">
-              <div className="flex items-center gap-2">
-                <Switch />
-                <span className="text-sm text-muted-foreground">
-                  Subscribed to product updates
-                </span>
-              </div>
-              <Button variant="outline">
-                <Save />
-                Save changes
-              </Button>
-            </CardFooter>
+            <ProductUpdatesSettings user={user.data} />
           </Card>
 
           {/* Avatar*/}

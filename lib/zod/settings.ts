@@ -18,3 +18,11 @@ export const DeleteAccountSettingsSchema = z.object({
 export type DeleteAccountSettingsTypes = z.infer<
   typeof DeleteAccountSettingsSchema
 >;
+
+export const SubscribeToProductUpdatesSchema = z.object({
+  productUpdates: z.boolean(),
+});
+
+export type SubscribeToProductUpdatesTypes = z.infer<
+  typeof SubscribeToProductUpdatesSchema
+>;

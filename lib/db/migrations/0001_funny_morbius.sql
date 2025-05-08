@@ -1,0 +1,1 @@
+ALTER TABLE `user` ADD `productUpdates` integer DEFAULT false NOT NULL;
