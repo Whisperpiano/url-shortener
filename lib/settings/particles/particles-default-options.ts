@@ -6,10 +6,6 @@ import {
 
 export const defaultOptions: ISourceOptions = {
   fullScreen: false,
-  background: {
-    color: "#5646af",
-    opacity: 0.2,
-  },
   fpsLimit: 60,
   interactivity: {
     events: {
@@ -29,20 +25,19 @@ export const defaultOptions: ISourceOptions = {
     },
     number: {
       density: { enable: true },
-      value: 120,
+      value: 150,
     },
     opacity: {
-      value: { min: 0.1, max: 0.4 },
+      value: { min: 0.25, max: 0.5 },
       animation: {
         enable: true,
         speed: 0.5,
-
         sync: false,
       },
     },
     shape: { type: "circle" },
     size: {
-      value: { min: 1, max: 3 },
+      value: { min: 0.5, max: 2 },
       animation: {
         enable: true,
         speed: 1,
