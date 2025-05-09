@@ -4,9 +4,9 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { auth } from "../auth";
-import { ParticlesComponent } from "@/components/particles/particles-component";
-import Image from "next/image";
+
 import { ArrowDown } from "lucide-react";
+import AuroraHero from "@/lib/home/aurora-hero";
 
 export default async function Home() {
   const session = await auth();
@@ -49,7 +49,7 @@ export default async function Home() {
             </div>
           )}
 
-          <div className="mt-10 flex flex-col gap-2 items-center justify-center group cursor-pointer">
+          <div className="mt-10 flex flex-col gap-2 items-center justify-center group cursor-pointer ">
             <span className="text-base text-muted-foreground group-hover:text-foreground transition-colors">
               Learn more
             </span>
@@ -58,25 +58,8 @@ export default async function Home() {
               size={20}
             />
           </div>
+          <AuroraHero />
         </section>
-        <div className="-translate-y-[300px]">
-          <div className="relative max-w-7xl mx-auto overflow-hidden h-[500px]">
-            <ParticlesComponent className="w-full h-full -z-20" />
-          </div>
-
-          <div className="relative h-full w-full bg-slate-950">
-            <div className="absolute -top-180 left-0 right-0 h-[1248px] w-[1248px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))] m-auto -z-10"></div>
-          </div>
-          <div className="relative">
-            <Image
-              src="/images/dashboard_placeholder.webp"
-              alt="Dashboard"
-              width={1000}
-              height={500}
-              className="mx-auto rounded-sm border border-muted-foreground/20 shadow-xl absolute inset-0 -translate-y-50"
-            />
-          </div>
-        </div>
       </main>
     </>
   );
