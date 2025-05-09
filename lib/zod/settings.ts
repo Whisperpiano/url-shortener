@@ -26,3 +26,9 @@ export const SubscribeToProductUpdatesSchema = z.object({
 export type SubscribeToProductUpdatesTypes = z.infer<
   typeof SubscribeToProductUpdatesSchema
 >;
+
+export const AvatarSettingsSchema = z.object({
+  avatarUrl: z.string().url(),
+});
+
+export type AvatarSettingsTypes = z.infer<typeof AvatarSettingsSchema>;

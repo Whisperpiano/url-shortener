@@ -1,28 +1,25 @@
 import { auth } from "@/app/auth";
 import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
+import AvatarSettings from "@/components/settings/avatar-settings";
 import DeleteAccountSettings from "@/components/settings/delete-account-settings";
 import NameSettings from "@/components/settings/name-settings";
 import ProductUpdatesSettings from "@/components/settings/product-updates-settings";
 import ThemeSettings from "@/components/settings/theme-settings";
 // import ThemeSettings from "@/components/settings/theme-settings";
-import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { getUserById } from "@/lib/queries/users";
-import { CloudUpload, Save } from "lucide-react";
-import Image from "next/image";
 
 export default async function Settings() {
   const session = await auth();
   const user = await getUserById(session?.user?.id || "");
+
+  console.log(session);
 
   if (!user.data) {
     return <div>{user.error}</div>;
@@ -68,39 +65,12 @@ export default async function Settings() {
                 Upload a profile picture to represent your account.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <form>
-                <div>
-                  <Label
-                    htmlFor="picture"
-                    className="relative inline-flex border-2 border-muted-foreground/20 rounded-full aspect-square group cursor-pointer overflow-hidden"
-                  >
-                    <Image
-                      src={session?.user?.image || "/placeholder.png"}
-                      alt="Profile picture"
-                      width={54}
-                      height={54}
-                      className="rounded-full object-cover group-hover:opacity-0 transition "
-                    />
-                    <CloudUpload
-                      size={16}
-                      className="absolute inset-0 m-auto opacity-0 transition group-hover:opacity-100"
-                    />
-                  </Label>
-                  <Input id="picture" type="file" className="hidden" />
-                </div>
-              </form>
-            </CardContent>
-            <CardFooter className="flex items-center justify-between border-t border-muted-foreground/20">
-              <span className="text-sm text-muted-foreground">
-                Square image recommended. Accepted file types: .png, .jpg. Max
-                file size: 2MB.
-              </span>
-              <Button variant="outline">
-                <Save />
-                Save changes
-              </Button>
-            </CardFooter>
+            <AvatarSettings
+              userAvatar={
+                user.data.image ||
+                "https://plus.unsplash.com/premium_photo-1674168441558-d73e95b2b751?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              }
+            />
           </Card>
 
           {/* Theme options */}
