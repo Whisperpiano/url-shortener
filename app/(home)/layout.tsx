@@ -1,6 +1,7 @@
 import React from "react";
-import Background from "@/components/layout/Background";
+
 import Header from "@/components/layout/Header";
+import Background from "@/components/layout/Background";
 
 export default function HomeLayout({
   children,

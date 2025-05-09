@@ -1,11 +1,10 @@
-import { FaLink } from "react-icons/fa";
+import { auth } from "@/app/auth";
 
-import Link from "next/link";
 import SearchBar from "../header/SearchBar";
 import ToggleTheme from "../header/ToggleTheme";
 import AuthModal from "../header/AuthModal";
 import AccountModal from "../header/AccountModal";
-import { auth } from "@/app/auth";
+import Logo from "./logo";
 
 export default async function Header() {
   const session = await auth();
@@ -13,21 +12,20 @@ export default async function Header() {
 
   return (
     <header className="max-w-7xl mx-auto p-4 flex items-center justify-between">
-      <Link
-        href={"/"}
-        className="flex items-center gap-2 hover:opacity-85 transition-opacity duration-200"
-      >
-        <FaLink />
-        <h1 className="font-mono tracking-widest font-medium text-base">
-          Shortly
-        </h1>
-      </Link>
-
-      <div className="flex items-center gap-2">
-        <SearchBar />
-        <ToggleTheme />
-        {session ? <AccountModal session={session} /> : <AuthModal />}
-      </div>
+      <Logo />
+      <nav>
+        <ul className="flex items-center gap-2">
+          <li>
+            <SearchBar />
+          </li>
+          <li>
+            <ToggleTheme />
+          </li>
+          <li>
+            {session ? <AccountModal session={session} /> : <AuthModal />}
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 }

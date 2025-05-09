@@ -4,6 +4,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { auth } from "../auth";
+import { ParticlesComponent } from "@/components/particles/particles-component";
 
 export default async function Home() {
   const session = await auth();
@@ -26,6 +27,8 @@ export default async function Home() {
             seconds. Start simplifying your links today!
           </p>
 
+          {/* <ParticlesContainer /> */}
+
           {session ? (
             <Link
               href="/dashboard"
@@ -39,6 +42,10 @@ export default async function Home() {
           ) : (
             <AuthModal btnText="Get Started" />
           )}
+
+          <div className="relative max-w-7xl mx-auto overflow-hidden h-[500px]">
+            <ParticlesComponent className="w-full h-full -z-20" />
+          </div>
         </section>
       </main>
     </>
