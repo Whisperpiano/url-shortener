@@ -8,6 +8,7 @@ import { auth } from "../auth";
 import { ArrowDown } from "lucide-react";
 import AuroraHero from "@/lib/home/aurora-hero";
 import FeaturesSection from "@/lib/home/features-section";
+import GlobeSection from "@/lib/home/globe-section";
 
 export default async function Home() {
   const session = await auth();
@@ -68,6 +69,7 @@ export default async function Home() {
           </div>
         </section>
         <FeaturesSection />
+        <GlobeSection />
       </main>
     </>
   );

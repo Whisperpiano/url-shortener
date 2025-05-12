@@ -38,6 +38,7 @@
     "cloudinary": "^2.6.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.0",
+    "cobe": "^0.6.3",
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.41.0",
     "drizzle-zod": "^0.7.0",
