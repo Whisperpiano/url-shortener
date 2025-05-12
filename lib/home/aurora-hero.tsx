@@ -9,6 +9,7 @@ import {
 import { ParticlesComponent } from "@/components/particles/particles-component";
 import Image from "next/image";
 import { useEffect } from "react";
+import { BorderBeam } from "@/components/magicui/border-beam";
 
 const COLORS = ["rgba(236, 72, 228, 0.3)", "rgba(168, 85, 247, 0.4)"];
 
@@ -64,13 +65,24 @@ export default function AuroraHero() {
           }}
         />
       </div>
-      <div className="relative">
+      <div className="relative h-fit w-fit mx-auto rounded-sm -translate-y-[160px]">
         <Image
           src="/images/dashboard_placeholder.webp"
           alt="Dashboard"
           width={1000}
           height={500}
-          className="mx-auto rounded-sm border border-muted-foreground/20 shadow-xl absolute inset-0 -translate-y-50"
+          className="mx-auto rounded-sm border border-muted-foreground/20 shadow-xl "
+        />
+        <BorderBeam
+          duration={6}
+          size={500}
+          className="from-pink-500/10 via-purple-500/80 to-pink-500/10"
+        />
+        <BorderBeam
+          duration={6}
+          delay={3}
+          size={500}
+          className="from-purple-500/10 via-pink-500/80 to-purple-500/10"
         />
       </div>
     </div>
