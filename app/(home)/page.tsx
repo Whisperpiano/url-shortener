@@ -7,13 +7,17 @@ import { auth } from "../auth";
 
 import { ArrowDown } from "lucide-react";
 import AuroraHero from "@/lib/home/aurora-hero";
+import FeaturesSection from "@/lib/home/features-section";
 
 export default async function Home() {
   const session = await auth();
   return (
     <>
       <main className="max-w-7xl mx-auto px-4">
-        <section className="text-center relative h-full w-full py-32">
+        <section
+          className="text-center relative h-full w-full py-32 overflow-hidden mask-l-from-80% mask-l-to-100%
+        mask-r-from-80% mask-r-to-100% mask-b-from-80% mask-b-to-100%"
+        >
           <h2 className="font-mono font-semibold text-7xl flex flex-col gap-2">
             <span>Shorten your links </span>
             <span>
@@ -58,8 +62,12 @@ export default async function Home() {
               size={20}
             />
           </div>
-          <AuroraHero />
+
+          <div className="mt-10">
+            <AuroraHero />
+          </div>
         </section>
+        <FeaturesSection />
       </main>
     </>
   );

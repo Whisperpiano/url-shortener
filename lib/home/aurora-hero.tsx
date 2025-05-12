@@ -15,8 +15,8 @@ const COLORS = ["rgba(236, 72, 228, 0.3)", "rgba(168, 85, 247, 0.4)"];
 export default function AuroraHero() {
   const color = useMotionValue(COLORS[0]);
   const background = useMotionTemplate`radial-gradient(circle, ${color} 15%, rgba(236, 72, 73, 0) 75%)`;
-  const border = useMotionTemplate`1px solid ${color}`;
-  const boxShadow = useMotionTemplate`0px 4px 24px ${color}`;
+  // const border = useMotionTemplate`1px solid ${color}`;
+  // const boxShadow = useMotionTemplate`0px 4px 24px ${color}`;
 
   useEffect(() => {
     animate(color, COLORS, {
@@ -29,12 +29,12 @@ export default function AuroraHero() {
 
   return (
     <div className="-translate-y-[300px]">
-      <motion.button
+      {/* <motion.button
         style={{ border, boxShadow }}
         className="group relative flex w-fit items-center gap-1.5 rounded-full bg-background px-4 py-2 transition-colors"
       >
         START HERE
-      </motion.button>
+      </motion.button> */}
       <div className="relative max-w-7xl mx-auto overflow-hidden h-[500px]">
         <ParticlesComponent className="w-full h-full -z-20" />
       </div>
