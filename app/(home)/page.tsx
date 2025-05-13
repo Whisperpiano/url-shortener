@@ -7,14 +7,14 @@ import { auth } from "../auth";
 
 import { ArrowDown } from "lucide-react";
 import AuroraHero from "@/lib/home/aurora-hero";
-import FeaturesSection from "@/lib/home/features-section";
-import GlobeSection from "@/lib/home/globe-section";
 
 export default async function Home() {
   const session = await auth();
   return (
     <>
-      <main className="max-w-7xl mx-auto px-4">
+      <main className="relative max-w-7xl mx-auto px-4">
+        {/* esto es lo de tailwind */}
+        {/* <div className="absolute top-0 -left-4 md:-left-14 h-full w-4 md:w-14 text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50"></div> */}
         <section
           className="text-center relative h-full w-full py-32 overflow-hidden mask-l-from-80% mask-l-to-100%
         mask-r-from-80% mask-r-to-100% mask-b-from-80% mask-b-to-100%"
@@ -68,8 +68,6 @@ export default async function Home() {
             <AuroraHero />
           </div>
         </section>
-        <FeaturesSection />
-        <GlobeSection />
       </main>
     </>
   );

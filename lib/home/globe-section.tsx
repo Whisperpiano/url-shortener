@@ -1,3 +1,4 @@
+import { Globe } from "@/components/magicui/globe";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 
 const Icons = {
@@ -376,31 +377,36 @@ const Icons = {
 export default function GlobeSection() {
   return (
     <section className="my-30 border p-4 ">
-      <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden">
-        <OrbitingCircles iconSize={35}>
-          <Icons.nextjs />
-          <Icons.react />
-          <Icons.typescript />
-          <Icons.tailwind />
-          <Icons.framer />
-        </OrbitingCircles>
-        <OrbitingCircles iconSize={28} radius={100} reverse speed={2}>
-          <Icons.drizzle />
-          <Icons.turso />
-          <Icons.cloudinary />
-          <Icons.authjs />
-          <Icons.zod />
-        </OrbitingCircles>
-      </div>
-      {/* <div className="text-center">
-        <h2 className="text-4xl font-bold  mb-12">Built to scale</h2>
-        <p>Our architecture is built to scale with ease.</p>
+      <div>
+        <h2 className="text-center text-4xl font-bold">
+          Built with the best in class
+        </h2>
       </div>
 
-      <div className="relative size-full">
-        <Globe className="top-0 right-0" />
-        <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
-      </div> */}
+      <div className="flex">
+        <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden ">
+          <div className="absolute inset-0 aspect-square rounded-full w-[320px] bg-gradient-to-br from-foreground/5 via-transparent to-transparent m-auto" />
+          <OrbitingCircles iconSize={35}>
+            <Icons.nextjs />
+            <Icons.react />
+            <Icons.typescript />
+            <Icons.tailwind />
+            <Icons.framer />
+          </OrbitingCircles>
+          <OrbitingCircles iconSize={28} radius={100} reverse speed={2}>
+            <Icons.drizzle />
+            <Icons.turso />
+            <Icons.cloudinary />
+            <Icons.authjs />
+            <Icons.zod />
+          </OrbitingCircles>
+        </div>
+
+        <div className="relative size-full">
+          <Globe className="top-0 right-0 h-[500px] w-[500px]" />
+          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
+        </div>
+      </div>
     </section>
   );
 }
