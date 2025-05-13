@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FaLink } from "react-icons/fa";
+import { Badge } from "../ui/badge";
 
 export default function Logo() {
   return (
@@ -8,9 +9,12 @@ export default function Logo() {
       className="flex items-center gap-2 hover:opacity-85 transition-opacity duration-200"
     >
       <FaLink />
-      <h1 className="font-mono tracking-widest font-medium text-base">
-        Shortly
+      <h1 className="font-mono tracking-widest font-medium text-lg">
+        Shortleap
       </h1>
+      <Badge className="text-xs uppercase cursor-default" variant={"secondary"}>
+        beta
+      </Badge>
     </Link>
   );
 }

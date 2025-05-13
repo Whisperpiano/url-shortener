@@ -1,23 +1,18 @@
 import AuthModal from "@/components/header/AuthModal";
-
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import { auth } from "../auth";
-
-import { ArrowDown } from "lucide-react";
+import { ParticlesComponent } from "@/components/particles/particles-component";
 import AuroraHero from "@/lib/home/aurora-hero";
 
 export default async function Home() {
-  const session = await auth();
   return (
     <>
-      <main className="relative max-w-7xl mx-auto px-4">
-        {/* esto es lo de tailwind */}
-        {/* <div className="absolute top-0 -left-4 md:-left-14 h-full w-4 md:w-14 text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50"></div> */}
+      <main className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] max-h-[calc(100vh-85px)] overflow-hidden">
+        {/* Dashed left border */}
+        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x"></div>
+
+        {/* Hero */}
         <section
           className="text-center relative h-full w-full py-32 overflow-hidden mask-l-from-80% mask-l-to-100%
-        mask-r-from-80% mask-r-to-100% mask-b-from-80% mask-b-to-100%"
+        mask-r-from-80% mask-r-to-100% mask-b-from-80% mask-b-to-100% "
         >
           <h2 className="font-mono font-semibold text-7xl flex flex-col gap-2">
             <span>Shorten your links </span>
@@ -36,38 +31,18 @@ export default async function Home() {
             seconds. Start simplifying your links today!
           </p>
 
-          {/* <ParticlesContainer /> */}
-
-          {session ? (
-            <Link
-              href="/dashboard"
-              className={cn(
-                buttonVariants({ variant: "default" }),
-                "cursor-pointer"
-              )}
-            >
-              Go to dashboard
-            </Link>
-          ) : (
-            <div className="mt-10">
-              <AuthModal btnText="Get Started" />
-            </div>
-          )}
-
-          <div className="mt-10 flex flex-col gap-2 items-center justify-center group cursor-pointer ">
-            <span className="text-base text-muted-foreground group-hover:text-foreground transition-colors">
-              Learn more
-            </span>
-            <ArrowDown
-              className="text-muted-foreground group-hover:text-foreground transition-colors"
-              size={20}
-            />
+          <div className="mt-10">
+            <AuthModal btnText="Get Started" />
           </div>
 
-          <div className="mt-10">
+          <ParticlesComponent className="absolute h-1/2 top-0 w-full -z-20" />
+
+          <div className="mt-30 px-6">
             <AuroraHero />
           </div>
         </section>
+        {/* Dashed right border */}
+        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x"></div>
       </main>
     </>
   );

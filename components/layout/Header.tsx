@@ -8,24 +8,29 @@ import Logo from "./logo";
 
 export default async function Header() {
   const session = await auth();
-  console.log(session);
 
   return (
-    <header className="max-w-7xl mx-auto p-4 flex items-center justify-between">
-      <Logo />
-      <nav>
-        <ul className="flex items-center gap-2">
-          <li>
-            <SearchBar />
-          </li>
-          <li>
-            <ToggleTheme />
-          </li>
-          <li>
-            {session ? <AccountModal session={session} /> : <AuthModal />}
-          </li>
-        </ul>
-      </nav>
+    <header className="bg-background/5 backdrop-blur border-b">
+      <div className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
+        <div className="border-x"></div>
+        <div className="flex items-center justify-between p-6">
+          <Logo />
+          <nav>
+            <ul className="flex items-center gap-2">
+              <li>
+                <SearchBar />
+              </li>
+              <li>
+                <ToggleTheme />
+              </li>
+              <li>
+                {session ? <AccountModal session={session} /> : <AuthModal />}
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div className="border-x"></div>
+      </div>
     </header>
   );
 }
