@@ -10,10 +10,7 @@ export default async function Home() {
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x"></div>
 
         {/* Hero */}
-        <section
-          className="text-center relative h-full w-full py-32 overflow-hidden mask-l-from-80% mask-l-to-100%
-        mask-r-from-80% mask-r-to-100% mask-b-from-80% mask-b-to-100% "
-        >
+        <section className="text-center relative h-full w-full py-32 overflow-hidden  ">
           <h2 className="font-mono font-semibold text-7xl flex flex-col gap-2">
             <span>Shorten your links </span>
             <span>
