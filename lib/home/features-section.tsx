@@ -50,7 +50,7 @@ const features = [
 
 export default function FeaturesSection() {
   return (
-    <section className="grid grid-cols-1 gap-4 md:grid-cols-3 p-4 bg-muted-foreground/5">
+    <section className="grid grid-cols-1 gap-4 md:grid-cols-3 p-4 bg-muted-foreground/5 ">
       {features.map((feature) => {
         const Icon = feature.icon;
         return (

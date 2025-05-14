@@ -1,7 +1,7 @@
 import { Globe } from "@/components/magicui/globe";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 
-const Icons = {
+export const Icons = {
   nextjs: () => (
     <svg
       width="180"

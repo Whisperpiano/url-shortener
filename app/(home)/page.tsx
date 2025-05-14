@@ -2,6 +2,7 @@ import AuthModal from "@/components/header/AuthModal";
 import { ParticlesComponent } from "@/components/particles/particles-component";
 import AuroraHero from "@/lib/home/aurora-hero";
 import FeaturesSection from "@/lib/home/features-section";
+import StackSection from "@/lib/home/stack-section";
 
 export default async function Home() {
   return (
@@ -42,12 +43,30 @@ export default async function Home() {
         {/* Dashed right border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x"></div>
       </main>
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
+
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-t">
         {/* Dashed left border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
 
         <div>
-          <div className="py-24 px-6 border-y ">
+          <div className="py-24 px-6 border-b">
+            <p className="text-muted-foreground text-balance font-semibold text-lg text-center">
+              You are in good company
+            </p>
+          </div>
+          {/* <FeaturesSection /> */}
+        </div>
+
+        {/* Dashed left border */}
+        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
+      </section>
+
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-t">
+        {/* Dashed left border */}
+        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
+
+        <div>
+          <div className="py-24 px-6 border-b ">
             <h2 className="flex items-center  gap-2.5 text-5xl font-medium tracking-tighter pb-1.5 ">
               Explore features that
               <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent bg-foreground">
@@ -60,6 +79,30 @@ export default async function Home() {
             </p>
           </div>
           <FeaturesSection />
+        </div>
+
+        {/* Dashed left border */}
+        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
+      </section>
+
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-t">
+        {/* Dashed left border */}
+        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
+
+        <div>
+          <div className="py-24 px-6 border-b ">
+            <h2 className="flex items-center  gap-2.5 text-5xl font-medium tracking-tighter pb-1.5 ">
+              Built to perform, ready to
+              <span className="bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent bg-foreground">
+                scale
+              </span>
+            </h2>
+            <p className="text-muted-foreground text-balance font-normal text-lg">
+              From a solid tech stack to worldwide click tracking. Everything
+              you need for a powerful URL shortener
+            </p>
+          </div>
+          <StackSection />
         </div>
 
         {/* Dashed left border */}
