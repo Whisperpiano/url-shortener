@@ -1,7 +1,5 @@
-"use client";
-
 import { MagicCard } from "@/components/magicui/magic-card";
-import clsx from "clsx";
+
 import {
   Link as LinkIcon,
   PencilLine,
@@ -10,14 +8,12 @@ import {
   Hourglass,
   Github,
 } from "lucide-react";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 
 const features = [
   {
     title: "URL Shortening",
     description:
-      "Transform long, messy links into clean, short URLs in a single click.",
+      "Transform long, messy links into clean, short URLs in a single click or copy-paste.",
     icon: LinkIcon,
   },
   {
@@ -29,7 +25,7 @@ const features = [
   {
     title: "Analytics Dashboard",
     description:
-      "Track clicks, referrers, geolocation data, and performance over time with a simple, clear dashboard.",
+      "Track clicks,  geolocation data, and performance over time with a simple, clear dashboard.",
     icon: BarChart3,
   },
   {
@@ -47,57 +43,46 @@ const features = [
   {
     title: "Open Source & Self-Hostable",
     description:
-      "Fully open source on GitHub — deploy it yourself or contribute to the project and help shape its future.",
+      "Fully open source on GitHub, deploy it yourself or contribute to the project and help shape its future.",
     icon: Github,
   },
 ];
 
 export default function FeaturesSection() {
-  const [mounted, setMountd] = useState(false);
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    setMountd(true);
-  }, []);
-
   return (
-    <section className="my-30 border p-4 ">
-      <h2 className="text-4xl font-bold text-center mb-12">
-        Powerful features
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 divide-x divide-y divide border ">
-        {features.map((feature) => {
-          const Icon = feature.icon;
-          return (
-            <MagicCard
-              gradientColor={clsx(
-                mounted && theme === "dark" ? "#262626" : "#D9D9D955"
-              )}
-              className="p-0 z-20"
-              key={feature.title}
-            >
-              <div
-                key={feature.title}
-                className="group relative flex items-center gap-8 py-16 px-8 transition duration-300 hover:outline hover:outline-offset-[-1px] hover:outline-violet-500 overflow-hidden "
-              >
-                <div className=" aspect-square size-20 grid place-content-center rounded-lg bg-background border-2 border-violet-500/50 transition-all duration-300 group-hover:rotate-3 group-hover:scale-105 group-hover:border-violet-500">
-                  <Icon className="size-8 text-violet-500 transition-all duration-300 group-hover:drop-shadow-[0_0_20px_rgba(139,92,246,1)] group-hover:text-violet-400 group-hover:animate-jiggle" />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-xl font-semibold transition-colors duration-300 group-hover:text-violet-400">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground transition-colors duration-300 group-hover:text-zinc-300">
-                    {feature.description}
-                  </p>
-                </div>
-
-                <div className="absolute inset-0 h-full w-full bg-transparent bg-[linear-gradient(to_right,#4f4f4f50_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f50_1px,transparent_1px)] bg-[size:2rem_2rem] mask-r-from-1% mask-b-to-100% transition-opacity duration-500 group-hover:opacity-80 z-10" />
+    <section className="grid grid-cols-1 gap-4 md:grid-cols-3 p-4 bg-muted-foreground/5">
+      {features.map((feature) => {
+        const Icon = feature.icon;
+        return (
+          <MagicCard
+            gradientColor="oklch(0.552 0.016 285.938 / 0.2)"
+            className="rounded-sm group relative overflow-hidden "
+            key={feature.title}
+          >
+            <div className="p-8 flex flex-col gap-4">
+              <div className="aspect-square size-16 grid place-content-center rounded-sm border border-violet-400/40 bg-background shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:rotate-2 group-hover:border-violet-500">
+                <Icon
+                  size={24}
+                  className="text-violet-400 transition-all duration-300 group-hover:text-violet-400 group-hover:drop-shadow-glow group-hover:animate-jiggle"
+                />
               </div>
-            </MagicCard>
-          );
-        })}
-      </div>
+
+              <div className="flex flex-col gap-2">
+                <h3 className="text-xl font-semibold group-hover:text-violet-400 transition-colors duration-300">
+                  {feature.title}
+                </h3>
+                <p className="text-base text-muted-foreground group-hover:text-accent-foreground transition-colors duration-300 ">
+                  {feature.description}
+                </p>
+              </div>
+
+              <div className="absolute inset-0 h-full w-full bg-transparent bg-[linear-gradient(to_right,#4f4f4f50_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f50_1px,transparent_1px)] bg-[size:2rem_2rem] mask-l-from-1% mask-b-to-100% transition-opacity duration-500 group-hover:opacity-80 z-10" />
+            </div>
+          </MagicCard>
+        );
+      })}
+
+      <div className="border-l"></div>
     </section>
   );
 }
