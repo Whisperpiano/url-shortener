@@ -2,12 +2,16 @@ import AuthModal from "@/components/header/AuthModal";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { ParticlesComponent } from "@/components/particles/particles-component";
 import PixelCanvas from "@/components/PixelCanvas";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { fetchGitHubStats } from "@/lib/actions/github/github-stats";
 import AuroraHero from "@/lib/home/aurora-hero";
 import FeaturesSection from "@/lib/home/features-section";
 import SponsorsSection from "@/lib/home/sponsors-section";
 import StackSection from "@/lib/home/stack-section";
+import { cn } from "@/lib/utils";
+import { Mail, MailIcon } from "lucide-react";
+import Link from "next/link";
+import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiGithub } from "react-icons/si";
 
 export default async function Home() {
@@ -175,7 +179,7 @@ export default async function Home() {
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
       </section>
 
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-y mb-10">
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-y">
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
 
         <div>
@@ -190,44 +194,54 @@ export default async function Home() {
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
       </section>
 
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-y mb-10  ">
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-y   ">
         {/* Dashed left border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
 
-        <footer className="bg-white rounded-lg shadow-sm m-4 dark:bg-gray-800">
-          <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-            <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-              © 2023{" "}
-              <a href="https://flowbite.com/" className="hover:underline">
-                Flowbite™
-              </a>
-              . All Rights Reserved.
-            </span>
-            <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-              <li>
-                <a href="#" className="hover:underline me-4 md:me-6">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline me-4 md:me-6">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline me-4 md:me-6">
-                  Licensing
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline">
-                  Contact
-                </a>
-              </li>
-            </ul>
+        <footer className="shadow sm:flex sm:items-center sm:justify-between p-4 sm:p-6 xl:p-8 antialiased">
+          <p className="mb-4 text-sm text-center text-muted-foreground sm:mb-0">
+            &copy; 2025 Shortleap Inc.
+          </p>
+
+          <div className="flex justify-center items-center space-x-4">
+            <Link
+              href="https://github.com/Whisperpiano"
+              data-tooltip-target="tooltip-facebook"
+              className={cn(
+                buttonVariants({ variant: "ghost", size: "icon" }),
+                "group"
+              )}
+              target="_blank"
+            >
+              <FaGithub className="text-muted-foreground group-hover:text-foreground transition-colors" />
+              <span className="sr-only">Facebook</span>
+            </Link>
+            <Link
+              href="https://www.linkedin.com/in/jes%C3%BAs-alberola-herrero-896b61189/"
+              data-tooltip-target="tooltip-facebook"
+              className={cn(
+                buttonVariants({ variant: "ghost", size: "icon" }),
+                "group"
+              )}
+              target="_blank"
+            >
+              <FaLinkedin className="text-muted-foreground group-hover:text-foreground transition-colors" />
+              <span className="sr-only">Facebook</span>
+            </Link>
+            <Link
+              href="mailto:jesusalberola90@gmail.com"
+              data-tooltip-target="tooltip-facebook"
+              className={cn(
+                buttonVariants({ variant: "ghost", size: "icon" }),
+                "group"
+              )}
+              target="_blank"
+            >
+              <Mail className="text-muted-foreground group-hover:text-foreground transition-colors" />
+              <span className="sr-only">Facebook</span>
+            </Link>
           </div>
         </footer>
-
         {/* Dashed left border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
       </section>
