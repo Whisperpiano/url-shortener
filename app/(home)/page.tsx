@@ -1,10 +1,18 @@
 import AuthModal from "@/components/header/AuthModal";
+import { NumberTicker } from "@/components/magicui/number-ticker";
 import { ParticlesComponent } from "@/components/particles/particles-component";
+import PixelCanvas from "@/components/PixelCanvas";
+import { Button } from "@/components/ui/button";
+import { fetchGitHubStats } from "@/lib/actions/github/github-stats";
 import AuroraHero from "@/lib/home/aurora-hero";
 import FeaturesSection from "@/lib/home/features-section";
+import SponsorsSection from "@/lib/home/sponsors-section";
 import StackSection from "@/lib/home/stack-section";
+import { SiGithub } from "react-icons/si";
 
 export default async function Home() {
+  const { stars, contributors, pulls } = await fetchGitHubStats();
+
   return (
     <>
       <main className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] max-h-[calc(100vh-85px)] overflow-hidden ">
@@ -53,8 +61,8 @@ export default async function Home() {
             <p className="text-muted-foreground text-balance font-semibold text-lg text-center">
               You are in good company
             </p>
+            <SponsorsSection />
           </div>
-          {/* <FeaturesSection /> */}
         </div>
 
         {/* Dashed left border */}
@@ -104,6 +112,115 @@ export default async function Home() {
           </div>
           <StackSection />
         </div>
+
+        {/* Dashed left border */}
+        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
+      </section>
+
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-y">
+        {/* Dashed left border */}
+        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
+        <div className="relative bg-gradient-to-br from-violet-950 via-pink-950 to-purple-950 ">
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-background to-transparent z-10"></div>
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-50">
+            <h2 className="tracking-tighter font-semibold text-5xl">
+              Open source?
+              <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent ml-4 mr-3">
+                Of course!
+              </span>
+            </h2>
+            <p className="text-muted-foreground text-balance font-normal text-lg max-w-2xl text-center mt-4">
+              Shortleap is proudly open source. That means you’re free to
+              explore the code, suggest improvements, and help shape the future
+              of the project.
+            </p>
+            <div className="mt-12">
+              <Button
+                variant={"default"}
+                className="w-full cursor-pointer"
+                size={"lg"}
+              >
+                <SiGithub />
+                View on GitHub
+              </Button>
+            </div>
+
+            <div className="flex mt-20">
+              <div className="flex flex-col items-center justify-center gap-3 min-w-[250px]">
+                <div className="text-5xl font-semibold bg-gradient-to-r from-foreground to-foreground/50 text-transparent bg-clip-text">
+                  <NumberTicker value={stars} />
+                  <span>+</span>
+                </div>
+                <span className="text-muted-foreground text-balance font-medium text-sm uppercase tracking-tighter ">
+                  Github Stars
+                </span>
+              </div>
+
+              <div className="flex flex-col items-center justify-center gap-3 min-w-[250px] border-x-2 ">
+                <div className="text-5xl font-semibold bg-gradient-to-r from-foreground to-foreground/50 text-transparent bg-clip-text">
+                  <NumberTicker value={contributors} />
+                  <span>+</span>
+                </div>
+                <span className="text-muted-foreground text-balance font-medium text-sm uppercase tracking-tighter ">
+                  Contributors
+                </span>
+              </div>
+
+              <div className="flex flex-col items-center justify-center gap-3 min-w-[250px]">
+                <div className="text-5xl font-semibold bg-gradient-to-r from-foreground to-foreground/50 text-transparent bg-clip-text">
+                  <NumberTicker value={pulls} />
+                  <span>+</span>
+                </div>
+                <span className="text-muted-foreground text-balance font-medium text-sm uppercase tracking-tighter ">
+                  Pull Requests
+                </span>
+              </div>
+            </div>
+          </div>
+          <PixelCanvas className="w-full opacity-20 " />
+        </div>
+
+        {/* Dashed left border */}
+        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
+      </section>
+
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-y mb-10  ">
+        {/* Dashed left border */}
+        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
+
+        <footer className="bg-white rounded-lg shadow-sm m-4 dark:bg-gray-800">
+          <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+            <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+              © 2023{" "}
+              <a href="https://flowbite.com/" className="hover:underline">
+                Flowbite™
+              </a>
+              . All Rights Reserved.
+            </span>
+            <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+              <li>
+                <a href="#" className="hover:underline me-4 md:me-6">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline me-4 md:me-6">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline me-4 md:me-6">
+                  Licensing
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+        </footer>
 
         {/* Dashed left border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
