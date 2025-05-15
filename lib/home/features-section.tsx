@@ -59,7 +59,7 @@ export default function FeaturesSection() {
             className="rounded-sm group relative overflow-hidden "
             key={feature.title}
           >
-            <div className="p-8 flex flex-col gap-4">
+            <div className="p-6 flex flex-col gap-6">
               <div className="aspect-square size-16 grid place-content-center rounded-sm border border-violet-400/40 bg-background shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:rotate-2 group-hover:border-violet-500">
                 <Icon
                   size={24}
@@ -75,14 +75,11 @@ export default function FeaturesSection() {
                   {feature.description}
                 </p>
               </div>
-
-              <div className="absolute inset-0 h-full w-full bg-transparent bg-[linear-gradient(to_right,#4f4f4f50_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f50_1px,transparent_1px)] bg-[size:2rem_2rem] mask-l-from-1% mask-b-to-100% transition-opacity duration-500 group-hover:opacity-80 z-10" />
+              <div className="absolute inset-0 h-full w-full bg-transparent bg-[linear-gradient(to_right,#4f4f4f50_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f50_1px,transparent_1px)] bg-[size:2rem_2rem] mask-l-from-1% mask-b-to-100% transition-opacity duration-500 group-hover:opacity-80 z-10 " />
             </div>
           </MagicCard>
         );
       })}
-
-      <div className="border-l"></div>
     </section>
   );
 }

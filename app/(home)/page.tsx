@@ -1,10 +1,8 @@
 import AuthModal from "@/components/header/AuthModal";
-import { NumberTicker } from "@/components/magicui/number-ticker";
 import { ParticlesComponent } from "@/components/particles/particles-component";
-import PixelCanvas from "@/components/PixelCanvas";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { fetchGitHubStats } from "@/lib/actions/github/github-stats";
+import { buttonVariants } from "@/components/ui/button";
 import AuroraHero from "@/lib/home/aurora-hero";
+import ContributeSection from "@/lib/home/contribute-section";
 import FeaturesSection from "@/lib/home/features-section";
 import SponsorsSection from "@/lib/home/sponsors-section";
 import StackSection from "@/lib/home/stack-section";
@@ -12,11 +10,8 @@ import { cn } from "@/lib/utils";
 import { Mail } from "lucide-react";
 import Link from "next/link";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { SiGithub } from "react-icons/si";
 
 export default async function Home() {
-  const { stars, contributors, pulls } = await fetchGitHubStats();
-
   return (
     <>
       <main className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] max-h-[calc(100vh-85px)] overflow-hidden ">
@@ -56,7 +51,9 @@ export default async function Home() {
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x"></div>
       </main>
 
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-t">
+      <div className="h-[1px] border-b"></div>
+
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] ">
         {/* Dashed left border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
 
@@ -64,47 +61,57 @@ export default async function Home() {
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
       </section>
 
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-t">
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
         {/* Dashed left border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
 
         <div>
-          <div className="py-24 px-6 border-b ">
-            <h2 className="flex items-center  gap-2.5 text-5xl font-medium tracking-tighter pb-1.5 ">
+          <div className="h-[40px] border-b"></div>
+          <div className="py-32 px-6 border-b">
+            <h2 className="flex items-center justify-center gap-2.5 text-5xl font-medium tracking-tighter pb-4 ">
               Explore features that
               <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent bg-foreground">
                 matter
               </span>
             </h2>
-            <p className="text-muted-foreground text-balance font-normal text-lg">
+            <p className="text-muted-foreground text-balance font-normal text-lg text-center">
               Discover the core functionalities that make Shortleap a powerful
               tool for developers
             </p>
           </div>
-          <FeaturesSection />
+          <div className="h-[40px] border-b"></div>
+
+          <div>
+            <FeaturesSection />
+          </div>
         </div>
 
         {/* Dashed left border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
       </section>
 
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-t">
+      <div className="h-[1px] border-b"></div>
+
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
         {/* Dashed left border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
 
         <div>
-          <div className="py-24 px-6 border-b ">
-            <h2 className="flex items-center  gap-2.5 text-5xl font-medium tracking-tighter pb-1.5 ">
+          <div className="h-[40px] border-b"></div>
+          <div className="py-32 px-6 border-b ">
+            <h2 className="flex items-center justify-center gap-2.5 text-5xl font-medium tracking-tighter pb-4 ">
               Built to perform, ready to
               <span className="bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent bg-foreground">
                 scale
               </span>
             </h2>
-            <p className="text-muted-foreground text-balance font-normal text-lg">
+            <p className="text-muted-foreground text-balance font-normal text-lg text-center">
               From a solid tech stack to worldwide click tracking. Everything
               you need for a powerful URL shortener
             </p>
           </div>
+          <div className="h-[40px] border-b"></div>
+
           <StackSection />
         </div>
 
@@ -112,89 +119,42 @@ export default async function Home() {
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
       </section>
 
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-y">
-        {/* Dashed left border */}
-        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
-        <div className="relative bg-gradient-to-br from-violet-950 via-pink-950 to-purple-950 ">
-          <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-background to-transparent z-10"></div>
-          <div className="absolute inset-0 flex flex-col items-center justify-center z-50">
-            <h2 className="tracking-tighter font-semibold text-5xl">
-              Open source?
-              <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent ml-4 mr-3">
-                Of course!
-              </span>
-            </h2>
-            <p className="text-muted-foreground text-balance font-normal text-lg max-w-2xl text-center mt-4">
-              Shortleap is proudly open source. That means you’re free to
-              explore the code, suggest improvements, and help shape the future
-              of the project.
-            </p>
-            <div className="mt-12">
-              <Button
-                variant={"default"}
-                className="w-full cursor-pointer"
-                size={"lg"}
-              >
-                <SiGithub />
-                View on GitHub
-              </Button>
-            </div>
+      <div className="h-[1px] border-b"></div>
 
-            <div className="flex mt-20">
-              <div className="flex flex-col items-center justify-center gap-3 min-w-[250px]">
-                <div className="text-5xl font-semibold bg-gradient-to-r from-foreground to-foreground/50 text-transparent bg-clip-text">
-                  <NumberTicker value={stars} />
-                  <span>+</span>
-                </div>
-                <span className="text-muted-foreground text-balance font-medium text-sm uppercase tracking-tighter ">
-                  Github Stars
-                </span>
-              </div>
+      <ContributeSection />
 
-              <div className="flex flex-col items-center justify-center gap-3 min-w-[250px] border-x-2 ">
-                <div className="text-5xl font-semibold bg-gradient-to-r from-foreground to-foreground/50 text-transparent bg-clip-text">
-                  <NumberTicker value={contributors} />
-                  <span>+</span>
-                </div>
-                <span className="text-muted-foreground text-balance font-medium text-sm uppercase tracking-tighter ">
-                  Contributors
-                </span>
-              </div>
+      <div className="h-[1px] border-b"></div>
 
-              <div className="flex flex-col items-center justify-center gap-3 min-w-[250px]">
-                <div className="text-5xl font-semibold bg-gradient-to-r from-foreground to-foreground/50 text-transparent bg-clip-text">
-                  <NumberTicker value={pulls} />
-                  <span>+</span>
-                </div>
-                <span className="text-muted-foreground text-balance font-medium text-sm uppercase tracking-tighter ">
-                  Pull Requests
-                </span>
-              </div>
-            </div>
-          </div>
-          <PixelCanvas className="w-full opacity-20 " />
-        </div>
-
-        {/* Dashed left border */}
-        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
-      </section>
-
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-y">
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] ">
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
 
         <div>
-          <div>
-            <h2 className="py-24 px-6 border-b text-center text-muted-foreground text-balance font-semibold text-lg">
-              You are in good company
+          <div className="h-[40px] border-b"></div>
+
+          <div className="py-32 px-6 ">
+            <h2 className="flex items-center justify-center gap-2.5 text-5xl font-medium tracking-tighter pb-4 ">
+              You are in good
+              <span className="bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent bg-foreground">
+                company
+              </span>
             </h2>
+            <p className="text-muted-foreground text-balance font-normal text-lg text-center">
+              Designed with scalability and transparency in mind. Want to
+              support the project or become a sponsor?
+            </p>
           </div>
+          <div className="h-[40px] border-t"></div>
+
           <SponsorsSection />
+          <div className="h-[40px]"></div>
         </div>
 
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
       </section>
 
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-y   ">
+      <div className="h-[1px] border-b"></div>
+
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]   ">
         {/* Dashed left border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
 

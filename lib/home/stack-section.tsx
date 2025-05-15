@@ -7,12 +7,10 @@ export default function StackSection() {
     <section className="grid grid-cols-[0px_1fr_0px]">
       <div className="border-r"></div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 p-4 bg-muted-foreground/5 ">
-        <div className="border rounded-sm bg-background p-4">
-          <div className="mb-4">
-            <span className="text-xl font-medium ">
-              Built with modern tools
-            </span>
-            <p className=" text-base font-normal text-muted-foreground">
+        <div className="border rounded-sm bg-background p-6">
+          <div className="mb-6 flex flex-col gap-2">
+            <h3 className="text-xl font-semibold">Built with modern tools</h3>
+            <p className="text-base text-muted-foreground group-hover:text-accent-foreground transition-colors duration-300 ">
               Shortleap runs on a powerful and efficient tech stack, including
               Next.js, Turso, Prisma, and more. Built for speed, scalability,
               and developer happiness.
@@ -93,11 +91,9 @@ export default function StackSection() {
           </div>
         </div>
 
-        <div className="border rounded-sm bg-background p-4">
-          <div className="mb-4">
-            <span className="text-xl font-medium ">
-              Worldwide click tracking
-            </span>
+        <div className="border rounded-sm bg-background p-6">
+          <div className="mb-6 flex flex-col gap-2">
+            <h3 className="text-xl font-semibold">Worldwide click tracking</h3>
             <p className=" text-base font-normal text-muted-foreground">
               Track where your clicks are coming from in real time and across
               the globe. Get insights into link performance by country, region,
