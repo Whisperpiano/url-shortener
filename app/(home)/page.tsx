@@ -56,15 +56,6 @@ export default async function Home() {
         {/* Dashed left border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
 
-        <div>
-          <div className="py-24 px-6 border-b">
-            <p className="text-muted-foreground text-balance font-semibold text-lg text-center">
-              You are in good company
-            </p>
-            <SponsorsSection />
-          </div>
-        </div>
-
         {/* Dashed left border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
       </section>
@@ -181,6 +172,21 @@ export default async function Home() {
         </div>
 
         {/* Dashed left border */}
+        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
+      </section>
+
+      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] border-y mb-10">
+        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
+
+        <div>
+          <div>
+            <h2 className="py-24 px-6 border-b text-center text-muted-foreground text-balance font-semibold text-lg">
+              You are in good company
+            </h2>
+          </div>
+          <SponsorsSection />
+        </div>
+
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
       </section>
 
