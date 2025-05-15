@@ -9,9 +9,9 @@ import FeaturesSection from "@/lib/home/features-section";
 import SponsorsSection from "@/lib/home/sponsors-section";
 import StackSection from "@/lib/home/stack-section";
 import { cn } from "@/lib/utils";
-import { Mail, MailIcon } from "lucide-react";
+import { Mail } from "lucide-react";
 import Link from "next/link";
-import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiGithub } from "react-icons/si";
 
 export default async function Home() {
