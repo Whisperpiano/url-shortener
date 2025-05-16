@@ -19,7 +19,7 @@ export default async function Home() {
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
 
         {/* Hero */}
-        <section className="text-center relative h-full w-full py-32 overflow-hidden mask-b-from-60% mask-b-to-100%">
+        <section className="text-center relative h-full w-full py-32 overflow-hidden">
           <h2 className="font-mono font-semibold text-7xl flex flex-col gap-2">
             <span>Shorten your links </span>
             <span>
@@ -41,11 +41,12 @@ export default async function Home() {
             <AuthModal btnText="Get Started" />
           </div>
 
-          <ParticlesComponent className="absolute h-1/2 top-0 w-full -z-20" />
+          <ParticlesComponent className="absolute h-1/2 top-0 w-full" />
 
           <div className="mt-30 px-6">
             <AuroraHero />
           </div>
+          <ParticlesComponent />
         </section>
         {/* Dashed right border */}
         <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x"></div>

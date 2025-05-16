@@ -21,7 +21,7 @@ export default function SponsorsSection() {
           <Sponsor1 className="w-32 h-auto " />
         </div>
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-16 group-hover:translate-y-6 transition-all duration-300 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)]">
-          <span className="flex items-center gap-1.5 text-sm font-medium">
+          <span className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
             Learn More <ArrowRight size={16} />
           </span>
         </div>
@@ -35,7 +35,7 @@ export default function SponsorsSection() {
           <Sponsor2 className="w-32 h-auto " />
         </div>
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-16 group-hover:translate-y-6 transition-all duration-300 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)]">
-          <span className="flex items-center gap-1.5 text-sm font-medium">
+          <span className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
             Learn More <ArrowRight size={16} />
           </span>
         </div>
@@ -49,7 +49,7 @@ export default function SponsorsSection() {
           <Sponsor3 className="w-32 h-auto " />
         </div>
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-16 group-hover:translate-y-6 transition-all duration-300 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)]">
-          <span className="flex items-center gap-1.5 text-sm font-medium">
+          <span className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
             Learn More <ArrowRight size={16} />
           </span>
         </div>
@@ -63,7 +63,7 @@ export default function SponsorsSection() {
           <Sponsor4 className="w-32 h-auto " />
         </div>
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-16 group-hover:translate-y-6 transition-all duration-300 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)]">
-          <span className="flex items-center gap-1.5 text-sm font-medium">
+          <span className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
             Learn More <ArrowRight size={16} />
           </span>
         </div>
@@ -77,7 +77,7 @@ export default function SponsorsSection() {
           <Sponsor5 className="w-32 h-auto " />
         </div>
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-16 group-hover:translate-y-6 transition-all duration-300 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)]">
-          <span className="flex items-center gap-1.5 text-sm font-medium">
+          <span className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
             Learn More <ArrowRight size={16} />
           </span>
         </div>
@@ -91,7 +91,7 @@ export default function SponsorsSection() {
           <Sponsor6 className="w-32 h-auto " />
         </div>
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-16 group-hover:translate-y-6 transition-all duration-300 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)]">
-          <span className="flex items-center gap-1.5 text-sm font-medium">
+          <span className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
             Learn More <ArrowRight size={16} />
           </span>
         </div>
@@ -105,7 +105,7 @@ export default function SponsorsSection() {
           <Sponsor7 className="w-32 h-auto " />
         </div>
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-16 group-hover:translate-y-6 transition-all duration-300 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)]">
-          <span className="flex items-center gap-1.5 text-sm font-medium">
+          <span className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
             Learn More <ArrowRight size={16} />
           </span>
         </div>
@@ -119,7 +119,7 @@ export default function SponsorsSection() {
           <Sponsor8 className="w-32 h-auto " />
         </div>
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-16 group-hover:translate-y-6 transition-all duration-300 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)]">
-          <span className="flex items-center gap-1.5 text-sm font-medium">
+          <span className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
             Learn More <ArrowRight size={16} />
           </span>
         </div>

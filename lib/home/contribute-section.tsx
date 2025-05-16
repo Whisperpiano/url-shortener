@@ -16,7 +16,7 @@ export default async function ContributeSection() {
 
       <div>
         <article className="relative overflow-hidden">
-          <div className="absolute inset-0 w-full  bg-gradient-to-br from-violet-950 via-pink-950 to-purple-950 -z-20"></div>
+          <div className="absolute inset-0 w-full  bg-gradient-to-r from-violet-200 via-pink-200 to-purple-200 dark:from-violet-950 dark:via-pink-950 dark:to-purple-950 -z-20"></div>
           <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-background to-transparent pointer-events-none -z-5"></div>
 
           <div className="max-w-7xl mx-auto py-60 px-6">

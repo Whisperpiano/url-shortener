@@ -17,9 +17,9 @@ export default function StackSection() {
             </p>
           </div>
 
-          <div className="relative flex w-full h-[500px] flex-col items-center justify-center overflow-hidden border rounded-sm bg-background mask-b-from-50% mask-b-to-100%">
-            <div className="absolute inset-0 h-full w-full bg-transparent bg-[linear-gradient(to_right,#4f4f4f50_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f50_1px,transparent_1px)] bg-[size:2rem_2rem]  mask-b-to-100% transition-opacity duration-500 group-hover:opacity-80 z-1 opacity-50" />
-
+          <div className="relative flex w-full h-[500px] flex-col items-center justify-center overflow-hidden border rounded-sm bg-background">
+            <div className="absolute inset-0 h-full w-full bg-transparent dark:bg-[linear-gradient(to_right,#4f4f4f50_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f50_1px,transparent_1px)] bg-[linear-gradient(to_right,#4f4f4f14_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f14_1px,transparent_1px)] bg-[size:2rem_2rem]  mask-b-to-100% transition-opacity duration-500 group-hover:opacity-80 z-1 opacity-50" />
+            <div className="absolute inset-0 h-full w-full z-20 bg-gradient-to-b from-transparent via-transparent to-background pointer-events-none" />
             <div className=" size-12 flex items-center justify-center translate-y-17 animate-pulse">
               <Icons.nextjs />
             </div>
@@ -47,6 +47,7 @@ export default function StackSection() {
                 <Icons.framer />
               </OrbitIcon>
             </OrbitingCircles>
+
             <div className="w-[320px] h-[320px] pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[calc(28%)]">
               <div className="size-full rounded-full border border-[rgba(0,0,0,0.07)] dark:border-[rgba(249,250,251,0.07)] bg-gradient-to-b from-[rgba(0,0,0,0.05)] via-[rgba(249,250,251,0.00)] dark:from-[rgba(249,250,251,0.04)] dark:via-[rgba(249,250,251,0.02)]"></div>
             </div>
@@ -101,10 +102,11 @@ export default function StackSection() {
             </p>
           </div>
 
-          <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden border rounded-sm bg-background mask-b-from-30% mask-b-to-100% ">
-            <div className="absolute inset-0 h-full w-full bg-transparent bg-[linear-gradient(to_right,#4f4f4f50_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f50_1px,transparent_1px)] bg-[size:2rem_2rem] mask-b-to-100% transition-opacity duration-500 z-1 opacity-50" />
-
-            <Globe className="z-10" />
+          <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden border rounded-sm bg-background">
+            <div className="w-full h-full bg-transparent mask-b-from-30% mask-b-to-100%">
+              <div className="absolute inset-0 h-full w-full bg-transparent dark:bg-[linear-gradient(to_right,#4f4f4f50_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f50_1px,transparent_1px)] bg-[linear-gradient(to_right,#4f4f4f14_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f14_1px,transparent_1px)] bg-[size:2rem_2rem] mask-b-to-100% transition-opacity duration-500 z-1 opacity-50" />
+              <Globe className="z-10" />
+            </div>
           </div>
         </div>
       </div>

@@ -14,7 +14,7 @@ export const defaultOptions: ISourceOptions = {
     },
   },
   particles: {
-    color: { value: "#ffffff" },
+    // color: { value: "#ffffff" },
     move: {
       direction: MoveDirection.top,
       enable: true,
