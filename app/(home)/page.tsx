@@ -1,128 +1,44 @@
-import AuthModal from "@/components/header/AuthModal";
-import { ParticlesComponent } from "@/components/particles/particles-component";
+import ContributeSection from "@/components/home/sections/contribute-section";
+import FeaturesSection from "@/components/home/sections/features-section";
+import HeroSection from "@/components/home/sections/hero-section";
+import SponsorsSection from "@/components/home/sections/sponsors-section";
+import StackSection from "@/components/home/sections/stack-section";
+import Divider from "@/components/ui/divider";
+import Link from "next/link";
+
 import { buttonVariants } from "@/components/ui/button";
-import AuroraHero from "@/lib/home/aurora-hero";
-import ContributeSection from "@/lib/home/contribute-section";
-import FeaturesSection from "@/lib/home/features-section";
-import SponsorsSection from "@/lib/home/sponsors-section";
-import StackSection from "@/lib/home/stack-section";
 import { cn } from "@/lib/utils";
 import { Mail } from "lucide-react";
-import Link from "next/link";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default async function Home() {
   return (
     <>
-      <main className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] max-h-[calc(100vh-85px)] overflow-hidden ">
-        {/* Dashed left border */}
-        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
-
-        {/* Hero */}
-        <section className="text-center relative h-full w-full py-32 overflow-hidden">
-          <h2 className="font-mono font-semibold text-7xl flex flex-col gap-2">
-            <span>Shorten your links </span>
-            <span>
-              <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
-                fast
-              </span>
-              <span> and </span>
-              <span className="bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent">
-                easy
-              </span>
-            </span>
-          </h2>
-          <p className="text-lg text-muted-foreground pt-3 pb-6 mt-10 max-w-lg mx-auto">
-            Transform long, messy URLs into short and shareable links in
-            seconds. Start simplifying your links today!
-          </p>
-
-          <div className="mt-10">
-            <AuthModal btnText="Get Started" />
-          </div>
-
-          <ParticlesComponent className="absolute h-1/2 top-0 w-full" />
-
-          <div className="mt-30 px-6">
-            <AuroraHero />
-          </div>
-          <ParticlesComponent />
+      <main>
+        <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] max-h-[calc(100vh-85px)] overflow-hidden">
+          <HeroSection />
         </section>
-        {/* Dashed right border */}
-        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x"></div>
+
+        <Divider />
+
+        <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
+          <FeaturesSection />
+        </section>
+
+        <Divider />
+
+        <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
+          <StackSection />
+        </section>
+
+        <Divider />
+
+        <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
+          <ContributeSection />
+        </section>
       </main>
 
       <div className="h-[1px] border-b"></div>
-
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] ">
-        {/* Dashed left border */}
-        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
-
-        {/* Dashed left border */}
-        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
-      </section>
-
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
-        {/* Dashed left border */}
-        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
-
-        <div>
-          <div className="h-[40px] border-b"></div>
-          <div className="py-32 px-6 border-b">
-            <h2 className="flex items-center justify-center gap-2.5 text-5xl font-medium tracking-tighter pb-4 ">
-              Explore features that
-              <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent bg-foreground">
-                matter
-              </span>
-            </h2>
-            <p className="text-muted-foreground text-balance font-normal text-lg text-center">
-              Discover the core functionalities that make Shortleap a powerful
-              tool for developers
-            </p>
-          </div>
-          <div className="h-[40px] border-b"></div>
-
-          <div>
-            <FeaturesSection />
-          </div>
-        </div>
-
-        {/* Dashed left border */}
-        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
-      </section>
-
-      <div className="h-[1px] border-b"></div>
-
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
-        {/* Dashed left border */}
-        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
-
-        <div>
-          <div className="h-[40px] border-b"></div>
-          <div className="py-32 px-6 border-b ">
-            <h2 className="flex items-center justify-center gap-2.5 text-5xl font-medium tracking-tighter pb-4 ">
-              Built to perform, ready to
-              <span className="bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent bg-foreground">
-                scale
-              </span>
-            </h2>
-            <p className="text-muted-foreground text-balance font-normal text-lg text-center">
-              From a solid tech stack to worldwide click tracking. Everything
-              you need for a powerful URL shortener
-            </p>
-          </div>
-          <div className="h-[40px] border-b"></div>
-
-          <StackSection />
-        </div>
-
-        {/* Dashed left border */}
-        <div className="h-full text-primary/5 bg-[size:10px_10px] [background-image:repeating-linear-gradient(315deg,currentColor_0_1px,#0000_0_50%)] z-50 border-x "></div>
-      </section>
-
-      <div className="h-[1px] border-b"></div>
-
-      <ContributeSection />
 
       <div className="h-[1px] border-b"></div>
 

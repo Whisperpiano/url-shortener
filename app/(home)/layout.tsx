@@ -10,8 +10,8 @@ export default function HomeLayout({
 }) {
   return (
     <>
-      <Background />
       <Header />
+      <Background />
       {children}
     </>
   );
