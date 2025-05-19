@@ -2,6 +2,7 @@ import React from "react";
 
 import Header from "@/components/layout/Header";
 import Background from "@/components/layout/Background";
+import Footer from "@/components/layout/footer";
 
 export default function HomeLayout({
   children,
@@ -10,9 +11,10 @@ export default function HomeLayout({
 }) {
   return (
     <>
-      <Header />
       <Background />
+      <Header />
       {children}
+      <Footer />
     </>
   );
 }
