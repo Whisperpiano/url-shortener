@@ -1,5 +1,4 @@
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
-import { Icons } from "../sections/globe-section";
 import { OrbitIcon } from "./orbiting-icon";
 
 import {
@@ -7,6 +6,8 @@ import {
   middleIcons,
   outsideIcons,
 } from "../utils/home-constants";
+
+import NextjsIcon from "@/lib/assets/icons/nextjs.svg";
 
 export default function StackCard() {
   return (
@@ -27,7 +28,7 @@ export default function StackCard() {
 
         {/* Main icon */}
         <div className=" size-12 flex items-center justify-center translate-y-17 animate-pulse">
-          <Icons.nextjs />
+          <NextjsIcon />
         </div>
 
         {/* Outside icons */}
