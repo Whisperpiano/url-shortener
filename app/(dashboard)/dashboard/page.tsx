@@ -23,24 +23,14 @@ export default async function Dashboard({
 }) {
   const { search } = await searchParams;
 
-  console.log(search);
-
   const links = await getLinks();
-  console.log(links);
-  // const searchLinks = await searchParams.search;
 
-  // if (Array.isArray(searchLinks)) {
-  //   return links;
-  // }
-
-  // const filteredLinks = links.filter((link) => {
-  //   if (!searchLinks) return true;
-  //   const matchSlug = link.slug.includes(searchLinks);
-  //   const matchUrl = link.url.includes(searchLinks);
-  //   return matchSlug || matchUrl;
-  // });
-
-  // console.log(filteredLinks);
+  const filteredLinks = links.filter((link) => {
+    if (!search) return true;
+    const matchSlug = link.slug.includes(search);
+    const matchUrl = link.url.includes(search);
+    return matchSlug || matchUrl;
+  });
 
   return (
     <main className="w-full">
@@ -83,8 +73,8 @@ export default async function Dashboard({
         </div>
 
         <section className="flex flex-col mt-6">
-          {links.length > 0 ? (
-            links.map((link) => <LinkCard key={link.id} link={link} />)
+          {filteredLinks.length > 0 ? (
+            filteredLinks.map((link) => <LinkCard key={link.id} link={link} />)
           ) : (
             <p>nothing here</p>
           )}
