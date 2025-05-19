@@ -35,6 +35,8 @@ export default async function Home() {
       <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] ">
         <SponsorsSection />
       </section>
+
+      <Divider />
     </main>
   );
 }
