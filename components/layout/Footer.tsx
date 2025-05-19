@@ -25,7 +25,7 @@ export default function Footer() {
               target="_blank"
             >
               <FaGithub className="text-muted-foreground group-hover:text-foreground transition-colors" />
-              <span className="sr-only">Facebook</span>
+              <span className="sr-only">Github</span>
             </Link>
             <Link
               href="https://www.linkedin.com/in/jes%C3%BAs-alberola-herrero-896b61189/"
@@ -37,7 +37,7 @@ export default function Footer() {
               target="_blank"
             >
               <FaLinkedin className="text-muted-foreground group-hover:text-foreground transition-colors" />
-              <span className="sr-only">Facebook</span>
+              <span className="sr-only">LinkedIn</span>
             </Link>
             <Link
               href="mailto:jesusalberola90@gmail.com"
@@ -49,7 +49,7 @@ export default function Footer() {
               target="_blank"
             >
               <Mail className="text-muted-foreground group-hover:text-foreground transition-colors" />
-              <span className="sr-only">Facebook</span>
+              <span className="sr-only">Mail</span>
             </Link>
           </div>
         </div>

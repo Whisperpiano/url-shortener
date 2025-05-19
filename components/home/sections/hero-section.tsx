@@ -1,9 +1,16 @@
 import AuthModal from "@/components/header/AuthModal";
-import { ParticlesComponent } from "@/components/particles/particles-component";
-import { HorizontalBorder } from "@/components/ui/border";
 import AuroraHero from "../components/aurora-hero";
 
-export default function HeroSection() {
+import { ParticlesComponent } from "@/components/particles/particles-component";
+import { HorizontalBorder } from "@/components/ui/border";
+import { auth } from "@/app/auth";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+
+export default async function HeroSection() {
+  const session = await auth();
+
   return (
     <HorizontalBorder>
       <article
@@ -31,7 +38,18 @@ export default function HeroSection() {
           </p>
 
           <div className="mt-10">
-            <AuthModal btnText="Get Started" />
+            {session ? (
+              <Link
+                href={"/dashboard"}
+                className={cn(
+                  buttonVariants({ variant: "default", size: "lg" })
+                )}
+              >
+                Go to dashboard
+              </Link>
+            ) : (
+              <AuthModal btnText="Get Started" />
+            )}
           </div>
         </section>
 

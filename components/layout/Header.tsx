@@ -23,7 +23,7 @@ export default async function Header() {
               <li>
                 <ToggleTheme />
               </li>
-              <li>
+              <li className="flex items-center">
                 {session ? <AccountModal session={session} /> : <AuthModal />}
               </li>
             </ul>

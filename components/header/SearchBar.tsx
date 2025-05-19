@@ -8,11 +8,20 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from "@/components/ui/command";
-import { Search } from "lucide-react";
+import {
+  Bug,
+  HeartHandshake,
+  Home,
+  LayoutDashboard,
+  Mail,
+  Search,
+  Settings,
+} from "lucide-react";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import Link from "next/link";
 
 export default function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,15 +58,78 @@ export default function SearchBar() {
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Suggestions">
-              <CommandItem>Calendar</CommandItem>
-              <CommandItem>Search Emoji</CommandItem>
-              <CommandItem>Calculator</CommandItem>
+              <CommandItem asChild>
+                <Link href="/">
+                  <Home />
+                  Home
+                </Link>
+              </CommandItem>
+              <CommandItem asChild>
+                <Link href="/dashboard">
+                  <LayoutDashboard />
+                  Dashboard
+                </Link>
+              </CommandItem>
+              <CommandItem asChild>
+                <Link href="/account/settings">
+                  <Settings />
+                  Settings
+                </Link>
+              </CommandItem>
             </CommandGroup>
-            <CommandSeparator />
-            <CommandGroup heading="Settings">
-              <CommandItem>Profile</CommandItem>
-              <CommandItem>Billing</CommandItem>
-              <CommandItem>Settings</CommandItem>
+            <CommandGroup heading="Contribute">
+              <CommandItem asChild>
+                <Link
+                  href="https://github.com/Whisperpiano/url-shortener"
+                  target="_blank"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <HeartHandshake />
+                  Contribute
+                </Link>
+              </CommandItem>
+              <CommandItem asChild>
+                <Link
+                  href="https://github.com/Whisperpiano/url-shortener/issues"
+                  target="_blank"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Bug />
+                  Report a bug
+                </Link>
+              </CommandItem>
+            </CommandGroup>
+            <CommandGroup heading="Contact">
+              <CommandItem asChild>
+                <Link
+                  href="https://github.com/Whisperpiano"
+                  target="_blank"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <FaGithub />
+                  GitHub
+                </Link>
+              </CommandItem>
+              <CommandItem asChild>
+                <Link
+                  href="https://www.linkedin.com/in/jes%C3%BAs-alberola-herrero-896b61189/"
+                  target="_blank"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <FaLinkedin />
+                  LinkedIn
+                </Link>
+              </CommandItem>
+              <CommandItem asChild>
+                <Link
+                  href="mailto:jesusalberola90@gmail.com"
+                  target="_blank"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Mail />
+                  Email
+                </Link>
+              </CommandItem>
             </CommandGroup>
           </CommandList>
         </Command>
