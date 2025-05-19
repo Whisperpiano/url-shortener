@@ -39,7 +39,7 @@ interface LinkCardProps {
 export default async function LinkCard({ link }: LinkCardProps) {
   const session = await auth();
   return (
-    <article className="border border-muted-foreground/20 rounded-lg p-6 mt-10 flex items-center justify-between flex-1">
+    <article className="border border-muted-foreground/20 rounded-lg p-6 mt-4 flex items-center justify-between flex-1">
       <div className="flex gap-3 items-center">
         <Button
           variant="outline"
@@ -49,8 +49,9 @@ export default async function LinkCard({ link }: LinkCardProps) {
           <Image
             src={getFaviconFromUrl(link.url)}
             alt={link.url}
-            width={24}
-            height={24}
+            width={28}
+            height={28}
+            className="rounded-full"
           />
         </Button>
 
@@ -61,7 +62,7 @@ export default async function LinkCard({ link }: LinkCardProps) {
               className="font-medium lowercase text-sm"
               target="_blank"
             >
-              shortly.link/{link.slug}
+              shortleap.vercel.app/{link.slug}
             </Link>
             <button
               type="button"
@@ -77,7 +78,7 @@ export default async function LinkCard({ link }: LinkCardProps) {
               target="_blank"
             >
               <CornerDownRight size={12} />
-              {link.url}
+              {link.url.slice(0, 50)}...
             </Link>
             <div>
               <span className="text-sm text-muted-foreground">|</span>

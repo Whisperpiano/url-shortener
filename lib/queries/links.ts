@@ -2,7 +2,7 @@ import { cache } from "react";
 import { auth } from "@/app/auth";
 import { db } from "../db/db";
 import { links } from "../db/schemas/links";
-import { eq, sql } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import { Link } from "../zod/links";
 import { clicks } from "../db/schemas/clicks";
 import { ClickSchemaArray, ClickTypes } from "../zod/clicks";
@@ -20,6 +20,7 @@ export const getLinks = cache(async (): Promise<Link[]> => {
       .select()
       .from(links)
       .where(eq(links.userId, session.user.id))
+      .orderBy(desc(links.createdAt))
       .execute();
 
     return response;

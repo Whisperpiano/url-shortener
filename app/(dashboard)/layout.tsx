@@ -10,7 +10,7 @@ export default function DashboardLayout({
   return (
     <SidebarProvider defaultOpen={true}>
       <DashboardSidebar />
-      <main className="w-full">{children}</main>
+      {children}
     </SidebarProvider>
   );
 }
