@@ -11,8 +11,8 @@ export const links = sqliteTable("link", {
   url: text("url").notNull(),
   slug: text("slug").notNull().unique(),
   description: text("description"),
-  createdAt: integer("createdAt", { mode: "timestamp_ms" }).$defaultFn(
-    () => new Date()
-  ),
+  createdAt: integer("createdAt", { mode: "timestamp_ms" })
+    .notNull()
+    .$defaultFn(() => new Date()),
   clickCount: integer("clickCount").notNull().default(0),
 });

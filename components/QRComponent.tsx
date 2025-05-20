@@ -18,7 +18,7 @@ const presetColors = [
   "#B04CC0",
 ];
 
-export default function QRComponent() {
+export default function QRComponent({ url }: { url: string }) {
   const [selectedColor, setSelectedColor] = useState("#DF6547");
   const [isChangingColor, setIsChangingColor] = useState(false);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -62,7 +62,7 @@ export default function QRComponent() {
           }`}
         >
           <QRCodeSVG
-            value="https://www.google.com"
+            value={url}
             size={140}
             ref={svgRef}
             level="Q"
