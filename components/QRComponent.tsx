@@ -1,11 +1,18 @@
 "use client";
 
-import { QRCodeSVG } from "qrcode.react";
+import { QRCodeCanvas, QRCodeSVG } from "qrcode.react";
 import PixelCanvas from "./PixelCanvas";
 import { useEffect, useRef, useState } from "react";
-import { Check } from "lucide-react";
+import { Check, ImageIcon } from "lucide-react";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { toast } from "sonner";
 
 const presetColors = [
   "#000000",
@@ -22,14 +29,18 @@ export default function QRComponent({ url }: { url: string }) {
   const [selectedColor, setSelectedColor] = useState("#DF6547");
   const [isChangingColor, setIsChangingColor] = useState(false);
   const svgRef = useRef<SVGSVGElement>(null);
+  const pngRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     setSelectedColor("#000000");
   }, []);
 
-  const handleDownload = () => {
+  const handleDownloadSVG = () => {
     const svg = svgRef.current;
-    if (!svg) return;
+    if (!svg) {
+      toast.error("Failed to generate QR code");
+      return;
+    }
 
     const svgData = new XMLSerializer().serializeToString(svg);
     const svgBlob = new Blob([svgData], {
@@ -45,6 +56,23 @@ export default function QRComponent({ url }: { url: string }) {
     document.body.removeChild(downloadLink);
 
     URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadPNG = () => {
+    const png = pngRef.current;
+    if (!png) {
+      toast.error("Failed to generate QR code");
+      return;
+    }
+
+    const pngDataUrl = png.toDataURL("image/png");
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = pngDataUrl;
+    downloadLink.download = "qr-code.png";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
   };
 
   return (
@@ -68,6 +96,14 @@ export default function QRComponent({ url }: { url: string }) {
             level="Q"
             fgColor={selectedColor}
             className="p-2 bg-white rounded-sm"
+          />
+          <QRCodeCanvas
+            value={url}
+            size={140}
+            ref={pngRef}
+            level="Q"
+            fgColor={selectedColor}
+            className="p-2 bg-white rounded-sm hidden"
           />
         </div>
       </div>
@@ -132,13 +168,30 @@ export default function QRComponent({ url }: { url: string }) {
             Cancel
           </Button>
         </DialogClose>
-        <Button
-          variant="default"
-          className="cursor-pointer"
-          onClick={handleDownload}
-        >
-          Download SVG
-        </Button>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="default" className="cursor-pointer">
+              Download
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem
+              className="cursor-pointer hover:bg-foreground/5"
+              onClick={handleDownloadSVG}
+            >
+              <ImageIcon />
+              SVG
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer hover:bg-foreground/5"
+              onClick={handleDownloadPNG}
+            >
+              <ImageIcon />
+              PNG
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </>
   );
