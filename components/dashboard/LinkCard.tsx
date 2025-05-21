@@ -1,8 +1,12 @@
+"use client";
+
 import {
+  ArrowLeft,
   Calendar1,
   Copy,
   CornerDownRight,
   EllipsisVertical,
+  LucideCheckCircle,
   MousePointerClick,
   Pencil,
   QrCode,
@@ -13,6 +17,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -39,12 +44,33 @@ import { format } from "date-fns";
 import { MagicCard } from "../magicui/magic-card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { CopyButton } from "../ui/copy-button";
+import { toast } from "sonner";
+import { useState } from "react";
+import { Input } from "../ui/input";
+import { DialogClose } from "@radix-ui/react-dialog";
+import DeleteLinkButton from "../DeleteLinkButton";
 
 interface LinkCardProps {
   link: LinkType;
 }
 
-export default async function LinkCard({ link }: LinkCardProps) {
+export default function LinkCard({ link }: LinkCardProps) {
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
+  const [value, setValue] = useState("");
+
+  const handleOpenDeleteDialog = () => {
+    setOpenDeleteDialog(true);
+    setOpenDropdown(false);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(`https://shortleap.vercel.app/${link.slug}`);
+    toast.success("Copied to clipboard!", {
+      icon: <LucideCheckCircle size={18} />,
+    });
+  };
+
   return (
     <MagicCard className="rounded-xl">
       <Card>
@@ -114,7 +140,7 @@ export default async function LinkCard({ link }: LinkCardProps) {
                 <QRComponent url={link.url} />
               </DialogContent>
             </Dialog>
-            <DropdownMenu>
+            <DropdownMenu open={openDropdown} onOpenChange={setOpenDropdown}>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
@@ -129,19 +155,21 @@ export default async function LinkCard({ link }: LinkCardProps) {
                   <Pencil className="text-current w-2 h-2" size={5} />
                   Edit
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
-                  <QrCode className="text-current w-2 h-2" size={5} />
-                  QR Code
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
+
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={handleCopy}
+                >
                   <Copy className="text-current w-2 h-2" size={5} />
-                  Copy link
+                  Copy
                 </DropdownMenuItem>
 
                 <DropdownMenuSeparator />
+
                 <DropdownMenuItem
                   variant="destructive"
                   className="cursor-pointer"
+                  onClick={handleOpenDeleteDialog}
                 >
                   <Trash className="text-current w-2 h-2" size={5} />
                   Delete
@@ -201,6 +229,89 @@ export default async function LinkCard({ link }: LinkCardProps) {
           </Badge>
         </CardFooter>
       </Card>
+
+      <Dialog open={openDeleteDialog} onOpenChange={setOpenDeleteDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              <div className="flex items-center gap-2">
+                <Trash size={14} />
+                <span className="text-base">Delete link</span>
+              </div>
+            </DialogTitle>
+            <DialogDescription />
+            <Separator className="mt-2" />
+            <div className="my-4 text-sm text-muted-foreground">
+              <p>Are you sure you want to delete this link?</p>
+              <p className="my-4">
+                Deleting this link will remove it from your account, and you
+                will loose all the data associated with it.
+              </p>
+              <div className="border p-2 rounded-sm">
+                <div className="flex items-center gap-4 p-4 border rounded-sm bg-muted-foreground/10">
+                  <div className="p-2 rounded-full border border-foreground/20 relative overflow-hidden">
+                    <Image
+                      src={getFaviconFromUrl(link.url)}
+                      alt={link.url}
+                      width={24}
+                      height={24}
+                      className="rounded-full z-10 relative"
+                    />
+                    <Image
+                      src={getFaviconFromUrl(link.url)}
+                      alt={link.url}
+                      width={24}
+                      height={24}
+                      className="absolute inset-0 w-full h-full object-cover blur-sm scale-125 opacity-30 z-0"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <div>
+                    <p className="font-medium lowercase text-sm">
+                      shortleap.vercel.app/
+                      <span className="dark:text-purple-400 text-purple-600">
+                        {link.slug}
+                      </span>
+                    </p>
+                    <p className="text-xs text-muted-foreground lowercase flex items-center gap-1.5  ">
+                      <CornerDownRight size={12} />
+                      {link.url.slice(0, 50)}...
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <p className="mt-6 mb-2">
+                To verify, type{" "}
+                <strong className="text-foreground">delete</strong> below:
+              </p>
+              <Input
+                className="py-5"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+              />
+            </div>
+          </DialogHeader>
+          <Separator />
+          <DialogFooter>
+            <div className="flex gap-2 items-center justify-between w-full mt-2">
+              <DialogClose asChild>
+                <Button
+                  variant="outline"
+                  className="py-5 cursor-pointer text-muted-foreground hover:text-foreground"
+                >
+                  <ArrowLeft />
+                  Go back
+                </Button>
+              </DialogClose>
+              <DeleteLinkButton
+                id={link.id}
+                disabled={value !== "delete"}
+                onSuccess={() => setOpenDeleteDialog(false)}
+              />
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </MagicCard>
   );
 }
