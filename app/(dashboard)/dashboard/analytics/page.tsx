@@ -24,24 +24,22 @@ export default async function Analytics({
 
   const links = await getLinks();
 
+  const selectedLink = links.find((link) => link.slug === keyParam);
+
   const { clicksChartData } = await getClicksData(startDate, end, keyParam);
 
-  const { location, device } = await getLinksData();
-
-  console.log(keyParam);
-
-  console.log(clicksChartData);
+  const { location, device } = await getLinksData(startDate, end, keyParam);
 
   return (
-    <main className="px-4">
+    <main className="w-full ">
       <DashboardHeader group="Dashboard" pageTitle="Analytics" />
 
       <div className="max-w-7xl mx-auto mt-4 ">
         {/* <h1>Analytics</h1> */}
 
-        <div className="flex items-center justify-between pb-6 pt-2">
+        <div className="flex items-center justify-between pb-6 pt-2 px-6">
           <div className="flex items-center gap-2 ">
-            <UrlSwitcher links={links} />
+            <UrlSwitcher links={links} selectedLink={selectedLink} />
             <IntervalSwitcher />
           </div>
           <Button variant="default" className="cursor-pointer">
@@ -49,7 +47,7 @@ export default async function Analytics({
           </Button>
         </div>
 
-        <section className="grid grid-cols-6 gap-4">
+        <section className="grid grid-cols-6 gap-4 px-6 ">
           <Card className="col-span-2">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -60,7 +58,9 @@ export default async function Analytics({
                 Clicks
               </CardTitle>
             </CardHeader>
-            <CardContent>{links.length}</CardContent>
+            <CardContent>
+              {clicksChartData.reduce((acc, curr) => acc + curr.clicks, 0)}
+            </CardContent>
           </Card>
 
           <Card className="col-span-2">
@@ -74,7 +74,7 @@ export default async function Analytics({
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {links.reduce((acc, curr) => acc + curr.clickCount, 0)}
+              {clicksChartData.reduce((acc, curr) => acc + curr.visitors, 0)}
             </CardContent>
           </Card>
 
@@ -85,17 +85,15 @@ export default async function Analytics({
                   className="aspect-square w-3 bg-purple-300 rounded-xs"
                   aria-hidden="true"
                 ></div>
-                Last click
+                Links
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              {links.reduce((acc, curr) => acc + curr.clickCount, 0)}
-            </CardContent>
+            <CardContent>{links.length}</CardContent>
           </Card>
 
           <MainChart data={clicksChartData} />
         </section>
-        <section className="mt-4 grid grid-cols-2 gap-4">
+        <section className="mt-4 grid grid-cols-2 gap-4 px-6">
           {device && (
             <InformationTabs data={{ type: "location", data: location }} />
           )}

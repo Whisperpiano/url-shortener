@@ -80,69 +80,77 @@ export default function InformationTabs({
         </CardHeader>
 
         <CardContent className="flex flex-col px-0 overflow-hidden flex-1 justify-between">
-          <ul className="flex flex-col border-t">
-            {activeData.map((item) => {
-              const percentage = (item.value / total) * 100;
+          {activeData.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-muted-foreground py-8">
+              <p className="flex flex-col gap-2 items-center">
+                <span>No data registered in this period.</span>
+                <span>Try a different interval.</span>
+              </p>
+            </div>
+          ) : (
+            <ul className="flex flex-col border-t">
+              {activeData.map((item) => {
+                const percentage = (item.value / total) * 100;
 
-              return (
-                <li
-                  key={item.label}
-                  className="group cursor-pointer hover:bg-muted/50 rounded-none transition-colors p-4 flex flex-col gap-3 border-b"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      {type === "location" && item.countryCode && (
-                        <img
-                          src={getFlag(item.countryCode)}
-                          alt={item.countryCode}
-                          className="w-6 h-4"
-                        />
-                      )}
+                return (
+                  <li
+                    key={item.label}
+                    className="group cursor-pointer hover:bg-muted/50 rounded-none transition-colors p-4 flex flex-col gap-3 border-b"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        {type === "location" && item.countryCode && (
+                          <img
+                            src={getFlag(item.countryCode)}
+                            alt={item.countryCode}
+                            className="w-6 h-4"
+                          />
+                        )}
 
-                      {(type === "device" &&
-                        activeTab === "Device" &&
-                        deviceIcons[item.label]) ?? <FaQuestionCircle />}
+                        {(type === "device" &&
+                          activeTab === "Device" &&
+                          deviceIcons[item.label]) ?? <FaQuestionCircle />}
 
-                      {(type === "device" &&
-                        activeTab === "Browser" &&
-                        browserIcons[item.label]) ?? <FaQuestionCircle />}
+                        {(type === "device" &&
+                          activeTab === "Browser" &&
+                          browserIcons[item.label]) ?? <FaQuestionCircle />}
 
-                      {(type === "device" &&
-                        activeTab === "OS" &&
-                        osIcons[item.label]) ?? <FaQuestionCircle />}
+                        {(type === "device" &&
+                          activeTab === "OS" &&
+                          osIcons[item.label]) ?? <FaQuestionCircle />}
 
-                      <span className="text-sm font-normal">
-                        {capitalizeFirstLetter(item.label)}
-                      </span>
+                        <span className="text-sm font-normal">
+                          {capitalizeFirstLetter(item.label)}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-sm font-normal text-right translate-x group-hover:translate-x-0 transition-transform relative group ">
+                        <span className=" group-hover:-translate-x-10 transition-transform ">
+                          {item.value}
+                        </span>
+                        <span className="absolute -right-12 text-xs text-muted-foreground min-w-8  group-hover:-translate-x-10 transition-transform ">
+                          {percentage.toFixed()}%
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="flex items-center gap-2 text-sm font-normal text-right translate-x group-hover:translate-x-0 transition-transform relative group ">
-                      <span className=" group-hover:-translate-x-10 transition-transform ">
-                        {item.value}
-                      </span>
-                      <span className="absolute -right-12 text-xs text-muted-foreground min-w-8  group-hover:-translate-x-10 transition-transform ">
-                        {percentage.toFixed()}%
-                      </span>
+                    <div className="bg-primary/20 relative h-1.5 w-full overflow-hidden rounded-full">
+                      <motion.div
+                        className={`relative h-2 w-full overflow-hidden rounded-full ${
+                          type === "device"
+                            ? "bg-[var(--color-chart-2)]"
+                            : "bg-[var(--color-chart-2)]"
+                        }`}
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={{ width: `${percentage}%`, opacity: 1 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                      />
                     </div>
-                  </div>
-
-                  <div className="bg-primary/20 relative h-1.5 w-full overflow-hidden rounded-full">
-                    <motion.div
-                      className={`relative h-2 w-full overflow-hidden rounded-full ${
-                        type === "device"
-                          ? "bg-[var(--color-chart-2)]"
-                          : "bg-[var(--color-chart-2)]"
-                      }`}
-                      initial={{ width: 0, opacity: 0 }}
-                      animate={{ width: `${percentage}%`, opacity: 1 }}
-                      transition={{ duration: 0.5, ease: "easeOut" }}
-                    />
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-
+                  </li>
+                );
+              })}
+            </ul>
+          )}
           <div className="border-t border-muted-foreground/20 p-4 cursor-pointer hover:bg-muted/50 flex items-center justify-center gap-2 transition-colors">
             <Scan size={14} />
             <span className="text-sm font-normal">Details</span>

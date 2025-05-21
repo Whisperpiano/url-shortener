@@ -25,10 +25,16 @@ import {
 
 import Image from "next/image";
 
-export default function UrlSwitcher({ links }: { links: Link[] }) {
+export default function UrlSwitcher({
+  links,
+  selectedLink,
+}: {
+  links: Link[];
+  selectedLink?: Link;
+}) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("all");
-  const [url, setUrl] = useState("");
+  const [value, setValue] = useState(selectedLink?.slug || "all");
+  const [url, setUrl] = useState(selectedLink?.url || "");
 
   const router = useRouter();
   const params = useSearchParams();
@@ -42,31 +48,33 @@ export default function UrlSwitcher({ links }: { links: Link[] }) {
 
   return (
     <div className="inline-flex items-center gap-0">
+      {url !== "" && (
+        <Image
+          src={getFaviconFromUrl(url)}
+          alt={url}
+          width={24}
+          height={24}
+          className="saturate-150 contrast-125 hue-rotate-15 absolute inset-0 w-full h-full object-cover blur-3xl scale-x-150 opacity-25 -z-1 mask-t-from-50% mask-b-from-10%"
+          aria-hidden="true"
+        />
+      )}
+
       <div
         className={cn(
           buttonVariants({ variant: "outline" }),
-          "rounded-r-none hover:bg-input/30! min-w-[49px] max-w-[49px] relative overflow-hidden"
+          "rounded-r-none hover:bg-input/30! min-w-[49px] max-w-[49px] "
         )}
       >
         {url === "" ? (
           <LinkIcon />
         ) : (
-          <>
-            <Image
-              src={getFaviconFromUrl(url)}
-              alt={url}
-              width={24}
-              height={24}
-              className="absolute inset-0 w-full h-full object-cover blur-sm scale-125 opacity-25"
-              aria-hidden="true"
-            />
-            <Image
-              src={getFaviconFromUrl(url)}
-              alt={url}
-              width={15}
-              height={15}
-            />
-          </>
+          <Image
+            src={getFaviconFromUrl(url)}
+            alt={url}
+            width={20}
+            height={20}
+            className="rounded-full"
+          />
         )}
       </div>
 
