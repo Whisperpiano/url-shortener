@@ -49,6 +49,7 @@ import { useState } from "react";
 import { Input } from "../ui/input";
 import { DialogClose } from "@radix-ui/react-dialog";
 import DeleteLinkButton from "../DeleteLinkButton";
+import { FaCrown } from "react-icons/fa";
 
 interface LinkCardProps {
   link: LinkType;
@@ -150,10 +151,18 @@ export default function LinkCard({ link }: LinkCardProps) {
                   <EllipsisVertical />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem className="cursor-pointer">
-                  <Pencil className="text-current w-2 h-2" size={5} />
-                  Edit
+              <DropdownMenuContent align="end" className="w-[132px]">
+                <DropdownMenuItem
+                  className="cursor-pointer flex justify-between"
+                  disabled
+                >
+                  <span className="flex items-center gap-2">
+                    <Pencil className="text-current w-2 h-2" size={5} />
+                    Edit
+                  </span>
+                  <Badge variant="outline" className="bg-blue-300/25 ">
+                    <FaCrown className="p-0.5" />
+                  </Badge>
                 </DropdownMenuItem>
 
                 <DropdownMenuItem

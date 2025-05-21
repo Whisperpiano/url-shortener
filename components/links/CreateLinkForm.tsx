@@ -16,7 +16,6 @@ import {
   CalendarIcon,
   Check,
   CircleHelp,
-  Crown,
   Globe,
   Plus,
   Shuffle,
@@ -48,6 +47,7 @@ import {
 import { createLink } from "@/lib/actions/links/create";
 import { toast } from "sonner";
 import { Separator } from "../ui/separator";
+import { FaCrown } from "react-icons/fa";
 
 export default function CreateLinkForm() {
   const [isGeneratingSlug, setIsGeneratingSlug] = useState<boolean>(false);
@@ -250,7 +250,7 @@ export default function CreateLinkForm() {
                 >
                   <span className="flex items-center gap-2 ">
                     <Badge variant="outline" className="bg-blue-300/25">
-                      <Crown />
+                      <FaCrown className="p-0.5" />
                       PRO
                     </Badge>
                     Advanced options
