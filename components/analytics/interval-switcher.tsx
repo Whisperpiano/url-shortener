@@ -21,7 +21,11 @@ export default function IntervalSwitcher() {
   };
 
   return (
-    <Select defaultValue="7d" onValueChange={handleChange}>
+    <Select
+      defaultValue="7d"
+      onValueChange={handleChange}
+      value={params.get("interval") || "7d"}
+    >
       <SelectTrigger className="w-[180px] cursor-pointer">
         <div className="flex items-center gap-2 ">
           <CalendarFold />

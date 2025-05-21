@@ -30,6 +30,8 @@ export default async function Analytics({
 
   const { location, device } = await getLinksData(startDate, end, keyParam);
 
+  console.log(intervalParam);
+
   return (
     <main className="w-full ">
       <DashboardHeader group="Dashboard" pageTitle="Analytics" />
