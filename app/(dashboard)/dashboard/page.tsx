@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { SlidersHorizontal } from "lucide-react";
 // import { auth } from "../auth";
 import { getLinks } from "@/lib/queries/links";
 import CreateLinkForm from "@/components/links/CreateLinkForm";
@@ -40,10 +38,7 @@ export default async function Dashboard({
         <div className="flex gap-4 items-center">
           <SearchLinksBar />
           <SortLinks />
-          <Button variant="outline" size={"default"}>
-            <SlidersHorizontal />
-            Display
-          </Button>
+
           <CreateLinkForm />
         </div>
 

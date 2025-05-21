@@ -56,7 +56,7 @@ export default function DashboardSidebar() {
   const pathname = usePathname();
 
   return (
-    <Sidebar side="left" variant="sidebar" collapsible="icon">
+    <Sidebar side="left" variant="sidebar" collapsible="offcanvas">
       <SidebarHeader className="p-4  ">
         <Link
           href={"/"}
