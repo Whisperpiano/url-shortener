@@ -1,17 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Globe, Plus, SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 // import { auth } from "../auth";
 import { getLinks } from "@/lib/queries/links";
 import CreateLinkForm from "@/components/links/CreateLinkForm";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import LinkCard from "@/components/dashboard/LinkCard";
 import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
 import SearchLinksBar from "@/components/links/search-links-bar";
@@ -52,30 +44,7 @@ export default async function Dashboard({
             <SlidersHorizontal />
             Display
           </Button>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button
-                variant="default"
-                className="cursor-pointer"
-                size={"default"}
-              >
-                Create link
-                <Plus />
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>
-                  <div className="flex items-center gap-2">
-                    <Globe size={16} />
-                    <span className="text-sm">New link</span>
-                  </div>
-                </DialogTitle>
-                <DialogDescription className="relative"></DialogDescription>
-                <CreateLinkForm />
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
+          <CreateLinkForm />
         </div>
 
         <section className="flex flex-col gap-4 mt-6">
