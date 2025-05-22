@@ -9,6 +9,14 @@ import { capitalizeFirstLetter } from "@/lib/utils/capitalizeFirstLetter";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Scan } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+  DialogHeader,
+} from "../ui/dialog";
 
 type AggregatedItem = {
   label: string;
@@ -151,10 +159,23 @@ export default function InformationTabs({
               })}
             </ul>
           )}
-          <div className="border-t border-muted-foreground/20 p-4 cursor-pointer hover:bg-muted/50 flex items-center justify-center gap-2 transition-colors">
-            <Scan size={14} />
-            <span className="text-sm font-normal">Details</span>
-          </div>
+          <Dialog>
+            <DialogTrigger asChild>
+              <div className="border-t border-muted-foreground/20 p-4 cursor-pointer hover:bg-muted/50 flex items-center justify-center gap-2 transition-colors">
+                <Scan size={14} />
+                <span className="text-sm font-normal">Details</span>
+              </div>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>{type}</DialogTitle>
+                <DialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your account and remove your data from our servers.
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
         </CardContent>
       </Card>
     </>
