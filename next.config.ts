@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       "lh3.googleusercontent.com",
       "avatars.githubusercontent.com",
       "res.cloudinary.com",
+      "flagcdn.com",
     ],
     remotePatterns: [
       {

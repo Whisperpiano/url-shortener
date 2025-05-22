@@ -175,7 +175,7 @@ export default function InformationTabs({
                 <span className="text-sm font-normal">Details</span>
               </div>
             </DialogTrigger>
-            <DialogContent className="xl:max-w-3xl">
+            <DialogContent className="xl:max-w-xl">
               <DialogHeader>
                 <DialogTitle>{type}</DialogTitle>
                 <DialogDescription>
@@ -183,7 +183,7 @@ export default function InformationTabs({
                   your account and remove your data from our servers.
                 </DialogDescription>
               </DialogHeader>
-              <div className="w-full">
+              <div className="overflow-x-auto rounded-md border">
                 {type === "location" && (
                   <DataTable
                     columns={locationColumns}
