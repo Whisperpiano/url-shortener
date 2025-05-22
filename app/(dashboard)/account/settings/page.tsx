@@ -30,7 +30,7 @@ export default async function Settings() {
   }
 
   return (
-    <>
+    <main className="w-full">
       <DashboardHeader group="Account" pageTitle="Settings" />
       <section className="mt-10 px-6 max-w-7xl mx-auto">
         <section className="flex flex-col gap-4">
@@ -100,6 +100,6 @@ export default async function Settings() {
           </Card>
         </section>
       </section>
-    </>
+    </main>
   );
 }

@@ -175,7 +175,7 @@ export default function InformationTabs({
                 <span className="text-sm font-normal">Details</span>
               </div>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="xl:max-w-3xl">
               <DialogHeader>
                 <DialogTitle>{type}</DialogTitle>
                 <DialogDescription>
@@ -183,18 +183,20 @@ export default function InformationTabs({
                   your account and remove your data from our servers.
                 </DialogDescription>
               </DialogHeader>
-              {type === "location" && (
-                <DataTable
-                  columns={locationColumns}
-                  data={details as LocationGroup[]}
-                />
-              )}
-              {type === "device" && (
-                <DataTable
-                  columns={devicesColumns}
-                  data={details as DevicesGroup[]}
-                />
-              )}
+              <div className="w-full">
+                {type === "location" && (
+                  <DataTable
+                    columns={locationColumns}
+                    data={details as LocationGroup[]}
+                  />
+                )}
+                {type === "device" && (
+                  <DataTable
+                    columns={devicesColumns}
+                    data={details as DevicesGroup[]}
+                  />
+                )}
+              </div>
             </DialogContent>
           </Dialog>
         </CardContent>

@@ -4,25 +4,6 @@ import { DevicesGroup } from "@/lib/analytics/get-devices-details";
 import { LocationGroup } from "@/lib/analytics/get-location-details";
 import { ColumnDef } from "@tanstack/react-table";
 
-export type Location = {
-  type: "location";
-  country: string;
-  region: string;
-  city: string;
-  countryCode: string;
-  count: number;
-  percentage: number;
-};
-
-export type Device = {
-  type: "device";
-  device: string;
-  browser: string;
-  os: string;
-  count: number;
-  percentage: number;
-};
-
 export const locationColumns: ColumnDef<LocationGroup>[] = [
   {
     accessorKey: "country",
@@ -35,10 +16,6 @@ export const locationColumns: ColumnDef<LocationGroup>[] = [
   {
     accessorKey: "city",
     header: "City",
-  },
-  {
-    accessorKey: "countryCode",
-    header: "Country Code",
   },
   {
     accessorKey: "count",
