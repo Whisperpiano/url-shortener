@@ -7,10 +7,10 @@ import { getStartDate } from "@/lib/analytics/get-start-date";
 import InformationTabs from "@/components/analytics/information-tabs";
 import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
 import UrlSwitcher from "@/components/analytics/url-switcher";
-import { Button } from "@/components/ui/button";
 import { MainChart } from "@/components/analytics/main-chart";
 import TopChart from "@/components/analytics/top-chart";
 import { NumberTicker } from "@/components/magicui/number-ticker";
+import { DownloadCSVButton } from "@/components/analytics/download-csv-btn";
 
 export default async function Analytics({
   searchParams,
@@ -27,11 +27,13 @@ export default async function Analytics({
 
   const selectedLink = links.find((link) => link.slug === keyParam);
 
-  const { clicksChartData } = await getClicksData(startDate, end, keyParam);
+  const { clicksChartData, clicksData } = await getClicksData(
+    startDate,
+    end,
+    keyParam
+  );
 
   const { location, device } = await getLinksData(startDate, end, keyParam);
-
-  console.log(intervalParam);
 
   return (
     <main className="w-full ">
@@ -45,9 +47,7 @@ export default async function Analytics({
             <UrlSwitcher links={links} selectedLink={selectedLink} />
             <IntervalSwitcher />
           </div>
-          <Button variant="default" className="cursor-pointer">
-            Download as CSV
-          </Button>
+          <DownloadCSVButton data={clicksData} />
         </div>
 
         <section className="grid grid-cols-6 gap-4 px-6 ">

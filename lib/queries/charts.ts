@@ -9,6 +9,20 @@ import { toDate } from "date-fns";
 import { getGroupedData } from "../analytics/get-grouped-data";
 import { groupByKey } from "../analytics/group-by-key";
 
+export type CSVDataTypes = {
+  url: string | null;
+  slug: string | null;
+  country: string | null;
+  region: string | null;
+  city: string | null;
+  device: string | null;
+  browser: string | null;
+  os: string | null;
+  countryCode: string | null;
+  date: Date | null;
+  ip: string | null;
+};
+
 export const getClicksData = cache(
   async (
     start: Date,
@@ -16,6 +30,7 @@ export const getClicksData = cache(
     linkSlug: string
   ): Promise<{
     clicksChartData: Array<{ date: string; clicks: number; visitors: number }>;
+    clicksData: CSVDataTypes[];
   }> => {
     const session = await auth();
 
@@ -23,12 +38,22 @@ export const getClicksData = cache(
       console.error("No user found");
       return {
         clicksChartData: [],
+        clicksData: [],
       };
     }
 
     try {
       const clicksData = await db
         .select({
+          url: links.url,
+          slug: links.slug,
+          country: clicks.country,
+          region: clicks.region,
+          city: clicks.city,
+          device: clicks.deviceType,
+          browser: clicks.browser,
+          os: clicks.os,
+          countryCode: clicks.countryCode,
           date: clicks.timestamp,
           ip: clicks.ip,
         })
@@ -44,16 +69,15 @@ export const getClicksData = cache(
         )
         .orderBy(asc(clicks.timestamp))
         .execute();
-      console.log(clicksData);
+
       const clicksChartData = getGroupedData(clicksData, start, end);
 
-      console.log(clicksChartData);
-
-      return { clicksChartData };
+      return { clicksChartData, clicksData };
     } catch (error) {
       console.error(error);
       return {
         clicksChartData: [],
+        clicksData: [],
       };
     }
   }
