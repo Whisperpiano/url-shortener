@@ -136,6 +136,7 @@ export default function UrlSwitcher({
                       alt={link.url}
                       width={18}
                       height={18}
+                      className="rounded-full"
                     />
                     /{link.slug}
                     <Check

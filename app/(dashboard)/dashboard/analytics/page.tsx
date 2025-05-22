@@ -10,6 +10,7 @@ import UrlSwitcher from "@/components/analytics/url-switcher";
 import { Button } from "@/components/ui/button";
 import { MainChart } from "@/components/analytics/main-chart";
 import TopChart from "@/components/analytics/top-chart";
+import { NumberTicker } from "@/components/magicui/number-ticker";
 
 export default async function Analytics({
   searchParams,
@@ -61,7 +62,14 @@ export default async function Analytics({
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {clicksChartData.reduce((acc, curr) => acc + curr.clicks, 0)}
+              <NumberTicker
+                duration={300}
+                value={clicksChartData.reduce(
+                  (acc, curr) => acc + curr.clicks,
+                  0
+                )}
+                className="whitespace-pre-wrap text-2xl font-medium tracking-tighter text-black dark:text-white"
+              />
             </CardContent>
           </Card>
 
@@ -76,7 +84,14 @@ export default async function Analytics({
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {clicksChartData.reduce((acc, curr) => acc + curr.visitors, 0)}
+              <NumberTicker
+                duration={300}
+                value={clicksChartData.reduce(
+                  (acc, curr) => acc + curr.visitors,
+                  0
+                )}
+                className="whitespace-pre-wrap text-2xl font-medium tracking-tighter text-black dark:text-white"
+              />
             </CardContent>
           </Card>
 
@@ -90,7 +105,13 @@ export default async function Analytics({
                 Links
               </CardTitle>
             </CardHeader>
-            <CardContent>{links.length}</CardContent>
+            <CardContent>
+              <NumberTicker
+                duration={300}
+                value={links.length}
+                className="whitespace-pre-wrap text-2xl font-medium tracking-tighter text-black dark:text-white"
+              />
+            </CardContent>
           </Card>
 
           <MainChart data={clicksChartData} />
@@ -104,7 +125,7 @@ export default async function Analytics({
           {device && (
             <InformationTabs data={{ type: "device", data: device }} />
           )}
-          <TopChart data={{ type: "location", data: location }} />
+          <TopChart data={{ type: "device", data: device }} />
         </section>
       </div>
     </main>
