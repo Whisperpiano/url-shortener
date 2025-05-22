@@ -16,12 +16,16 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogHeader,
+  DialogFooter,
+  DialogClose,
 } from "../ui/dialog";
 
 import { DevicesGroup } from "@/lib/analytics/get-devices-details";
 import { LocationGroup } from "@/lib/analytics/get-location-details";
 import { DataTable } from "./components/data-table";
 import { devicesColumns, locationColumns } from "./components/columns";
+import { Separator } from "../ui/separator";
+import { Button } from "../ui/button";
 
 type AggregatedItem = {
   label: string;
@@ -175,13 +179,14 @@ export default function InformationTabs({
                 <span className="text-sm font-normal">Details</span>
               </div>
             </DialogTrigger>
-            <DialogContent className="xl:max-w-xl">
+            <DialogContent className="xl:max-w-xl" hideCloseButton>
               <DialogHeader>
-                <DialogTitle>{type}</DialogTitle>
-                <DialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
-                </DialogDescription>
+                <DialogTitle className="flex items-center gap-2">
+                  <Scan size={16} />
+                  {type === "location" ? "Location" : "Device"}
+                </DialogTitle>
+                <Separator className="mt-4" />
+                <DialogDescription />
               </DialogHeader>
               <div className="overflow-x-auto rounded-md border">
                 {type === "location" && (
@@ -197,6 +202,18 @@ export default function InformationTabs({
                   />
                 )}
               </div>
+              <Separator className="mt-2" />
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button
+                    variant="outline"
+                    size={"lg"}
+                    className="w-full cursor-pointer"
+                  >
+                    Close
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
             </DialogContent>
           </Dialog>
         </CardContent>
