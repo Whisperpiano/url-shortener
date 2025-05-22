@@ -75,11 +75,11 @@ export default function TopChart({ data }: { data: DataType }) {
     <Card className="min-h-[300px] py-0 flex flex-col gap-0">
       <CardHeader className="px-4 border-b-2 ">
         <CardTitle className="flex items-center justify-center gap-1 text-sm h-[47px]">
+          <span className="text-sm text-muted-foreground">Top 3</span>
+          <div className="mx-2 h-3 w-px bg-muted-foreground/30"></div>
           <span className="text-sm font-medium">
             {data.type === "location" ? "Countries" : "Devices"}
           </span>
-          <div className="mx-2 h-3 w-px bg-muted-foreground/30"></div>
-          <span className="text-sm text-muted-foreground">Top 3</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-2 p-4 pb-8">

@@ -8,6 +8,8 @@ import { toDate } from "date-fns";
 
 import { getGroupedData } from "../analytics/get-grouped-data";
 import { groupByKey } from "../analytics/group-by-key";
+import { getLocationDetails } from "../analytics/get-location-details";
+import { getDevicesDetails } from "../analytics/get-devices-details";
 
 export type CSVDataTypes = {
   url: string | null;
@@ -100,6 +102,8 @@ export const getLinksData = cache(
           Browser: [],
           OS: [],
         },
+        locationDetails: [],
+        devicesDetails: [],
       };
     }
     try {
@@ -134,7 +138,8 @@ export const getLinksData = cache(
       const browserChart = groupByKey(result, "browser");
       const osChart = groupByKey(result, "os");
 
-      console.log("FETCHING");
+      const locationDetails = getLocationDetails(result);
+      const devicesDetails = getDevicesDetails(result);
 
       return {
         location: {
@@ -147,6 +152,8 @@ export const getLinksData = cache(
           Browser: browserChart,
           OS: osChart,
         },
+        locationDetails,
+        devicesDetails,
       };
     } catch (error) {
       console.error(error);
@@ -161,6 +168,8 @@ export const getLinksData = cache(
           Browser: [],
           OS: [],
         },
+        locationDetails: [],
+        devicesDetails: [],
       };
     }
   }

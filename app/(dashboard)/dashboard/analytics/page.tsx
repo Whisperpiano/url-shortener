@@ -33,7 +33,8 @@ export default async function Analytics({
     keyParam
   );
 
-  const { location, device } = await getLinksData(startDate, end, keyParam);
+  const { location, device, locationDetails, devicesDetails } =
+    await getLinksData(startDate, end, keyParam);
 
   return (
     <main className="w-full ">
@@ -118,12 +119,18 @@ export default async function Analytics({
         </section>
         <section className="mt-4 grid grid-cols-2 gap-4 px-6">
           {device && (
-            <InformationTabs data={{ type: "location", data: location }} />
+            <InformationTabs
+              data={{ type: "location", data: location }}
+              details={locationDetails}
+            />
           )}
           <TopChart data={{ type: "location", data: location }} />
 
           {device && (
-            <InformationTabs data={{ type: "device", data: device }} />
+            <InformationTabs
+              data={{ type: "device", data: device }}
+              details={devicesDetails}
+            />
           )}
           <TopChart data={{ type: "device", data: device }} />
         </section>

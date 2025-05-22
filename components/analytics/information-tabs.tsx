@@ -18,13 +18,18 @@ import {
   DialogHeader,
 } from "../ui/dialog";
 
+import { DevicesGroup } from "@/lib/analytics/get-devices-details";
+import { LocationGroup } from "@/lib/analytics/get-location-details";
+import { DataTable } from "./components/data-table";
+import { devicesColumns, locationColumns } from "./components/columns";
+
 type AggregatedItem = {
   label: string;
   value: number;
   countryCode?: string;
 };
 
-type LocationData = {
+export type LocationData = {
   type: "location";
   data: {
     Country: AggregatedItem[];
@@ -42,12 +47,14 @@ type DeviceData = {
   };
 };
 
-type DataType = LocationData | DeviceData;
+export type DataType = LocationData | DeviceData;
 
 export default function InformationTabs({
   data: { type, data },
+  details,
 }: {
   data: DataType;
+  details: DevicesGroup[] | LocationGroup[];
 }) {
   const [activeTab, setActiveTab] = useState<string>(
     type === "location" ? "Country" : "Device"
@@ -59,6 +66,8 @@ export default function InformationTabs({
       : (data as DeviceData["data"])[activeTab as keyof DeviceData["data"]];
 
   const total = activeData.reduce((acc, item) => acc + item.value, 0);
+
+  console.log([data]);
 
   return (
     <>
@@ -174,6 +183,18 @@ export default function InformationTabs({
                   your account and remove your data from our servers.
                 </DialogDescription>
               </DialogHeader>
+              {type === "location" && (
+                <DataTable
+                  columns={locationColumns}
+                  data={details as LocationGroup[]}
+                />
+              )}
+              {type === "device" && (
+                <DataTable
+                  columns={devicesColumns}
+                  data={details as DevicesGroup[]}
+                />
+              )}
             </DialogContent>
           </Dialog>
         </CardContent>
