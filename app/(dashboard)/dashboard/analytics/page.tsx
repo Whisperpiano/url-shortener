@@ -40,10 +40,10 @@ export default async function Analytics({
     <main className="w-full ">
       <DashboardHeader group="Dashboard" pageTitle="Analytics" />
 
-      <div className="max-w-7xl mx-auto mt-4 ">
+      <div className="max-w-7xl mx-auto p-6">
         {/* <h1>Analytics</h1> */}
 
-        <div className="flex items-center justify-between pb-6 pt-2 px-6">
+        <div className="flex items-center justify-between pb-6">
           <div className="flex items-center gap-2 ">
             <UrlSwitcher links={links} selectedLink={selectedLink} />
             <IntervalSwitcher />
@@ -51,7 +51,7 @@ export default async function Analytics({
           <DownloadCSVButton data={clicksData} />
         </div>
 
-        <section className="grid grid-cols-6 gap-4 px-6 ">
+        <section className="grid grid-cols-6 gap-4  ">
           <Card className="col-span-2">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -117,7 +117,7 @@ export default async function Analytics({
 
           <MainChart data={clicksChartData} />
         </section>
-        <section className="mt-4 grid grid-cols-2 gap-4 px-6">
+        <section className="mt-4 grid grid-cols-2 gap-4 ">
           {device && (
             <InformationTabs
               data={{ type: "location", data: location }}

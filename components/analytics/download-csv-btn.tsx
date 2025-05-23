@@ -22,7 +22,7 @@ export function DownloadCSVButton({ data }: { data: CSVDataTypes[] }) {
   return (
     <Button
       variant="default"
-      className="cursor-pointer"
+      className="cursor-pointer py-5"
       onClick={handleDownload}
     >
       Download as CSV

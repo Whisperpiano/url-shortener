@@ -47,14 +47,14 @@ export default function UrlSwitcher({
   };
 
   return (
-    <div className="inline-flex items-center gap-0">
+    <div className="inline-flex items-center gap-0 ">
       {url !== "" && (
         <Image
           src={getFaviconFromUrl(url)}
           alt={url}
           width={24}
           height={24}
-          className="saturate-150 contrast-125 hue-rotate-15 absolute inset-0 w-full h-full object-cover blur-3xl scale-x-150 opacity-25 -z-1 mask-t-from-50% mask-b-from-10%"
+          className="saturate-150 contrast-125 hue-rotate-15 absolute inset-0 w-full h-full object-cover blur-[150px] scale-x-150 opacity-25 -z-1 mask-t-from-50% mask-b-from-10%"
           aria-hidden="true"
         />
       )}
@@ -62,7 +62,7 @@ export default function UrlSwitcher({
       <div
         className={cn(
           buttonVariants({ variant: "outline" }),
-          "rounded-r-none hover:bg-input/30! min-w-[49px] max-w-[49px] "
+          "rounded-r-none hover:bg-input/30! min-w-[49px] max-w-[49px] py-5"
         )}
       >
         {url === "" ? (
@@ -84,7 +84,7 @@ export default function UrlSwitcher({
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[250px] justify-between cursor-pointer rounded-l-none border-l-0"
+            className="py-5 w-[250px] justify-between cursor-pointer rounded-l-none border-l-0"
           >
             <span className="text-muted-foreground font-normal">
               {value === "all"
