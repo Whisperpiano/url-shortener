@@ -7,11 +7,22 @@ import { getFlag } from "@/lib/utils/getFlag";
 import { ColumnDef } from "@tanstack/react-table";
 import { FaQuestionCircle } from "react-icons/fa";
 import Image from "next/image";
+import { ArrowUpDown } from "lucide-react";
 
 export const locationColumns: ColumnDef<LocationGroup>[] = [
   {
     accessorKey: "country",
-    header: "Country",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex items-center gap-2 hover:bg-muted/50 cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Country
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      );
+    },
     cell: ({ row }) => {
       const countryCode = row.original.countryCode;
       return (
@@ -31,22 +42,59 @@ export const locationColumns: ColumnDef<LocationGroup>[] = [
   },
   {
     accessorKey: "region",
-    header: "Region",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex items-center gap-2 hover:bg-muted/50 cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Region
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      );
+    },
   },
   {
     accessorKey: "city",
-    header: "City",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex items-center gap-2 hover:bg-muted/50 cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          City
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      );
+    },
   },
   {
     accessorKey: "count",
-    header: "Count",
+    header: "Clicks",
+    cell: ({ row }) => {
+      const count = row.original.count;
+      return <span className="flex items-center justify-center">{count}</span>;
+    },
   },
   {
     accessorKey: "percentage",
-    header: "Total",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex items-center gap-2 hover:bg-muted/50 cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      );
+    },
     cell: ({ row }) => {
       const percentage = row.original.percentage;
-      return <span>{percentage.toFixed()}%</span>;
+      return (
+        <span className="flex items-center justify-center">
+          {percentage.toFixed()}%
+        </span>
+      );
     },
   },
 ];
@@ -54,7 +102,17 @@ export const locationColumns: ColumnDef<LocationGroup>[] = [
 export const devicesColumns: ColumnDef<DevicesGroup>[] = [
   {
     accessorKey: "device",
-    header: "Device",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex items-center gap-2 hover:bg-muted/50 cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Device
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      );
+    },
     cell: ({ row }) => {
       const device = row.original.device;
       return (
@@ -71,22 +129,65 @@ export const devicesColumns: ColumnDef<DevicesGroup>[] = [
   },
   {
     accessorKey: "browser",
-    header: "Browser",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex items-center gap-2 hover:bg-muted/50 cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Browser
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      );
+    },
   },
   {
     accessorKey: "os",
-    header: "OS",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex items-center gap-2 hover:bg-muted/50 cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          OS
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      );
+    },
+    cell: ({ row }) => {
+      const os = row.original.os;
+      return (
+        <div className="flex items-center gap-2">
+          <span>
+            {os ? os.slice(0, 1).toUpperCase() + os.slice(1) : "Unknown"}
+          </span>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "count",
-    header: "Count",
+    header: "Clicks",
+    cell: ({ row }) => {
+      const count = row.original.count;
+      return <span>{count}</span>;
+    },
   },
   {
     accessorKey: "percentage",
-    header: "Percentage",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex items-center gap-2 hover:bg-muted/50 cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </button>
+      );
+    },
     cell: ({ row }) => {
       const percentage = row.original.percentage;
-      return <span>{percentage.toFixed()}%</span>;
+      return <span className="ml-1">{percentage.toFixed()}%</span>;
     },
   },
 ];

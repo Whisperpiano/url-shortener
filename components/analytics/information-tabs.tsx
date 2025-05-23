@@ -179,7 +179,7 @@ export default function InformationTabs({
                 <span className="text-sm font-normal">Details</span>
               </div>
             </DialogTrigger>
-            <DialogContent className="xl:max-w-xl" hideCloseButton>
+            <DialogContent className="xl:max-w-2xl" hideCloseButton>
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <Scan size={16} />

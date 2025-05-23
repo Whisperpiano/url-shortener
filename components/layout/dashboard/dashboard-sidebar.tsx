@@ -42,8 +42,12 @@ const items = [
   {
     group: "Support",
     items: [
-      { title: "Report a bug", url: "#", icon: Bug },
-      { title: "Contact", url: "#", icon: Send },
+      {
+        title: "Report a bug",
+        url: "https://github.com/Whisperpiano/url-shortener/issues",
+        icon: Bug,
+      },
+      { title: "Contact", url: "mailto:jesusalberola90@gmail.com", icon: Send },
     ],
   },
   {
