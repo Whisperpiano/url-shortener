@@ -78,11 +78,11 @@ export async function middleware(req: NextRequest) {
 
       return NextResponse.redirect(data.data.url);
     } else {
-      return NextResponse.redirect(`${origin}/404`);
+      return NextResponse.rewrite(new URL("/not-found", origin));
     }
   } catch (error) {
     console.error("Error resolving slug:", error);
-    return NextResponse.redirect(`${origin}/404`);
+    return NextResponse.rewrite(new URL("/not-found", origin));
   }
 }
 
