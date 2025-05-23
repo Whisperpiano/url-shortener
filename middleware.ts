@@ -15,6 +15,8 @@ const APP_ROUTES = [
   "/analytics",
   "/r",
   "/_next",
+  "/not-found",
+  "/images",
   "/favicon.ico",
   "/manifest.json",
   "/robots.txt",
