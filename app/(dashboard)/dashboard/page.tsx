@@ -34,11 +34,12 @@ export default async function Dashboard({
   return (
     <main className="w-full">
       <DashboardHeader group="Dashboard" pageTitle="Links" />
-      <section className="mt-10 px-6 max-w-7xl mx-auto">
-        <div className="flex gap-4 items-center">
-          <SearchLinksBar />
-          <SortLinks />
-
+      <section className="p-6 max-w-7xl mx-auto">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4 flex-1">
+            <SearchLinksBar />
+            <SortLinks />
+          </div>
           <CreateLinkForm />
         </div>
 

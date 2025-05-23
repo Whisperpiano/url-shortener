@@ -112,7 +112,11 @@ export default function CreateLinkForm() {
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="default" className="cursor-pointer" size={"default"}>
+        <Button
+          variant="default"
+          className="cursor-pointer py-5"
+          size={"default"}
+        >
           Create link
           <Plus />
         </Button>

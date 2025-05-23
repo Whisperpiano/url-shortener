@@ -25,14 +25,14 @@ export default function SearchLinksBar() {
   );
 
   return (
-    <div className="relative w-full">
+    <div className="relative max-w-[300px] w-full">
       <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
         <SearchIcon className="h-5 w-5" />
       </div>
       <Input
         type="search"
         placeholder="Search link..."
-        className="pl-10"
+        className="pl-10 py-5"
         onChange={handleSearch}
         defaultValue={searchParams.get("search")?.toString()}
       />

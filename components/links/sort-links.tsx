@@ -26,7 +26,7 @@ export default function SortLinks() {
   return (
     <Select onValueChange={handleChange} open={isOpen} onOpenChange={setIsOpen}>
       <SelectTrigger
-        className={`w-[200px] cursor-pointer [&>svg]:transition-transform [&>svg]:duration-200 hover:[&>svg]:text-foreground ${
+        className={`py-5 cursor-pointer [&>svg]:transition-transform [&>svg]:duration-200 hover:[&>svg]:text-foreground ${
           isOpen ? "[&>svg]:rotate-180" : ""
         }`}
       >
