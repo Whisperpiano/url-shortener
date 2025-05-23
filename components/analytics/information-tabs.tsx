@@ -174,10 +174,19 @@ export default function InformationTabs({
           )}
           <Dialog>
             <DialogTrigger asChild>
-              <div className="border-t border-muted-foreground/20 p-4 cursor-pointer hover:bg-muted/50 flex items-center justify-center gap-2 transition-colors">
+              <Button
+                disabled={activeData.length === 0}
+                variant={"ghost"}
+                className={cn(
+                  "border-t border-muted-foreground/20 p-4 flex items-center justify-center gap-2 transition-colors py-7 rounded-t-none",
+                  activeData.length > 0
+                    ? "cursor-pointer hover:bg-muted/50"
+                    : "cursor-not-allowed opacity-50 text-muted-foreground/50"
+                )}
+              >
                 <Scan size={14} />
                 <span className="text-sm font-normal">Details</span>
-              </div>
+              </Button>
             </DialogTrigger>
             <DialogContent className="xl:max-w-2xl" hideCloseButton>
               <DialogHeader>
