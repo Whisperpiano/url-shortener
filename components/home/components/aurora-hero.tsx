@@ -4,8 +4,16 @@ import { motion } from "framer-motion";
 import { BorderBeam } from "@/components/magicui/border-beam";
 
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 export default function AuroraHero() {
+  const { theme } = useTheme();
+
+  const imageSrc =
+    theme === "dark"
+      ? "/images/dashboard_dark_big.webp"
+      : "/images/dashboard_light_big.webp";
+
   return (
     <div className="relative">
       <div className="relative h-full w-full">
@@ -31,9 +39,9 @@ export default function AuroraHero() {
       </div>
       <div className="relative h-fit w-fit mx-auto rounded-sm">
         <Image
-          src="/images/dashboard_placeholder.webp"
+          src={imageSrc}
           alt="Dashboard"
-          width={1200}
+          width={1080}
           height={500}
           className="mx-auto rounded-sm border border-muted-foreground/20 shadow-xl "
         />
