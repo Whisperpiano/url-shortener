@@ -55,5 +55,9 @@ export function useCloudinaryUpload() {
     setIsUploading(false);
   };
 
-  return { imageUrl, isUploading, handleFileChange, error };
+  const resetImageUrl = () => {
+    setImageUrl(null);
+  };
+
+  return { imageUrl, isUploading, handleFileChange, error, resetImageUrl };
 }
