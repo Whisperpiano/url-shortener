@@ -6,6 +6,7 @@ import LinkCard from "@/components/dashboard/LinkCard";
 import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
 import SearchLinksBar from "@/components/links/search-links-bar";
 import SortLinks from "@/components/links/sort-links";
+import NoLinksFound from "@/components/links/no-links-found";
 
 export default async function Dashboard({
   searchParams,
@@ -47,7 +48,7 @@ export default async function Dashboard({
           {sortedLinks.length > 0 ? (
             sortedLinks.map((link) => <LinkCard key={link.id} link={link} />)
           ) : (
-            <p>nothing here</p>
+            <NoLinksFound />
           )}
         </section>
       </section>
