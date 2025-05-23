@@ -97,7 +97,7 @@ export default function LinkCard({ link }: LinkCardProps) {
             <div>
               <div className="flex gap-2 items-center">
                 <Link
-                  href={`/dashboard/links/${link.url}`}
+                  href={`/${link.slug}`}
                   className="font-medium lowercase text-sm"
                   target="_blank"
                 >
