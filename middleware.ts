@@ -89,5 +89,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/:slug*", "/dashboard"],
+  matcher: ["/:slug*"],
 };

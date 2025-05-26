@@ -1,8 +1,9 @@
 import { auth } from "@/app/auth";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+
 import AccountModal from "@/components/header/AccountModal";
 import SearchBar from "@/components/header/SearchBar";
 import ToggleTheme from "@/components/header/ToggleTheme";
-import { SidebarTrigger } from "@/components/ui/sidebar";
 
 type Props = {
   group: "Dashboard" | "Account";
@@ -32,7 +33,7 @@ export default async function DashboardHeader({ group, pageTitle }: Props) {
       <nav className="flex items-center gap-2">
         <SearchBar />
         <ToggleTheme />
-        {/* TODO: make dropdown */}
+
         {session && <AccountModal session={session} />}
       </nav>
     </section>
