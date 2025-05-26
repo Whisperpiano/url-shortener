@@ -4,25 +4,8 @@ import { motion } from "framer-motion";
 import { BorderBeam } from "@/components/magicui/border-beam";
 
 import Image from "next/image";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 
 export default function AuroraHero() {
-  const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
-  const imageSrc =
-    theme === "dark"
-      ? "/images/dashboard_dark_big.webp"
-      : "/images/dashboard_light_big.webp";
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
   return (
     <div className="relative">
       <div className="relative h-full w-full">
@@ -46,9 +29,9 @@ export default function AuroraHero() {
           }}
         />
       </div>
-      <div className="relative h-fit w-fit mx-auto rounded-sm">
+      <div className="relative h-fit w-fit mx-auto rounded-sm animate-fade-in-up animate-delay-300">
         <Image
-          src={imageSrc}
+          src={"/images/dashboard_dark_big.webp"}
           alt="Dashboard"
           width={1080}
           height={500}

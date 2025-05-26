@@ -19,7 +19,7 @@ export default async function HeroSection() {
       >
         {/* Text section */}
         <section>
-          <h2 className="font-mono font-semibold text-7xl flex flex-col gap-2">
+          <h2 className="font-mono font-semibold text-7xl flex flex-col gap-2 animate-fade-in-up">
             <span>Shorten your links </span>
             <span>
               <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
@@ -32,12 +32,12 @@ export default async function HeroSection() {
             </span>
           </h2>
 
-          <p className="text-lg text-muted-foreground pt-3 pb-6 mt-10 max-w-lg mx-auto">
+          <p className="text-lg text-muted-foreground pt-3 pb-6 mt-10 max-w-lg mx-auto animate-fade-in-up animate-delay-250">
             Transform long, messy URLs into short and shareable links in
             seconds. Start simplifying your links today!
           </p>
 
-          <div className="mt-10">
+          <div className="mt-10 animate-fade-in animate-delay-500">
             {session ? (
               <Link
                 href={"/dashboard"}
@@ -60,7 +60,6 @@ export default async function HeroSection() {
           <div className="mt-30 px-6">
             <AuroraHero />
           </div>
-          <ParticlesComponent />
         </div>
       </article>
     </HorizontalBorder>

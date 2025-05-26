@@ -16,11 +16,16 @@ export async function fetchGitHubStats() {
     const pulls = await pullRes.json();
 
     return {
-      stars: repo.stargazers_count,
-      contributors: contributors.length,
-      pulls: pulls.length,
+      stars: repo.stargazers_count ?? 0,
+      contributors: Array.isArray(contributors) ? contributors.length : 0,
+      pulls: Array.isArray(pulls) ? pulls.length : 0,
     };
   } catch (error) {
-    throw new Error("Error fetching GitHub stats", { cause: error });
+    console.error("Error fetching GitHub stats:", error);
+    return {
+      stars: 0,
+      contributors: 0,
+      pulls: 0,
+    };
   }
 }
