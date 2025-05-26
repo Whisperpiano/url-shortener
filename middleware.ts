@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./app/auth";
+import { UAParser } from "ua-parser-js";
 
 export async function middleware(req: NextRequest) {
   const { pathname, origin } = req.nextUrl;
@@ -35,6 +36,23 @@ export async function middleware(req: NextRequest) {
     const data = await response.json();
 
     if (data.success && data.data?.url) {
+      const userAgent = req.headers.get("user-agent") || "";
+      const parser = new UAParser(userAgent);
+      const { browser, os, device } = parser.getResult();
+
+      fetch(`${origin}/api/track`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          os,
+          browser,
+          device,
+          slug: data.data.slug,
+        }),
+      }).catch((error) => console.error("Error tracking:", error));
+
       return NextResponse.redirect(new URL(data.data.url, origin));
     } else {
       return NextResponse.rewrite(new URL("/not-found", origin));
