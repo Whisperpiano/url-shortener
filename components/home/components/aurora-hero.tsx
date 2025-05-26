@@ -5,14 +5,23 @@ import { BorderBeam } from "@/components/magicui/border-beam";
 
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export default function AuroraHero() {
+  const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
-
   const imageSrc =
     theme === "dark"
       ? "/images/dashboard_dark_big.webp"
       : "/images/dashboard_light_big.webp";
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="relative">

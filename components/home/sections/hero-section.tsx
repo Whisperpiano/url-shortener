@@ -1,10 +1,10 @@
 import AuthModal from "@/components/header/AuthModal";
 import AuroraHero from "../components/aurora-hero";
+import Link from "next/link";
 
 import { ParticlesComponent } from "@/components/particles/particles-component";
 import { HorizontalBorder } from "@/components/ui/border";
 import { auth } from "@/app/auth";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 

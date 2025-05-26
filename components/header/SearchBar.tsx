@@ -22,9 +22,11 @@ import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -59,19 +61,43 @@ export default function SearchBar() {
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Suggestions">
               <CommandItem asChild>
-                <Link href="/">
+                <Link
+                  href="/"
+                  onClick={(e) => {
+                    if (pathname === "/") {
+                      e.preventDefault();
+                      setIsOpen(false);
+                    }
+                  }}
+                >
                   <Home />
                   Home
                 </Link>
               </CommandItem>
               <CommandItem asChild>
-                <Link href="/dashboard">
+                <Link
+                  href="/dashboard"
+                  onClick={(e) => {
+                    if (pathname === "/dashboard") {
+                      e.preventDefault();
+                      setIsOpen(false);
+                    }
+                  }}
+                >
                   <LayoutDashboard />
                   Dashboard
                 </Link>
               </CommandItem>
               <CommandItem asChild>
-                <Link href="/account/settings">
+                <Link
+                  href="/account/settings"
+                  onClick={(e) => {
+                    if (pathname === "/account/settings") {
+                      e.preventDefault();
+                      setIsOpen(false);
+                    }
+                  }}
+                >
                   <Settings />
                   Settings
                 </Link>
