@@ -2,32 +2,46 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./app/auth";
 
 export async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
+  const { pathname, origin } = req.nextUrl;
 
   if (pathname === "/") {
     return NextResponse.next();
   }
 
-  try {
-    const session = await auth();
+  const protectedRoutes = ["/dashboard"];
 
-    if (session?.user) {
-      return NextResponse.next();
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
+
+  try {
+    if (isProtectedRoute) {
+      const session = await auth();
+
+      if (session?.user) {
+        return NextResponse.next();
+      }
+
+      const redirectUrl = req.nextUrl.clone();
+      redirectUrl.pathname = "/";
+      redirectUrl.search = "?login";
+
+      return NextResponse.redirect(redirectUrl);
     }
 
-    const redirectUrl = req.nextUrl.clone();
-    redirectUrl.pathname = "/";
-    redirectUrl.search = "?login";
+    const slug = pathname.slice(1);
 
-    return NextResponse.redirect(redirectUrl);
+    const response = await fetch(`${origin}/api/resolve?slug=${slug}`);
+    const data = await response.json();
+
+    if (data.success && data.data?.url) {
+      return NextResponse.redirect(new URL(data.data.url, origin));
+    } else {
+      return NextResponse.rewrite(new URL("/not-found", origin));
+    }
   } catch (error) {
-    console.error("Error en middleware de autenticación:", error);
-
-    const redirectUrl = req.nextUrl.clone();
-    redirectUrl.pathname = "/";
-    redirectUrl.search = "?login";
-
-    return NextResponse.redirect(redirectUrl);
+    console.error("Error en middleware:", error);
+    return NextResponse.rewrite(new URL("/not-found", origin));
   }
 }
 
