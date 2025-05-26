@@ -1,5 +1,5 @@
 import { auth } from "@/app/auth";
-import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
+import DashboardHeader from "@/components/layout/dashboard/components/dashboard-header";
 import AvatarSettings from "@/components/settings/avatar-settings";
 import DeleteAccountSettings from "@/components/settings/delete-account-settings";
 import NameSettings from "@/components/settings/name-settings";

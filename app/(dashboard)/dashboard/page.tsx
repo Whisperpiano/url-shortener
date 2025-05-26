@@ -3,7 +3,7 @@ import { getLinks } from "@/lib/queries/links";
 import CreateLinkForm from "@/components/links/CreateLinkForm";
 
 import LinkCard from "@/components/dashboard/LinkCard";
-import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
+import DashboardHeader from "@/components/layout/dashboard/components/dashboard-header";
 import SearchLinksBar from "@/components/links/search-links-bar";
 import SortLinks from "@/components/links/sort-links";
 import NoLinksFound from "@/components/links/no-links-found";

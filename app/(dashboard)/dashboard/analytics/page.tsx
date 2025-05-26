@@ -5,7 +5,7 @@ import IntervalSwitcher from "@/components/analytics/interval-switcher";
 import { getStartDate } from "@/lib/analytics/get-start-date";
 
 import InformationTabs from "@/components/analytics/information-tabs";
-import DashboardHeader from "@/components/layout/dashboard/dashboard-header";
+import DashboardHeader from "@/components/layout/dashboard/components/dashboard-header";
 import UrlSwitcher from "@/components/analytics/url-switcher";
 import { MainChart } from "@/components/analytics/main-chart";
 import TopChart from "@/components/analytics/top-chart";

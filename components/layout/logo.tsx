@@ -9,10 +9,10 @@ export default function Logo() {
       className="flex items-center gap-2 hover:opacity-85 transition-opacity duration-200"
     >
       <FaLink />
-      <h1 className="font-mono tracking-widest font-medium text-lg">
+      <h1 className="font-mono tracking-widest font-medium text-base">
         Shortleap
       </h1>
-      <Badge className="text-xs uppercase cursor-default" variant={"secondary"}>
+      <Badge className="text-xs uppercase " variant={"secondary"}>
         beta
       </Badge>
     </Link>

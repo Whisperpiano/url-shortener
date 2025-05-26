@@ -13,67 +13,25 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-import {
-  Send,
-  Settings,
-  Bug,
-  ChartNoAxesCombined,
-  Link as LinkIcon,
-} from "lucide-react";
-
-import { FaLink } from "react-icons/fa";
-import Link from "next/link";
+import { Link as LinkIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
+import { DASHBOARD_ITEMS } from "../utils/dashboard-items";
 
-const items = [
-  {
-    group: "Dashboard",
-    items: [
-      { title: "Links", url: "/dashboard", icon: LinkIcon },
-      {
-        title: "Analytics",
-        url: "/dashboard/analytics",
-        icon: ChartNoAxesCombined,
-      },
-    ],
-  },
-  {
-    group: "Support",
-    items: [
-      {
-        title: "Report a bug",
-        url: "https://github.com/Whisperpiano/url-shortener/issues",
-        icon: Bug,
-      },
-      { title: "Contact", url: "mailto:jesusalberola90@gmail.com", icon: Send },
-    ],
-  },
-  {
-    group: "Account",
-    items: [{ title: "Settings", url: "/account/settings", icon: Settings }],
-  },
-];
+import Link from "next/link";
+import Logo from "../../logo";
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
 
   return (
     <Sidebar side="left" variant="sidebar" collapsible="offcanvas">
-      <SidebarHeader className="p-4  ">
-        <Link
-          href={"/"}
-          className="flex items-center gap-2 hover:opacity-85 transition-opacity duration-200"
-        >
-          <FaLink />
-          <h1 className="font-mono tracking-widest font-medium text-base">
-            Shortly
-          </h1>
-        </Link>
+      <SidebarHeader className="max-h-[85px] h-full border-b flex items-start justify-center px-4">
+        <Logo />
       </SidebarHeader>
       <SidebarContent>
-        {items.map((item) => (
+        {DASHBOARD_ITEMS.map((item) => (
           <SidebarGroup key={item.group}>
             <SidebarGroupLabel>{item.group}</SidebarGroupLabel>
             <SidebarGroupContent>
