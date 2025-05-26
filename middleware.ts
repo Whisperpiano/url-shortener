@@ -26,9 +26,14 @@ const APP_ROUTES = [
 export async function middleware(req: NextRequest) {
   const { pathname, origin } = req.nextUrl;
 
+  // Mejorada la verificación de rutas de la aplicación
   if (
-    [...APP_ROUTES].some(
-      (route) => pathname === route || pathname.startsWith(`${route}/`)
+    APP_ROUTES.some(
+      (route) =>
+        pathname === route ||
+        pathname.startsWith(`${route}/`) ||
+        // Asegurarse de que las rutas completas como /dashboard también coincidan
+        (route !== "/" && pathname === route)
     )
   ) {
     return NextResponse.next();
@@ -53,7 +58,20 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
+  // Verificación adicional para evitar procesar rutas internas como slugs
+  // Si la ruta contiene más de un segmento (tiene una barra después del primer segmento)
+  // o si coincide con cualquier patrón de ruta de la aplicación, no lo proceses como slug
+  const segments = pathname.split("/").filter(Boolean);
+  if (segments.length > 1 || APP_ROUTES.includes(`/${segments[0]}`)) {
+    return NextResponse.next();
+  }
+
   const slug = pathname === "/" ? "" : pathname.substring(1);
+
+  // No procesar si el slug está vacío y no estamos en la raíz
+  if (!slug && pathname !== "/") {
+    return NextResponse.next();
+  }
 
   try {
     const response = await fetch(`${origin}/api/resolve?slug=${slug}`);
