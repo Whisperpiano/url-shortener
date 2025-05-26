@@ -5,13 +5,19 @@ export async function GET(req: NextRequest) {
   const slug = req.nextUrl.searchParams.get("slug");
 
   if (!slug) {
-    return NextResponse.json("No slug found", { status: 400 });
+    return NextResponse.json(
+      { success: false, message: "No slug provided" },
+      { status: 400 }
+    );
   }
 
   const response = await findLink(slug);
 
   if (!response.success) {
-    return NextResponse.json("Link not found in database", { status: 400 });
+    return NextResponse.json(
+      { success: false, message: "Link not found" },
+      { status: 404 }
+    );
   }
 
   if (response.data) {

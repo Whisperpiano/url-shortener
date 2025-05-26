@@ -26,9 +26,13 @@ const APP_ROUTES = [
 export async function middleware(req: NextRequest) {
   const { pathname, origin } = req.nextUrl;
 
-  const isAppRoute = APP_ROUTES.some(
-    (route) => pathname === route || pathname.startsWith(`${route}/`)
-  );
+  if (
+    [...APP_ROUTES].some(
+      (route) => pathname === route || pathname.startsWith(`${route}/`)
+    )
+  ) {
+    return NextResponse.next();
+  }
 
   if (pathname.startsWith("/r/")) {
     const slug = pathname.replace("/r/", "");
@@ -36,25 +40,20 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(newUrl);
   }
 
-  if (isAppRoute) {
-    if (pathname.startsWith("/dashboard") || pathname.startsWith("/account")) {
-      const session = await auth();
+  if (pathname.startsWith("/dashboard") || pathname.startsWith("/account")) {
+    const session = await auth();
 
-      if (session?.user) {
-        return NextResponse.next();
-      }
-
-      const redirectUrl = req.nextUrl.clone();
-      redirectUrl.pathname = "/";
-      redirectUrl.search = `?login`;
-      return NextResponse.redirect(redirectUrl);
+    if (session?.user) {
+      return NextResponse.next();
     }
 
-    return NextResponse.next();
+    const redirectUrl = req.nextUrl.clone();
+    redirectUrl.pathname = "/";
+    redirectUrl.search = `?login`;
+    return NextResponse.redirect(redirectUrl);
   }
 
-  // Here is already a slug
-  const slug = pathname.substring(1);
+  const slug = pathname === "/" ? "" : pathname.substring(1);
 
   try {
     const response = await fetch(`${origin}/api/resolve?slug=${slug}`);
@@ -89,5 +88,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/:slug*"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
