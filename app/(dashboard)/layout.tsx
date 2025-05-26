@@ -1,15 +1,28 @@
 import React from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import DashboardSidebar from "@/components/layout/dashboard/components/dashboard-sidebar";
+import { auth } from "../auth";
+import { redirect } from "next/navigation";
+import { getLinks } from "@/lib/queries/links";
+import { getSettings } from "@/lib/queries/settings";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+
+  if (!session) {
+    return redirect("/");
+  }
+
+  const links = await getLinks();
+  const { limit } = await getSettings();
+
   return (
     <SidebarProvider defaultOpen={true}>
-      <DashboardSidebar />
+      <DashboardSidebar linkCount={links.length} limit={limit || 25} />
       {children}
     </SidebarProvider>
   );
