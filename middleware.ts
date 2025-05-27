@@ -1,161 +1,87 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, userAgent } from "next/server";
 import { auth } from "./app/auth";
-import { UAParser } from "ua-parser-js";
+import { findLink } from "./lib/actions/resolve/find";
+import { headers } from "next/headers";
+
+const PUBLIC_ROUTES = ["/", "/404"];
+const PROTECTED_ROUTES = [
+  "/dashboard",
+  "/account",
+  "/dashboard/analytics",
+  "/account/settings",
+];
 
 export async function middleware(req: NextRequest) {
-  const { pathname, origin } = req.nextUrl;
+  const { pathname } = req.nextUrl;
 
-  if (pathname === "/") {
+  const session = await auth();
+  const isLoggedIn = !!session?.user;
+
+  const isProtectedRoute = PROTECTED_ROUTES.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`)
+  );
+
+  const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
+
+  if (isProtectedRoute) {
+    console.log("protected route:", pathname);
+
+    if (!isLoggedIn) {
+      console.log("not logged in, redirecting to login");
+      return NextResponse.redirect(new URL("/?login", req.url));
+    }
+
     return NextResponse.next();
   }
 
-  const protectedRoutes = ["/dashboard"];
+  if (isPublicRoute) {
+    console.log("public route:", pathname);
+    return NextResponse.next();
+  }
 
-  const isProtectedRoute = protectedRoutes.some((route) =>
-    pathname.startsWith(route)
-  );
+  if (
+    pathname.startsWith("/api/") ||
+    pathname.startsWith("/_next/") ||
+    pathname.includes(".")
+  ) {
+    return NextResponse.next();
+  }
 
-  try {
-    if (isProtectedRoute) {
-      const session = await auth();
+  if (!isProtectedRoute && !isPublicRoute) {
+    const slug = pathname.split("/").pop();
 
-      if (session?.user) {
-        return NextResponse.next();
-      }
+    if (!slug) {
+      console.log("no slug");
+      return NextResponse.next();
+    }
 
-      const redirectUrl = req.nextUrl.clone();
-      redirectUrl.pathname = "/";
-      redirectUrl.search = "?login";
+    const response = await findLink(slug);
 
+    if (!response.success) {
+      console.log("link not found");
+      return NextResponse.redirect(new URL("/404", req.url));
+    }
+
+    if (response.data) {
+      // AQUI QUIERO SABER QUE IP ES LA QUE ESTA HACIENDO LA PETICION
+
+      const headersList = await headers();
+      const ip = headersList.get("x-forwarded-for") || "unknown";
+      const data = {
+        ok: true,
+        ip_address: ip,
+      };
+
+      const redirectUrl = new URL("/404", req.url);
+      redirectUrl.searchParams.set("ip", data.ip_address);
+      redirectUrl.searchParams.set("target", response.data.url);
+
+      console.log(data);
+
+      // return NextResponse.redirect(new URL(response.data.url, req.url));
       return NextResponse.redirect(redirectUrl);
     }
 
-    const slug = pathname.slice(1);
-
-    const response = await fetch(`${origin}/api/resolve?slug=${slug}`);
-    const data = await response.json();
-
-    if (data.success && data.data?.url) {
-      const userAgent = req.headers.get("user-agent") || "";
-      const parser = new UAParser(userAgent);
-      const { browser, os, device } = parser.getResult();
-
-      fetch(`${origin}/api/track`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          os,
-          browser,
-          device,
-          slug: data.data.slug,
-        }),
-      }).catch((error) => console.error("Error tracking:", error));
-
-      return NextResponse.redirect(new URL(data.data.url, origin));
-    } else {
-      return NextResponse.rewrite(new URL("/not-found", origin));
-    }
-  } catch (error) {
-    console.error("Error en middleware:", error);
-    return NextResponse.rewrite(new URL("/not-found", origin));
+    return NextResponse.redirect(new URL("/404", req.url));
   }
 }
-
-export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)"],
-};
-
-// import { auth } from "@/app/auth";
-// import { NextResponse } from "next/server";
-// import type { NextRequest } from "next/server";
-// import { UAParser } from "ua-parser-js";
-
-// const APP_ROUTES = [
-//   "/",
-//   "/dashboard",
-//   "/api",
-//   "/auth",
-//   "/login",
-//   "/register",
-//   "/account",
-//   "/settings",
-//   "/analytics",
-//   "/r",
-//   "/_next",
-//   "/not-found",
-//   "/images",
-//   "/favicon.ico",
-//   "/manifest.json",
-//   "/robots.txt",
-//   "/sitemap.xml",
-// ];
-
-// export async function middleware(req: NextRequest) {
-//   const { pathname, origin } = req.nextUrl;
-
-//   if (
-//     [...APP_ROUTES].some(
-//       (route) => pathname === route || pathname.startsWith(`${route}/`)
-//     )
-//   ) {
-//     return NextResponse.next();
-//   }
-
-//   if (pathname.startsWith("/r/")) {
-//     const slug = pathname.replace("/r/", "");
-//     const newUrl = new URL(`/${slug}`, origin);
-//     return NextResponse.redirect(newUrl);
-//   }
-
-//   if (pathname.startsWith("/dashboard") || pathname.startsWith("/account")) {
-//     const session = await auth();
-
-//     if (session?.user) {
-//       return NextResponse.next();
-//     }
-
-//     const redirectUrl = req.nextUrl.clone();
-//     redirectUrl.pathname = "/";
-//     redirectUrl.search = `?login`;
-//     return NextResponse.redirect(redirectUrl);
-//   }
-
-//   const slug = pathname === "/" ? "" : pathname.substring(1);
-
-//   try {
-//     const response = await fetch(`${origin}/api/resolve?slug=${slug}`);
-//     const data = await response.json();
-
-//     if (data.success) {
-//       const userAgent = req.headers.get("user-agent") || "";
-//       const parser = new UAParser(userAgent);
-//       const { browser, os, device } = parser.getResult();
-
-//       fetch(`${origin}/api/track`, {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           os,
-//           browser,
-//           device,
-//           slug,
-//         }),
-//       }).catch((error) => console.error("Error tracking:", error));
-
-//       return NextResponse.redirect(data.data.url);
-//     } else {
-//       return NextResponse.rewrite(new URL("/not-found", origin));
-//     }
-//   } catch (error) {
-//     console.error("Error resolving slug:", error);
-//     return NextResponse.rewrite(new URL("/not-found", origin));
-//   }
-// }
-
-// export const config = {
-//   matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
-// };
