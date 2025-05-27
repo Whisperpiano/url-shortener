@@ -3,7 +3,7 @@ import { auth } from "./app/auth";
 import { findLink } from "./lib/actions/resolve/find";
 import { headers } from "next/headers";
 import { getGeoFromApi } from "./lib/geo/getGeoFromApi";
-import { registerClick } from "./lib/queries/clicks";
+import { UAParser } from "ua-parser-js";
 
 const PUBLIC_ROUTES = ["/", "/404"];
 const PROTECTED_ROUTES = [
@@ -68,7 +68,17 @@ export async function middleware(req: NextRequest) {
 
     if (response.data) {
       const headersList = await headers();
-      // const { os, browser, device } = await req.json();
+      const userAgentString = headersList.get("user-agent") || "";
+
+      const parser = new UAParser(userAgentString);
+      const browserInfo = parser.getBrowser();
+      const osInfo = parser.getOS();
+      const deviceInfo = parser.getDevice();
+
+      const browser = browserInfo.name || "unknown";
+      const os = osInfo.name || "unknown";
+      const device = deviceInfo.type || deviceInfo.vendor || "desktop";
+
       const ip = headersList.get("x-forwarded-for") || "unknown";
 
       const location = await getGeoFromApi(ip);
@@ -101,6 +111,9 @@ export async function middleware(req: NextRequest) {
       redirectUrl.searchParams.set("region", region);
       redirectUrl.searchParams.set("city", city);
       redirectUrl.searchParams.set("countryCode", countryCode);
+      redirectUrl.searchParams.set("device", device);
+      redirectUrl.searchParams.set("browser", browser);
+      redirectUrl.searchParams.set("os", os);
 
       // return NextResponse.redirect(new URL(response.data.url, req.url));
       return NextResponse.redirect(redirectUrl);
