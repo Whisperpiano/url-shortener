@@ -19,9 +19,6 @@ const PROTECTED_ROUTES = [
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  const token = await getToken({ req });
-  const isLoggedIn = !!token;
-
   const isProtectedRoute = PROTECTED_ROUTES.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`)
   );
@@ -29,7 +26,8 @@ export async function middleware(req: NextRequest) {
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
 
   if (isProtectedRoute) {
-    console.log("protected route:", pathname);
+    const token = await getToken({ req });
+    const isLoggedIn = !!token;
 
     if (!isLoggedIn) {
       console.log("not logged in, redirecting to login");
