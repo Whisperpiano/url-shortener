@@ -3,8 +3,38 @@ import { db } from "../db/db";
 import { clicks } from "../db/schemas/clicks";
 import { links } from "../db/schemas/links";
 import { RegisterClickSchema, RegisterClickTypes } from "../zod/clicks";
+import { headers } from "next/headers";
 
 export const registerClick = async (data: RegisterClickTypes) => {
+  // Añadir una validación de seguridad para evitar clics desde rutas protegidas
+  try {
+    const headersList = await headers();
+    const referrer = headersList.get("referer") || "";
+
+    if (referrer) {
+      const url = new URL(referrer);
+
+      // Si la URL proviene del dashboard o rutas protegidas, no registrar el clic
+      if (
+        url.pathname.startsWith("/dashboard") ||
+        url.pathname.startsWith("/account") ||
+        url.pathname.includes("/dashboard/")
+      ) {
+        console.log(
+          "🛑 Click blocked: request from protected route",
+          url.pathname
+        );
+        return {
+          success: true, // Devolvemos success: true para no romper el flujo
+          protected: true,
+        };
+      }
+    }
+  } catch (error) {
+    console.log("Error checking referrer:", error);
+    // Continuamos con el flujo normal si hay algún error al verificar el referrer
+  }
+
   const parsed = RegisterClickSchema.safeParse(data);
 
   if (!parsed.success) {
@@ -64,79 +94,3 @@ export const registerClick = async (data: RegisterClickTypes) => {
     };
   }
 };
-
-// import { eq } from "drizzle-orm";
-// import { db } from "../db/db";
-// import { clicks } from "../db/schemas/clicks";
-// import { links } from "../db/schemas/links";
-// import { RegisterClickSchema, RegisterClickTypes } from "../zod/clicks";
-
-// export const registerClick = async (data: RegisterClickTypes) => {
-//   const parsed = RegisterClickSchema.safeParse(data);
-
-//   if (!parsed.success) {
-//     return {
-//       success: false,
-//       error: parsed.error.flatten().fieldErrors,
-//     };
-//   }
-
-//   const {
-//     linkId,
-//     slug,
-//     ip,
-//     country,
-//     region,
-//     city,
-//     countryCode,
-//     device,
-//     browser,
-//     os,
-//   } = parsed.data;
-
-//   const isDesktop = !device.type;
-
-//   try {
-//     await db.transaction(async (tx) => {
-
-//       const link = await tx
-//         .select()
-//         .from(links)
-//         .where(eq(links.slug, slug))
-//         .execute();
-
-//       if (link.length === 0) throw new Error("Link not found");
-
-//       await tx.insert(clicks).values({
-//         linkId: link[0].id,
-//         ip,
-//         country,
-//         region,
-//         city,
-//         countryCode,
-//         deviceType: isDesktop ? "desktop" : device.type,
-//         browser: browser.name,
-//         os: os.name,
-//       });
-
-//       await tx
-//         .update(links)
-//         .set({ clickCount: link[0].clickCount + 1 })
-//         .where(eq(links.id, link[0].id))
-//         .execute();
-//     });
-
-//     return {
-//       success: true,
-//     };
-//   } catch (error) {
-//     console.error("Error in registerClick: ", error);
-//     return {
-//       success: false,
-//       error:
-//         error instanceof Error
-//           ? error.message
-//           : "Unexpected error while registering the click.",
-//     };
-//   }
-// };
