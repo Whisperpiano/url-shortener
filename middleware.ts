@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "./app/auth";
+
 import { findLink } from "./lib/actions/resolve/find";
 import { headers } from "next/headers";
 import { getGeoFromApi } from "./lib/geo/getGeoFromApi";
 import { UAParser } from "ua-parser-js";
 import { registerClick } from "./lib/queries/clicks";
+import { getToken } from "next-auth/jwt";
 
 const PUBLIC_ROUTES = ["/", "/404"];
 
@@ -18,9 +19,8 @@ const PROTECTED_ROUTES = [
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  const session = await auth();
-
-  const isLoggedIn = !!session?.user;
+  const token = await getToken({ req });
+  const isLoggedIn = !!token;
 
   const isProtectedRoute = PROTECTED_ROUTES.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`)
