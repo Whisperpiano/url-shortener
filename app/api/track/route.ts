@@ -2,8 +2,6 @@ import { getGeoFromApi } from "@/lib/geo/getGeoFromApi";
 import { registerClick } from "@/lib/queries/clicks";
 import { NextRequest, NextResponse } from "next/server";
 
-// const TEST = "185.91.64.114";
-
 export async function POST(req: NextRequest) {
   const { os, browser, device, slug } = await req.json();
 
@@ -20,6 +18,7 @@ export async function POST(req: NextRequest) {
   const { country, region, city, countryCode } = location;
 
   const response = await registerClick({
+    linkId: "82db0409-8d50-428b-86b1-5672176648be",
     slug,
     ip,
     country,

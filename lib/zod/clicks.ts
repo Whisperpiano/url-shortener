@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const RegisterClickSchema = z.object({
+  linkId: z.string().uuid(),
   slug: z.string(),
   ip: z.string().nullable(),
   country: z.string().nullable().optional(),

@@ -93,6 +93,7 @@ export async function middleware(req: NextRequest) {
       const { country, region, city, countryCode } = location;
 
       const registerClickResponse = await registerClick({
+        linkId: response.data.id,
         slug: response.data.slug,
         ip,
         country,
