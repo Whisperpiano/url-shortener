@@ -71,6 +71,15 @@ export default function LinkCard({ link }: LinkCardProps) {
       icon: <LucideCheckCircle size={18} />,
     });
   };
+  <Link
+    href={`https://shortleap.vercel.app/${link.slug}`}
+    className="font-medium lowercase text-sm"
+    target="_blank"
+    prefetch={false}
+  >
+    shortleap.vercel.app/
+    <span className="dark:text-purple-400 text-purple-600">{link.slug}</span>
+  </Link>;
 
   return (
     <MagicCard className="rounded-xl">
@@ -97,9 +106,10 @@ export default function LinkCard({ link }: LinkCardProps) {
             <div>
               <div className="flex gap-2 items-center">
                 <Link
-                  href={`/${link.slug}`}
+                  href={`https://shortleap.vercel.app/${link.slug}`}
                   className="font-medium lowercase text-sm"
                   target="_blank"
+                  prefetch={false}
                 >
                   shortleap.vercel.app/
                   <span className="dark:text-purple-400 text-purple-600">
