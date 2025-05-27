@@ -4,6 +4,7 @@ import { findLink } from "./lib/actions/resolve/find";
 import { headers } from "next/headers";
 import { getGeoFromApi } from "./lib/geo/getGeoFromApi";
 import { UAParser } from "ua-parser-js";
+import { registerClick } from "./lib/queries/clicks";
 
 const PUBLIC_ROUTES = ["/", "/404"];
 const PROTECTED_ROUTES = [
@@ -75,9 +76,15 @@ export async function middleware(req: NextRequest) {
       const osInfo = parser.getOS();
       const deviceInfo = parser.getDevice();
 
-      const browser = browserInfo.name || "unknown";
-      const os = osInfo.name || "unknown";
-      const device = deviceInfo.type || deviceInfo.vendor || "desktop";
+      const browser = {
+        name: browserInfo.name || "unknown",
+      };
+      const os = {
+        name: osInfo.name || "unknown",
+      };
+      const device = {
+        type: deviceInfo.type || deviceInfo.vendor || "desktop",
+      };
 
       const ip = headersList.get("x-forwarded-for") || "unknown";
 
@@ -85,38 +92,26 @@ export async function middleware(req: NextRequest) {
 
       const { country, region, city, countryCode } = location;
 
-      // const registerClickResponse = await registerClick({
-      //   slug: response.data.slug,
-      //   ip,
-      //   country,
-      //   region,
-      //   city,
-      //   countryCode,
-      //   device,
-      //   browser,
-      //   os,
-      // });
+      const registerClickResponse = await registerClick({
+        slug: response.data.slug,
+        ip,
+        country,
+        region,
+        city,
+        countryCode,
+        device,
+        browser,
+        os,
+      });
 
-      // if (!registerClickResponse.success) {
-      //   console.log("click not registered");
-      //   return NextResponse.redirect(
-      //     new URL("/404?error=click_not_registered", req.url)
-      //   );
-      // }
+      if (!registerClickResponse.success) {
+        console.log("click not registered");
+        return NextResponse.redirect(
+          new URL("/404?error=click_not_registered", req.url)
+        );
+      }
 
-      const redirectUrl = new URL("/404", req.url);
-
-      redirectUrl.searchParams.set("ip", ip);
-      redirectUrl.searchParams.set("country", country);
-      redirectUrl.searchParams.set("region", region);
-      redirectUrl.searchParams.set("city", city);
-      redirectUrl.searchParams.set("countryCode", countryCode);
-      redirectUrl.searchParams.set("device", device);
-      redirectUrl.searchParams.set("browser", browser);
-      redirectUrl.searchParams.set("os", os);
-
-      // return NextResponse.redirect(new URL(response.data.url, req.url));
-      return NextResponse.redirect(redirectUrl);
+      return NextResponse.redirect(new URL(response.data.url, req.url));
     }
 
     return NextResponse.redirect(new URL("/404", req.url));
