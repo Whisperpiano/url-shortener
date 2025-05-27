@@ -5,6 +5,8 @@ import { headers } from "next/headers";
 import { getGeoFromApi } from "./lib/geo/getGeoFromApi";
 import { UAParser } from "ua-parser-js";
 import { registerClick } from "./lib/queries/clicks";
+import { getToken } from "next-auth/jwt";
+import { auth } from "./app/auth";
 
 const PUBLIC_ROUTES = ["/", "/404"];
 
@@ -25,12 +27,10 @@ export async function middleware(req: NextRequest) {
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
 
   if (isProtectedRoute) {
-    const sessionCookie = req.cookies.get("next-auth.session-token")?.value;
-    const isLoggedIn = !!sessionCookie;
+    const session = await auth();
+    const isLoggedIn = !!session;
 
     if (!isLoggedIn) {
-      console.log("not logged in, redirecting to login");
-
       return NextResponse.redirect(new URL("/?login", req.url));
     }
 
@@ -38,16 +38,6 @@ export async function middleware(req: NextRequest) {
   }
 
   if (isPublicRoute) {
-    console.log("public route:", pathname);
-
-    return NextResponse.next();
-  }
-
-  if (
-    pathname.startsWith("/api/") ||
-    pathname.startsWith("/_next/") ||
-    pathname.includes(".")
-  ) {
     return NextResponse.next();
   }
 
@@ -128,3 +118,11 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/404", req.url));
   }
 }
+
+export const config = {
+  matcher: [
+    "/dashboard/:path*",
+    "/account/:path*",
+    "/((?!api|_next/static|_next/image|favicon.ico|.+\\.).*)",
+  ],
+};
