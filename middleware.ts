@@ -2,6 +2,7 @@ import { NextRequest, NextResponse, userAgent } from "next/server";
 import { auth } from "./app/auth";
 import { findLink } from "./lib/actions/resolve/find";
 import { headers } from "next/headers";
+import { getGeoFromApi } from "./lib/geo/getGeoFromApi";
 
 const PUBLIC_ROUTES = ["/", "/404"];
 const PROTECTED_ROUTES = [
@@ -67,16 +68,17 @@ export async function middleware(req: NextRequest) {
 
       const headersList = await headers();
       const ip = headersList.get("x-forwarded-for") || "unknown";
-      const data = {
-        ok: true,
-        ip_address: ip,
-      };
+
+      const location = await getGeoFromApi(ip);
+
+      const { country, region, city, countryCode } = location;
 
       const redirectUrl = new URL("/404", req.url);
-      redirectUrl.searchParams.set("ip", data.ip_address);
-      redirectUrl.searchParams.set("target", response.data.url);
-
-      console.log(data);
+      redirectUrl.searchParams.set("ip", ip);
+      redirectUrl.searchParams.set("country", country);
+      redirectUrl.searchParams.set("region", region);
+      redirectUrl.searchParams.set("city", city);
+      redirectUrl.searchParams.set("countryCode", countryCode);
 
       // return NextResponse.redirect(new URL(response.data.url, req.url));
       return NextResponse.redirect(redirectUrl);

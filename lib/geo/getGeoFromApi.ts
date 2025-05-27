@@ -7,9 +7,7 @@ export type NormalizedLocation = {
   countryCode: string;
 };
 
-export async function getGeoFromApi(
-  ip: string
-): Promise<NormalizedLocation | null> {
+export async function getGeoFromApi(ip: string): Promise<NormalizedLocation> {
   // 1. First try: ip-api.com
   try {
     const response = await fetch(`http://ip-api.com/json/${ip}`);
@@ -44,5 +42,11 @@ export async function getGeoFromApi(
     console.error("API Error: ipwhois.com ", error);
   }
 
-  return null;
+  // 3. Fallback
+  return {
+    city: "unknown",
+    region: "unknown",
+    country: "unknown",
+    countryCode: "unknown",
+  };
 }
