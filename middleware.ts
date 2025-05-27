@@ -3,6 +3,7 @@ import { auth } from "./app/auth";
 import { findLink } from "./lib/actions/resolve/find";
 import { headers } from "next/headers";
 import { getGeoFromApi } from "./lib/geo/getGeoFromApi";
+import { registerClick } from "./lib/queries/clicks";
 
 const PUBLIC_ROUTES = ["/", "/404"];
 const PROTECTED_ROUTES = [
@@ -60,28 +61,40 @@ export async function middleware(req: NextRequest) {
 
     if (!response.success) {
       console.log("link not found");
-      return NextResponse.redirect(new URL("/404", req.url));
+      return NextResponse.redirect(
+        new URL("/404?error=link_not_found", req.url)
+      );
     }
 
     if (response.data) {
-      // AQUI QUIERO SABER QUE IP ES LA QUE ESTA HACIENDO LA PETICION
-
       const headersList = await headers();
+      const { os, browser, device } = await req.json();
       const ip = headersList.get("x-forwarded-for") || "unknown";
 
       const location = await getGeoFromApi(ip);
 
       const { country, region, city, countryCode } = location;
 
-      const redirectUrl = new URL("/404", req.url);
-      redirectUrl.searchParams.set("ip", ip);
-      redirectUrl.searchParams.set("country", country);
-      redirectUrl.searchParams.set("region", region);
-      redirectUrl.searchParams.set("city", city);
-      redirectUrl.searchParams.set("countryCode", countryCode);
+      const registerClickResponse = await registerClick({
+        slug: response.data.slug,
+        ip,
+        country,
+        region,
+        city,
+        countryCode,
+        device,
+        browser,
+        os,
+      });
 
-      // return NextResponse.redirect(new URL(response.data.url, req.url));
-      return NextResponse.redirect(redirectUrl);
+      if (!registerClickResponse.success) {
+        console.log("click not registered");
+        return NextResponse.redirect(
+          new URL("/404?error=click_not_registered", req.url)
+        );
+      }
+
+      return NextResponse.redirect(new URL(response.data.url, req.url));
     }
 
     return NextResponse.redirect(new URL("/404", req.url));
