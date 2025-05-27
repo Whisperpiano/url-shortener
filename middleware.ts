@@ -5,7 +5,6 @@ import { headers } from "next/headers";
 import { getGeoFromApi } from "./lib/geo/getGeoFromApi";
 import { UAParser } from "ua-parser-js";
 import { registerClick } from "./lib/queries/clicks";
-import { getToken } from "next-auth/jwt";
 
 const PUBLIC_ROUTES = ["/", "/404"];
 
@@ -26,8 +25,8 @@ export async function middleware(req: NextRequest) {
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
 
   if (isProtectedRoute) {
-    const token = await getToken({ req });
-    const isLoggedIn = !!token;
+    const sessionCookie = req.cookies.get("next-auth.session-token")?.value;
+    const isLoggedIn = !!sessionCookie;
 
     if (!isLoggedIn) {
       console.log("not logged in, redirecting to login");
