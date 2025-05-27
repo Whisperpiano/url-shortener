@@ -68,7 +68,7 @@ export async function middleware(req: NextRequest) {
 
     if (response.data) {
       const headersList = await headers();
-      const { os, browser, device } = await req.json();
+      // const { os, browser, device } = await req.json();
       const ip = headersList.get("x-forwarded-for") || "unknown";
 
       const location = await getGeoFromApi(ip);
@@ -95,9 +95,7 @@ export async function middleware(req: NextRequest) {
       // }
 
       const redirectUrl = new URL("/404", req.url);
-      redirectUrl.searchParams.set("os", os);
-      redirectUrl.searchParams.set("browser", browser);
-      redirectUrl.searchParams.set("device", device);
+
       redirectUrl.searchParams.set("ip", ip);
       redirectUrl.searchParams.set("country", country);
       redirectUrl.searchParams.set("region", region);
