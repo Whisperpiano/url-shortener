@@ -16,7 +16,6 @@ export const registerClick = async (data: RegisterClickTypes) => {
 
   const {
     linkId,
-    slug,
     ip,
     country,
     region,
