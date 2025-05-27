@@ -30,7 +30,6 @@ export async function middleware(req: NextRequest) {
 
     if (!isLoggedIn) {
       console.log("not logged in, redirecting to login");
-
       return NextResponse.redirect(new URL("/?login", req.url));
     }
 
@@ -39,15 +38,6 @@ export async function middleware(req: NextRequest) {
 
   if (isPublicRoute) {
     console.log("public route:", pathname);
-
-    return NextResponse.next();
-  }
-
-  if (
-    pathname.startsWith("/api/") ||
-    pathname.startsWith("/_next/") ||
-    pathname.includes(".")
-  ) {
     return NextResponse.next();
   }
 
@@ -56,42 +46,13 @@ export async function middleware(req: NextRequest) {
 
     if (!slug) {
       console.log("no slug");
-
       return NextResponse.next();
     }
 
-    const response = await findLink(slug);
+    console.log("slug:", slug);
+    return;
+    // return NextResponse.redirect(new URL(`/404?slug=${slug}`, req.url));
 
-    if (!response.success) {
-      console.log("link not found");
-
-      return NextResponse.redirect(new URL("/404", req.url));
-    }
-
-    if (response.data) {
-      const headersList = await headers();
-
-      const ip = headersList.get("x-forwarded-for") || "unknown";
-
-      const data = {
-        ok: true,
-
-        ip_address: ip,
-      };
-
-      const redirectUrl = new URL("/404", req.url);
-
-      redirectUrl.searchParams.set("ip", data.ip_address);
-
-      redirectUrl.searchParams.set("target", response.data.url);
-
-      console.log(data);
-
-      // return NextResponse.redirect(new URL(response.data.url, req.url));
-
-      return NextResponse.redirect(redirectUrl);
-    }
-
-    return NextResponse.redirect(new URL("/404", req.url));
+    // return NextResponse.redirect(new URL("/404", req.url));
   }
 }
