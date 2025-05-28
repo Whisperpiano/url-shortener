@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
   if (!userAgent || !ip) {
     return jsonError("User agent or IP missing in headers", 500);
   }
-  const { browser, os, device } = parseUserAgent(userAgent);
+  const { browser, os, device } = await parseUserAgent(userAgent);
 
   if (!browser || !os || !device) {
     return jsonError("Unable to parse user agent info", 500);

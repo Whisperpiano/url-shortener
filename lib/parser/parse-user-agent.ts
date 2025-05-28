@@ -1,6 +1,6 @@
 import { UAParser } from "ua-parser-js";
 
-export const parseUserAgent = (userAgentString: string) => {
+export const parseUserAgent = async (userAgentString: string) => {
   const parser = new UAParser(userAgentString);
 
   const browserInfo = parser.getBrowser();
