@@ -31,30 +31,35 @@ export async function middleware(req: NextRequest) {
     try {
       // Construct the full URL for the API route
       const apiUrl = new URL(`/api/resolve?slug=${slug}`, req.url).toString();
-      
+
       // Make a fetch request to the API route
       const response = await fetch(apiUrl);
-      
+
       // Check if the response is OK
       if (!response.ok) {
-        return NextResponse.redirect(new URL("/404?error=link_not_found", req.url));
+        return NextResponse.redirect(
+          new URL("/404?error=link_not_found", req.url)
+        );
       }
-      
+
       // Parse the JSON response
       const data = await response.json();
-      
+
       // If the API returns success and has URL data, redirect to that URL
       if (data.success && data.data && data.data.url) {
         return NextResponse.redirect(new URL(data.data.url, req.url));
       } else {
         // Otherwise redirect to 404
-        return NextResponse.redirect(new URL("/404?error=invalid_response", req.url));
+        return NextResponse.redirect(
+          new URL("/404?error=invalid_response", req.url)
+        );
       }
     } catch (error) {
       // Log error and redirect to 404 in case of any exceptions
       console.error("Middleware error:", error);
       return NextResponse.redirect(new URL("/404?error=server_error", req.url));
     }
+  }
 }
 
 export const config = {
