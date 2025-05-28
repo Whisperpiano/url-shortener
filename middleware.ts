@@ -35,6 +35,8 @@ export async function middleware(req: NextRequest) {
       // Make a fetch request to the API route
       const response = await fetch(apiUrl);
 
+      console.log(response);
+
       // Check if the response is OK
       if (!response.ok) {
         return NextResponse.redirect(
