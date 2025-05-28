@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const slug = req.nextUrl.searchParams.get("slug");
+  console.log("SLUG PUTO", slug);
 
   if (!slug) {
     return NextResponse.json(
