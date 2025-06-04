@@ -8,31 +8,31 @@ import Divider from "@/components/ui/divider";
 export default async function Home() {
   return (
     <main>
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] max-h-[calc(100vh-85px)] overflow-hidden">
+      <section className="max-w-[1780px] mx-auto grid md:grid-cols-[40px_1fr_40px] max-h-[calc(100vh-85px)] overflow-hidden">
         <HeroSection />
       </section>
 
       <Divider />
 
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
+      <section className="max-w-[1780px] mx-auto grid md:grid-cols-[40px_1fr_40px]">
         <FeaturesSection />
       </section>
 
       <Divider />
 
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
+      <section className="max-w-[1780px] mx-auto grid md:grid-cols-[40px_1fr_40px]">
         <StackSection />
       </section>
 
       <Divider />
 
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
+      <section className="max-w-[1780px] mx-auto grid md:grid-cols-[40px_1fr_40px]">
         <ContributeSection />
       </section>
 
       <Divider />
 
-      <section className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px] ">
+      <section className="max-w-[1780px] mx-auto grid md:grid-cols-[40px_1fr_40px] ">
         <SponsorsSection />
       </section>
 

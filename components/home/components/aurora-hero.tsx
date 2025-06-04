@@ -10,7 +10,7 @@ export default function AuroraHero() {
     <div className="relative">
       <div className="relative h-full w-full">
         <motion.div
-          className="absolute -top-100 left-0 right-0 h-[1000px] w-[1800px] rounded-full m-auto -z-10 blur-3xl"
+          className="absolute -top-100 left-0 right-0 h-[800px] w-[400px] sm:h-[800px] sm:w-[500px] md:h-[800px] md:w-[600px] lg:h-[1000px] lg:w-[1000px] xl:h-[1000px] xl:w-[1200px] 2xl:h-[1000px] 2xl:w-[1400px] rounded-full m-auto -z-10 blur-3xl"
           animate={{
             background: [
               "radial-gradient(circle, rgba(236, 72, 228, 0.25) 0%, rgba(236, 72, 73, 0) 70%)",

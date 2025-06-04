@@ -7,7 +7,7 @@ import { HorizontalBorder } from "../ui/border";
 
 export default function Footer() {
   return (
-    <footer className="max-w-[1780px] mx-auto grid grid-cols-[40px_1fr_40px]">
+    <footer className="max-w-[1780px] mx-auto grid md:grid-cols-[40px_1fr_40px] py-4 md:py-0">
       <HorizontalBorder>
         <div className="shadow sm:flex sm:items-center sm:justify-between p-4 sm:p-6 xl:p-8 antialiased">
           <p className="mb-4 text-sm text-center text-muted-foreground sm:mb-0">
