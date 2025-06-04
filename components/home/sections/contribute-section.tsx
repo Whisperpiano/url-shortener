@@ -28,7 +28,7 @@ export default async function ContributeSection() {
               </span>
             </h2>
             <p className="text-muted-foreground text-balance font-normal text-base sm:text-lg max-w-2xl text-center mt-2">
-              Shortleap is proudly open source. That means you're free to
+              Shortleap is proudly open source. That means you&apos;re free to
               explore the code, suggest improvements, and help shape the future
               of the project.
             </p>
