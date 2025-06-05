@@ -6,6 +6,7 @@ import { HorizontalBorder } from "@/components/ui/border";
 import PixelCanvas from "@/components/PixelCanvas";
 import Link from "next/link";
 import GitHubStats from "@/components/home/components/github-stats";
+import AnimatedHeader from "./animated-header";
 
 export default async function ContributeSection() {
   return (
@@ -19,20 +20,7 @@ export default async function ContributeSection() {
             <PixelCanvas className="absolute inset-0 opacity-20 w-full h-full pointer-events-none -z-10" />
           </div>
 
-          <header className="flex flex-col items-center gap-3 sm:gap-4">
-            <h2 className="tracking-tighter font-semibold text-2xl sm:text-4xl md:text-5xl text-center">
-              <span className="inline sm:hidden">Open source?</span>
-              <span className="hidden sm:inline">Open source?</span>
-              <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent block sm:inline sm:ml-4 sm:mr-3">
-                Of course!
-              </span>
-            </h2>
-            <p className="text-muted-foreground text-balance font-normal text-base sm:text-lg max-w-2xl text-center mt-2">
-              Shortleap is proudly open source. That means you&apos;re free to
-              explore the code, suggest improvements, and help shape the future
-              of the project.
-            </p>
-          </header>
+          <AnimatedHeader />
 
           <GitHubStats className="flex items-center justify-center my-16 md:my-20" />
 
