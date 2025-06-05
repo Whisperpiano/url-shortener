@@ -15,12 +15,13 @@ import { Session } from "next-auth";
 import Image from "next/image";
 import { logout } from "@/lib/actions/auth/logout";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   ChartNoAxesCombined,
   LayoutDashboard,
   LogOut,
   Settings,
+  Loader2,
 } from "lucide-react";
 import {
   Drawer,
@@ -37,7 +38,9 @@ interface Props {
 export default function AccountDropdown({ session }: Props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleNavigation = (url: string) => {
     setDropdownOpen(false);
@@ -45,11 +48,22 @@ export default function AccountDropdown({ session }: Props) {
   };
 
   const handleLogout = async () => {
+    setIsLoggingOut(true);
     logout();
   };
 
   return (
     <>
+      {isLoggingOut && pathname !== "/" && (
+        <div className="fixed inset-0 bg-background/80 backdrop-blur-md z-50 flex items-center justify-center animate-fade-in">
+          <div className="flex flex-col items-center space-y-3">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <p className="text-sm font-medium text-muted-foreground">
+              Logging out...
+            </p>
+          </div>
+        </div>
+      )}
       <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
         <DropdownMenuTrigger
           className={cn(
