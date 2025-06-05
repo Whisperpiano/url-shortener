@@ -30,7 +30,7 @@ export default async function DashboardHeader({ group, pageTitle }: Props) {
       </ul>
 
       <nav className="flex items-center gap-2">
-        <SearchBar />
+        <SearchBar isAuth={Boolean(session)} />
         {session && <AccountModal session={session} />}
       </nav>
     </section>

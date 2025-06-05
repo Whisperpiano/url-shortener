@@ -17,7 +17,7 @@ export default async function Header() {
           <nav>
             <ul className="flex items-center gap-2">
               <li>
-                <SearchBar />
+                <SearchBar isAuth={Boolean(session)} />
               </li>
               <li className="flex items-center">
                 {session ? <AccountModal session={session} /> : <AuthModal />}

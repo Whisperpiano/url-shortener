@@ -24,7 +24,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function SearchBar() {
+export default function SearchBar({ isAuth }: { isAuth: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
@@ -61,50 +61,52 @@ export default function SearchBar() {
           <CommandInput placeholder="Type a command or search..." />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Suggestions">
-              <CommandItem asChild>
-                <Link
-                  href="/"
-                  onClick={(e) => {
-                    if (pathname === "/") {
-                      e.preventDefault();
-                      setIsOpen(false);
-                    }
-                  }}
-                >
-                  <Home />
-                  Home
-                </Link>
-              </CommandItem>
-              <CommandItem asChild>
-                <Link
-                  href="/dashboard"
-                  onClick={(e) => {
-                    if (pathname === "/dashboard") {
-                      e.preventDefault();
-                      setIsOpen(false);
-                    }
-                  }}
-                >
-                  <LayoutDashboard />
-                  Dashboard
-                </Link>
-              </CommandItem>
-              <CommandItem asChild>
-                <Link
-                  href="/account/settings"
-                  onClick={(e) => {
-                    if (pathname === "/account/settings") {
-                      e.preventDefault();
-                      setIsOpen(false);
-                    }
-                  }}
-                >
-                  <Settings />
-                  Settings
-                </Link>
-              </CommandItem>
-            </CommandGroup>
+            {isAuth && (
+              <CommandGroup heading="Suggestions">
+                <CommandItem asChild>
+                  <Link
+                    href="/"
+                    onClick={(e) => {
+                      if (pathname === "/") {
+                        e.preventDefault();
+                        setIsOpen(false);
+                      }
+                    }}
+                  >
+                    <Home />
+                    Home
+                  </Link>
+                </CommandItem>
+                <CommandItem asChild>
+                  <Link
+                    href="/dashboard"
+                    onClick={(e) => {
+                      if (pathname === "/dashboard") {
+                        e.preventDefault();
+                        setIsOpen(false);
+                      }
+                    }}
+                  >
+                    <LayoutDashboard />
+                    Dashboard
+                  </Link>
+                </CommandItem>
+                <CommandItem asChild>
+                  <Link
+                    href="/account/settings"
+                    onClick={(e) => {
+                      if (pathname === "/account/settings") {
+                        e.preventDefault();
+                        setIsOpen(false);
+                      }
+                    }}
+                  >
+                    <Settings />
+                    Settings
+                  </Link>
+                </CommandItem>
+              </CommandGroup>
+            )}
             <CommandGroup heading="Contribute">
               <CommandItem asChild>
                 <Link
