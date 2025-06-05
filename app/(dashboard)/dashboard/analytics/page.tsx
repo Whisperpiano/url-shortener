@@ -11,6 +11,8 @@ import { MainChart } from "@/components/analytics/main-chart";
 import TopChart from "@/components/analytics/top-chart";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { DownloadCSVButton } from "@/components/analytics/download-csv-btn";
+import Image from "next/image";
+import { getFaviconFromUrl } from "@/lib/utils/getFaviconFromUrl";
 
 export default async function Analytics({
   searchParams,
@@ -37,10 +39,25 @@ export default async function Analytics({
     await getLinksData(startDate, end, keyParam);
 
   return (
-    <main className="w-full">
+    <main className="w-full relative">
       <DashboardHeader group="Dashboard" pageTitle="Analytics" />
 
-      <div className="max-w-7xl mx-auto p-6 @container animate-fade-in-up">
+      {selectedLink !== undefined ? (
+        <Image
+          src={getFaviconFromUrl(selectedLink.url)}
+          alt={selectedLink.url}
+          width={24}
+          height={24}
+          className="saturate-150 contrast-125 hue-rotate-15 absolute inset-0 w-full h-full object-cover blur-[150px] opacity-25 -z-1 mask-t-from-40% mask-b-from-10%"
+          aria-hidden="true"
+        />
+      ) : (
+        <div
+          className="absolute inset-0 w-full h-full bg-gradient-to-br from-purple-500/50 via-pink-500/50 to-purple-500/50 blur-[150px] opacity-25 -z-1 mask-t-from-40% mask-b-from-10%"
+          aria-hidden="true"
+        />
+      )}
+      <div className="max-w-7xl mx-auto p-6 @container animate-fade-in-up ">
         <div className="flex @[650px]:flex-row flex-col @[650px]:items-center items-start @[650px]justify-between pb-6 gap-4">
           <div className="flex items-center gap-4 flex-1 w-full sm:flex-row flex-col ">
             <UrlSwitcher links={links} selectedLink={selectedLink} />

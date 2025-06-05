@@ -48,7 +48,7 @@ export default function UrlSwitcher({
 
   return (
     <div className="flex items-center gap-0 sm:w-fit w-full">
-      {url !== "" && (
+      {/* {url !== "" && (
         <Image
           src={getFaviconFromUrl(url)}
           alt={url}
@@ -57,7 +57,7 @@ export default function UrlSwitcher({
           className="saturate-150 contrast-125 hue-rotate-15 absolute inset-0 w-full h-full object-cover blur-[150px] scale-x-150 opacity-25 -z-1 mask-t-from-50% mask-b-from-10%"
           aria-hidden="true"
         />
-      )}
+      )} */}
 
       <div
         className={cn(

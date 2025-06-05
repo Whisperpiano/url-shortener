@@ -125,11 +125,11 @@ export default function LinkCard({ link }: LinkCardProps) {
 
               <Link
                 href={link.url}
-                className="text-xs text-muted-foreground lowercase flex items-center gap-1.5 hover:underline hover:text-accent-foreground truncate"
+                className="text-xs text-muted-foreground lowercase flex items-center gap-1.5 hover:underline hover:text-accent-foreground truncate max-w-[220px]"
                 target="_blank"
               >
                 <CornerDownRight size={12} />
-                <span className="truncate">{link.url}</span>
+                <span className="truncate ">{link.url}</span>
               </Link>
             </div>
           </div>
