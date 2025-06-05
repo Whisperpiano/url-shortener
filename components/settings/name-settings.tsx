@@ -56,12 +56,12 @@ export default function NameSettings({ name }: { name: string }) {
           type="text"
           id="name"
           placeholder="Enter your name"
-          className="max-w-1/2"
+          className="lg:max-w-1/2 max-w-full"
         />
       </CardContent>
       <CardFooter className="flex items-center justify-between border-t border-muted-foreground/20 mt-6">
         <span
-          className={`text-sm ${
+          className={`text-xs sm:text-sm ${
             currentName.length < 3
               ? "text-destructive"
               : "text-muted-foreground"
@@ -72,7 +72,7 @@ export default function NameSettings({ name }: { name: string }) {
         <Button
           variant="outline"
           type="submit"
-          className="cursor-pointer min-w-[135px]"
+          className="cursor-pointer ml-6"
           disabled={isDisabled || isSubmitting}
         >
           {isSubmitting ? (
@@ -83,7 +83,8 @@ export default function NameSettings({ name }: { name: string }) {
           ) : (
             <>
               <Save />
-              <span>Save changes</span>
+              Save
+              <span className="sm:block hidden"> changes</span>
             </>
           )}
         </Button>

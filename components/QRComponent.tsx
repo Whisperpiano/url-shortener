@@ -3,7 +3,7 @@
 import { QRCodeCanvas, QRCodeSVG } from "qrcode.react";
 import PixelCanvas from "./PixelCanvas";
 import { useEffect, useRef, useState } from "react";
-import { Check, ImageIcon } from "lucide-react";
+import { ArrowLeft, Check, ImageIcon } from "lucide-react";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "./ui/button";
 import {
@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { toast } from "sonner";
+import { Separator } from "./ui/separator";
 
 const presetColors = [
   "#000000",
@@ -77,8 +78,10 @@ export default function QRComponent({ url }: { url: string }) {
 
   return (
     <>
-      <span className="text-sm text-muted-foreground">QR Code Preview</span>
-      <div className="relative rounded-sm overflow-hidden border border-muted-foreground/50 p-12 bg-radial from-background to-transparent">
+      <span className="text-sm text-muted-foreground sm:block hidden">
+        QR Code Preview
+      </span>
+      <div className="sm:mt-0 mt-6 sm:mb-2 mb-6 relative rounded-sm overflow-hidden border border-muted-foreground/50 p-12 bg-radial from-background to-transparent">
         <PixelCanvas
           gap={6}
           speed={0.1}
@@ -107,14 +110,14 @@ export default function QRComponent({ url }: { url: string }) {
           />
         </div>
       </div>
-      <span className="text-sm text-muted-foreground">QR Code Color</span>
-      <div className="flex items-center space-x-2">
+      <span className="text-sm text-muted-foreground ">QR Code Color</span>
+      <div className="flex items-center space-x-2 sm:mb-3 mb-6 sm:mt-0 mt-4">
         <div
-          className="flex border-2 rounded overflow-hidden shadow-sm shadow-muted-foreground/50"
+          className="hidden sm:flex border-2 rounded overflow-hidden shadow-sm shadow-muted-foreground/50"
           style={{ borderColor: selectedColor }}
         >
           <label
-            className="aspect-square w-8 border-r border-muted"
+            className="aspect-square min-w-8 border-r border-muted"
             htmlFor="color"
             style={{ backgroundColor: selectedColor }}
           />
@@ -137,7 +140,7 @@ export default function QRComponent({ url }: { url: string }) {
             className="w-[90px] px-2 py-1 text-sm outline-none border-none"
           />
         </div>
-        <div className="ml-4 flex flex-wrap gap-3">
+        <div className="ml-4 flex flex-wrap gap-3 items-center justify-center">
           {presetColors.map((color) => {
             const isSelected =
               color.toLowerCase() === selectedColor.toLowerCase();
@@ -162,10 +165,16 @@ export default function QRComponent({ url }: { url: string }) {
           })}
         </div>
       </div>
-      <div className="flex gap-2 items-center justify-end">
+
+      <Separator />
+      <div className="flex  gap-6 items-center justify-between sm:mt-0 mt-4">
         <DialogClose asChild>
-          <Button variant="outline" className="py-5 cursor-pointer">
-            Cancel
+          <Button
+            variant="outline"
+            className="py-5 max-w-fit cursor-pointer text-muted-foreground hover:text-foreground w-full"
+          >
+            <ArrowLeft />
+            Go back
           </Button>
         </DialogClose>
 

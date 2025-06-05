@@ -75,7 +75,7 @@ export default function InformationTabs({
 
   return (
     <>
-      <Card className="min-h-[300px] flex flex-col gap-0 py-0">
+      <Card className="min-h-[300px] flex flex-col gap-0 py-0 @[650px]:col-span-1 col-span-2">
         <CardHeader className="border-b border-muted-foreground/20 [.border-b]:pb-0 gap-0 px-4">
           <CardTitle className="flex items-center gap-3 py-4 text-sm">
             {Object.entries(data).map(([label]) => (

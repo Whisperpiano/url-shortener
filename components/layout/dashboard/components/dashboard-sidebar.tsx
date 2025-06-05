@@ -45,7 +45,7 @@ export default function DashboardSidebar({
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild isActive={pathname === item.url}>
-                      <Link href={item.url} className="group/icon">
+                      <Link href={item.url} className="group/icon" prefetch>
                         <item.icon className="group-hover/icon:animate-jello" />
                         <span>{item.title}</span>
                       </Link>

@@ -50,6 +50,14 @@ import { Input } from "../ui/input";
 import { DialogClose } from "@radix-ui/react-dialog";
 import DeleteLinkButton from "../DeleteLinkButton";
 import { FaCrown } from "react-icons/fa";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "../ui/drawer";
 
 interface LinkCardProps {
   link: LinkType;
@@ -71,28 +79,19 @@ export default function LinkCard({ link }: LinkCardProps) {
       icon: <LucideCheckCircle size={18} />,
     });
   };
-  <Link
-    href={`https://shortleap.vercel.app/${link.slug}`}
-    className="font-medium lowercase text-sm"
-    target="_blank"
-    prefetch={false}
-  >
-    shortleap.vercel.app/
-    <span className="dark:text-purple-400 text-purple-600">{link.slug}</span>
-  </Link>;
 
   return (
-    <MagicCard className="rounded-xl">
+    <MagicCard className="rounded-xl ">
       <Card>
-        <CardContent className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="p-2 rounded-full border border-foreground/20 relative overflow-hidden">
+        <CardContent className="flex items-center justify-between ">
+          <div className="flex items-center gap-4 min-w-0 flex-1 overflow-hidden">
+            <div className="p-2 rounded-full border border-foreground/20 relative overflow-hidden shrink-0">
               <Image
                 src={getFaviconFromUrl(link.url)}
                 alt={link.url}
                 width={24}
                 height={24}
-                className="rounded-full z-10 relative"
+                className="rounded-full z-10 relative min-w-6 min-h-6"
               />
               <Image
                 src={getFaviconFromUrl(link.url)}
@@ -103,20 +102,22 @@ export default function LinkCard({ link }: LinkCardProps) {
                 aria-hidden="true"
               />
             </div>
-            <div>
-              <div className="flex gap-2 items-center">
+
+            <div className="min-w-0 overflow-hidden flex flex-col">
+              <div className="flex gap-2 items-center min-w-0">
                 <Link
                   href={`https://shortleap.vercel.app/${link.slug}`}
-                  className="font-medium lowercase text-sm"
+                  className="font-medium lowercase text-sm truncate"
                   target="_blank"
                   prefetch={false}
                 >
-                  shortleap.vercel.app/
+                  <span className="whitespace-nowrap">
+                    shortleap.vercel.app/
+                  </span>
                   <span className="dark:text-purple-400 text-purple-600">
                     {link.slug}
                   </span>
                 </Link>
-
                 <CopyButton
                   text={`https://shortleap.vercel.app/${link.slug}`}
                 />
@@ -124,23 +125,24 @@ export default function LinkCard({ link }: LinkCardProps) {
 
               <Link
                 href={link.url}
-                className="text-xs text-muted-foreground lowercase flex items-center gap-1.5 hover:underline hover:text-accent-foreground"
+                className="text-xs text-muted-foreground lowercase flex items-center gap-1.5 hover:underline hover:text-accent-foreground truncate"
                 target="_blank"
               >
                 <CornerDownRight size={12} />
-                {link.url.slice(0, 50)}...
+                <span className="truncate">{link.url}</span>
               </Link>
             </div>
           </div>
-          <div>
+
+          <div className="flex items-center justify-end ml-5">
             <Dialog>
               <DialogTrigger asChild>
                 <Button
                   variant={"outline"}
-                  className="text-xs rounded-r-none cursor-pointer"
+                  className="text-xs rounded-r-none cursor-pointer sm:flex hidden"
                 >
                   <QrCode />
-                  QR code
+                  <span className="lg:block hidden">QR code</span>
                 </Button>
               </DialogTrigger>
               <DialogContent>
@@ -151,6 +153,30 @@ export default function LinkCard({ link }: LinkCardProps) {
                 <QRComponent url={link.url} />
               </DialogContent>
             </Dialog>
+
+            <Drawer>
+              <DrawerTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="text-xs rounded-r-none cursor-pointer sm:hidden flex"
+                >
+                  <QrCode />
+                  <span className="lg:block hidden">QR code</span>
+                </Button>
+              </DrawerTrigger>
+
+              <DrawerContent className="p-4">
+                <DrawerHeader className="sr-only">
+                  <DrawerTitle />
+                  <DrawerDescription className="relative" />
+                </DrawerHeader>
+
+                <div className="px-4">
+                  <QRComponent url={link.url} />
+                </div>
+              </DrawerContent>
+            </Drawer>
+
             <DropdownMenu open={openDropdown} onOpenChange={setOpenDropdown}>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -239,12 +265,12 @@ export default function LinkCard({ link }: LinkCardProps) {
           </div>
           <Badge
             variant={"default"}
-            className="text-xs text-green-600 dark:text-green-300 gap-2 p-1.5 bg-green-100 dark:bg-green-900/30 border-green-300 dark:border-green-700/50 flex items-center px-3 hover:bg-green-200/50 dark:hover:bg-green-800/30 transition-colors"
+            className="h-8 text-xs text-green-600 dark:text-green-300 gap-2 p-1.5 bg-green-100 dark:bg-green-900/30 border-green-300 dark:border-green-700/50 flex items-center px-3 hover:bg-green-200/50 dark:hover:bg-green-800/30 transition-colors"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-green-500 dark:bg-green-400 opacity-75"></span>
             </span>
-            Active
+            <span className="sm:block hidden">Active</span>
           </Badge>
         </CardFooter>
       </Card>

@@ -26,7 +26,7 @@ export default function IntervalSwitcher() {
       onValueChange={handleChange}
       value={params.get("interval") || "7d"}
     >
-      <SelectTrigger className="w-[180px] cursor-pointer py-5">
+      <SelectTrigger className="cursor-pointer py-5 @[650px]:flex-0 flex-1 w-full max-h-11">
         <div className="flex items-center gap-2 ">
           <CalendarFold />
           <SelectValue placeholder="Interval" />

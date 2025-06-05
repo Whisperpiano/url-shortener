@@ -97,17 +97,18 @@ export default function AvatarSettings({ userAvatar }: { userAvatar: string }) {
           </div>
         </CardContent>
         <CardFooter className="flex items-center justify-between border-t border-muted-foreground/20">
-          <span className="text-sm text-muted-foreground">
+          <span className="text-xs sm:text-sm text-muted-foreground">
             Square image recommended. Accepted file types: .png, .jpg. Max file
             size: 2MB.
           </span>
           <Button
             variant="outline"
             disabled={isUploading || !imageUrl}
-            className="cursor-pointer"
+            className="cursor-pointer ml-6"
           >
             <Save />
-            Save changes
+            Save
+            <span className="sm:block hidden"> changes</span>
           </Button>
         </CardFooter>
       </form>

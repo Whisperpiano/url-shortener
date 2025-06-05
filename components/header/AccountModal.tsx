@@ -1,109 +1,194 @@
 "use client";
 
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../ui/sheet";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
-import { Button, buttonVariants } from "../ui/button";
-import { useState } from "react";
+import { buttonVariants } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { Session } from "next-auth";
 import Image from "next/image";
 import { logout } from "@/lib/actions/auth/logout";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+  ChartNoAxesCombined,
+  LayoutDashboard,
+  LogOut,
+  Settings,
+} from "lucide-react";
+import { toast } from "sonner";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "../ui/drawer";
 
 interface Props {
   session: Session;
 }
 
-export default function AccountModal({ session }: Props) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+export default function AccountDropdown({ session }: Props) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const router = useRouter();
+
+  const handleNavigation = (url: string) => {
+    setDropdownOpen(false);
+    router.push(url);
+  };
+
+  const handleLogout = async () => {
+    toast.success("Logging out, have a nice day!");
+    logout();
+  };
 
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger
-        className={cn(
-          buttonVariants({ variant: "outline", size: "icon" }),
-          "cursor-pointer"
-        )}
-      >
-        {session?.user?.image ? (
-          <Image
-            src={session.user.image}
-            alt={session?.user?.name || ""}
-            width={40}
-            height={40}
-            className="w-full h-full rounded"
-          />
-        ) : (
-          <span>A</span>
-        )}
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle className="font-mono mt-4 text-base font-medium">
-            My account
-          </SheetTitle>
-          <SheetDescription className="sr-only">
-            Manage your account details.
-          </SheetDescription>
-        </SheetHeader>
+    <>
+      <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
+        <DropdownMenuTrigger
+          className={cn(
+            buttonVariants({ variant: "outline", size: "icon" }),
+            "cursor-pointer sm:block hidden"
+          )}
+        >
+          {session?.user?.image ? (
+            <Image
+              src={session.user.image}
+              alt={session?.user?.name || ""}
+              width={40}
+              height={40}
+              className="w-full h-full rounded"
+            />
+          ) : (
+            <span>A</span>
+          )}
+        </DropdownMenuTrigger>
 
-        <article className="p-4 border-t border-b-muted">
-          <h2>Profile</h2>
-          <div className="flex gap-4 items-center">
-            <div>
-              {session?.user?.image ? (
-                <Image
-                  src={session.user.image}
-                  alt={session?.user?.name || ""}
-                  width={40}
-                  height={40}
-                  className="rounded"
-                />
-              ) : (
-                <span>A</span>
-              )}
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm">{session?.user?.name}</span>
-              <span className="text-xs text-muted-foreground">
+        <DropdownMenuContent
+          className="w-64 p-2 bg-background "
+          align="end"
+          sideOffset={8}
+        >
+          <DropdownMenuLabel className="flex items-center gap-3 px-2 py-3">
+            <div className="min-w-0 flex-1 space-y-0.5">
+              <p className="text-sm font-medium leading-none">
+                {session?.user?.name || "User"}
+              </p>
+              <p className="text-xs text-muted-foreground truncate">
                 {session?.user?.email}
-              </span>
+              </p>
             </div>
-          </div>
-          <ul>
-            <li>Settings</li>
-          </ul>
-          <Button
-            variant="secondary"
-            onClick={() => logout()}
-            className="w-full p-5 mt-4 cursor-pointer"
-          >
-            Logout
-          </Button>
-          <h2>Dashboard</h2>
-          <ul>
-            <li>Your links</li>
-          </ul>
-          <h2>Help</h2>
-          <ul>
-            <li>Report a bug</li>
-            <li>Contact us</li>
-          </ul>
-        </article>
+          </DropdownMenuLabel>
 
-        <SheetFooter>
-          <span className="font-mono text-xs uppercase text-muted-foreground ml-auto font-medium">
-            Version 1.0.0
-          </span>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem
+            className="text-sm mt-2 cursor-pointer"
+            onClick={() => handleNavigation("/dashboard")}
+          >
+            <LayoutDashboard /> Dashboard
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            className="text-sm mt-2 cursor-pointer"
+            onClick={() => handleNavigation("/dashboard/analytics")}
+          >
+            <ChartNoAxesCombined /> Analytics
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            className="text-sm mt-2 cursor-pointer mb-2"
+            onClick={() => handleNavigation("/account/settings")}
+          >
+            <Settings /> Settings
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem
+            variant="destructive"
+            onClick={handleLogout}
+            className="text-sm text-muted-foreground hover:text-foreground cursor-pointer mt-2 "
+          >
+            <LogOut /> Sign out
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      {/* Mobile */}
+      <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+        <DrawerTrigger
+          className={cn(
+            buttonVariants({ variant: "outline", size: "icon" }),
+            "cursor-pointer sm:hidden block"
+          )}
+        >
+          {session?.user?.image ? (
+            <Image
+              src={session.user.image}
+              alt={session?.user?.name || ""}
+              width={40}
+              height={40}
+              className="w-full h-full rounded"
+            />
+          ) : (
+            <span>A</span>
+          )}
+        </DrawerTrigger>
+
+        <DrawerContent className="p-4">
+          <DrawerHeader className="mb-4">
+            <DrawerTitle className="text-base">
+              {session?.user?.name || "User"}
+            </DrawerTitle>
+            <p className="text-xs text-muted-foreground">
+              {session?.user?.email}
+            </p>
+          </DrawerHeader>
+
+          <div className="space-y-2">
+            <button
+              onClick={() => handleNavigation("/dashboard")}
+              className="w-full flex items-center text-sm gap-2 px-3 py-2 rounded-md hover:bg-muted cursor-pointer"
+            >
+              <LayoutDashboard className="h-4 w-4" />
+              Dashboard
+            </button>
+
+            <button
+              onClick={() => handleNavigation("/dashboard/analytics")}
+              className="w-full flex items-center text-sm gap-2 px-3 py-2 rounded-md hover:bg-muted cursor-pointer"
+            >
+              <ChartNoAxesCombined className="h-4 w-4" />
+              Analytics
+            </button>
+
+            <button
+              onClick={() => handleNavigation("/account/settings")}
+              className="w-full flex items-center text-sm gap-2 px-3 py-2 rounded-md hover:bg-muted cursor-pointer"
+            >
+              <Settings className="h-4 w-4" />
+              Settings
+            </button>
+
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center text-sm gap-2 px-3 py-2 rounded-md hover:bg-muted cursor-pointer"
+            >
+              <LogOut className="h-4 w-4" />
+              Sign out
+            </button>
+          </div>
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 }

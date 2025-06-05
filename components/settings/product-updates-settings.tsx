@@ -80,7 +80,7 @@ export default function ProductUpdatesSettings({ user }: { user: UserData }) {
           type="email"
           id="email"
           placeholder={user.email || "Enter your email"}
-          className="max-w-1/2"
+          className="max-w-full lg:max-w-1/2"
           disabled
         />
 
@@ -102,7 +102,7 @@ export default function ProductUpdatesSettings({ user }: { user: UserData }) {
             disabled={isSubmitting}
             className="cursor-pointer"
           />
-          <span className="text-sm text-muted-foreground">
+          <span className="text-xs sm:text-sm text-muted-foreground">
             Subscribed to product updates
           </span>
         </div>
@@ -110,10 +110,11 @@ export default function ProductUpdatesSettings({ user }: { user: UserData }) {
           variant="outline"
           type="submit"
           disabled={!hasChanged || isSubmitting}
-          className="cursor-pointer"
+          className="cursor-pointer ml-6"
         >
           <Save />
-          Save changes
+          Save
+          <span className="sm:block hidden">changes</span>
         </Button>
       </CardFooter>
     </form>

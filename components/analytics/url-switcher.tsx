@@ -47,7 +47,7 @@ export default function UrlSwitcher({
   };
 
   return (
-    <div className="inline-flex items-center gap-0 ">
+    <div className="flex items-center gap-0 sm:w-fit w-full">
       {url !== "" && (
         <Image
           src={getFaviconFromUrl(url)}
@@ -84,7 +84,7 @@ export default function UrlSwitcher({
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="py-5 w-[250px] justify-between cursor-pointer rounded-l-none border-l-0"
+            className="py-5 sm:w-[250px]   flex-1 justify-between cursor-pointer rounded-l-none border-l-0 "
           >
             <span className="text-muted-foreground font-normal">
               {value === "all"

@@ -15,7 +15,7 @@ import { useState } from "react";
 export default function SortLinks() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const [selectOpen, setSelectOpen] = useState(false);
 
   const handleChange = (value: string) => {
     const newParams = new URLSearchParams(searchParams);
@@ -24,31 +24,37 @@ export default function SortLinks() {
   };
 
   return (
-    <Select onValueChange={handleChange} open={isOpen} onOpenChange={setIsOpen}>
-      <SelectTrigger
-        className={`py-5 cursor-pointer [&>svg]:transition-transform [&>svg]:duration-200 hover:[&>svg]:text-foreground ${
-          isOpen ? "[&>svg]:rotate-180" : ""
-        }`}
+    <>
+      <Select
+        onValueChange={handleChange}
+        open={selectOpen}
+        onOpenChange={setSelectOpen}
       >
-        <div className="flex items-center gap-2">
-          <ArrowUpDown />
-          <SelectValue placeholder="Sort by" />
-        </div>
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="newest" className="cursor-pointer">
-          Newest first
-        </SelectItem>
-        <SelectItem value="oldest" className="cursor-pointer">
-          Oldest first
-        </SelectItem>
-        <SelectItem value="clicks-desc" className="cursor-pointer">
-          Most clicked
-        </SelectItem>
-        <SelectItem value="clicks-asc" className="cursor-pointer">
-          Least clicked
-        </SelectItem>
-      </SelectContent>
-    </Select>
+        <SelectTrigger
+          className={` py-5 cursor-pointer [&>svg]:transition-transform [&>svg]:duration-200 hover:[&>svg]:text-foreground sm:flex-0 flex-1 ${
+            selectOpen ? "[&>svg]:rotate-180" : ""
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <ArrowUpDown />
+            <SelectValue placeholder="Sort by" />
+          </div>
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="newest" className="cursor-pointer">
+            Newest first
+          </SelectItem>
+          <SelectItem value="oldest" className="cursor-pointer">
+            Oldest first
+          </SelectItem>
+          <SelectItem value="clicks-desc" className="cursor-pointer">
+            Most clicked
+          </SelectItem>
+          <SelectItem value="clicks-asc" className="cursor-pointer">
+            Least clicked
+          </SelectItem>
+        </SelectContent>
+      </Select>
+    </>
   );
 }

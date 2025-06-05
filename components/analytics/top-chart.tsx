@@ -75,7 +75,7 @@ export default function TopChart({ data }: { data: DataType }) {
     : processedData.reduce((acc, item) => acc + item.value, 0);
 
   return (
-    <Card className="min-h-[300px] py-0 flex flex-col gap-0">
+    <Card className="min-h-[300px] py-0 flex flex-col gap-0  @[650px]:col-span-1 col-span-2">
       <CardHeader className="px-4 border-b-2 ">
         <CardTitle className="flex items-center justify-center gap-1 text-sm h-[47px]">
           <span className="text-sm text-muted-foreground">Top 3</span>

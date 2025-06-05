@@ -44,6 +44,7 @@ export default async function HeroSection() {
                 className={cn(
                   buttonVariants({ variant: "default", size: "lg" })
                 )}
+                prefetch
               >
                 Go to dashboard
               </Link>
