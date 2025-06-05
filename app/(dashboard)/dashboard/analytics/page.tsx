@@ -37,10 +37,10 @@ export default async function Analytics({
     await getLinksData(startDate, end, keyParam);
 
   return (
-    <main className="w-full ">
+    <main className="w-full">
       <DashboardHeader group="Dashboard" pageTitle="Analytics" />
 
-      <div className="max-w-7xl mx-auto p-6 @container">
+      <div className="max-w-7xl mx-auto p-6 @container animate-fade-in-up">
         <div className="flex @[650px]:flex-row flex-col @[650px]:items-center items-start @[650px]justify-between pb-6 gap-4">
           <div className="flex items-center gap-4 flex-1 w-full sm:flex-row flex-col ">
             <UrlSwitcher links={links} selectedLink={selectedLink} />
@@ -49,7 +49,7 @@ export default async function Analytics({
           <DownloadCSVButton data={clicksData} />
         </div>
 
-        <section className="grid grid-cols-6 gap-4">
+        <section className="grid grid-cols-6 gap-4 animate-fade-in-up ">
           <Card className="@[450px]:col-span-2 col-span-3">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">

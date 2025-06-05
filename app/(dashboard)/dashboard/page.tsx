@@ -32,10 +32,10 @@ export default async function Dashboard({
   });
 
   return (
-    <main className="w-full">
+    <main className="w-full ">
       <DashboardHeader group="Dashboard" pageTitle="Links" />
 
-      <section className="p-6 max-w-7xl mx-auto">
+      <section className="p-6 max-w-7xl mx-auto animate-fade-in-up">
         {sortedLinks.length > 0 && (
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex sm:items-center gap-4 flex-1">

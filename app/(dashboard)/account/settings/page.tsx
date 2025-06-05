@@ -32,7 +32,7 @@ export default async function Settings() {
   return (
     <main className="w-full">
       <DashboardHeader group="Account" pageTitle="Settings" />
-      <section className="p-6 max-w-7xl mx-auto">
+      <section className="p-6 max-w-7xl mx-auto animate-fade-in-up">
         <section className="flex flex-col gap-4">
           {/* Name */}
           <Card>

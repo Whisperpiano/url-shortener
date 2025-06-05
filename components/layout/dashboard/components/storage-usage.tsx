@@ -10,7 +10,7 @@ export default function StorageUsage({
   limit: number;
 }) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col animate-fade-in-right ">
       <span className="text-sm text-muted-foreground">Storage usage &gt;</span>
 
       <div className="flex items-center justify-between text-sm text-accent-foreground mb-2 mt-4">

@@ -22,7 +22,6 @@ import {
   LogOut,
   Settings,
 } from "lucide-react";
-import { toast } from "sonner";
 import {
   Drawer,
   DrawerContent,
@@ -46,7 +45,6 @@ export default function AccountDropdown({ session }: Props) {
   };
 
   const handleLogout = async () => {
-    toast.success("Logging out, have a nice day!");
     logout();
   };
 

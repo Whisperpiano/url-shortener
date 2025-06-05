@@ -36,7 +36,7 @@ export default function DashboardSidebar({
         <Logo />
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="animate-fade-in-right">
         {DASHBOARD_ITEMS.map((item) => (
           <SidebarGroup key={item.group}>
             <SidebarGroupLabel>{item.group}</SidebarGroupLabel>
@@ -58,7 +58,7 @@ export default function DashboardSidebar({
         ))}
       </SidebarContent>
 
-      <SidebarFooter className="border-t border-muted-foreground/20 py-6">
+      <SidebarFooter className="border-t border-muted-foreground/20 py-6 ">
         <StorageUsage linkCount={linkCount} limit={limit} />
       </SidebarFooter>
     </Sidebar>
