@@ -36,14 +36,15 @@ export default async function Dashboard({
       <DashboardHeader group="Dashboard" pageTitle="Links" />
 
       <section className="p-6 max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="flex sm:items-center gap-4 flex-1">
-            <SearchLinksBar />
-            <SortLinks />
+        {sortedLinks.length > 0 && (
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex sm:items-center gap-4 flex-1">
+              <SearchLinksBar />
+              <SortLinks />
+            </div>
+            <CreateLinkForm />
           </div>
-          <CreateLinkForm />
-        </div>
-
+        )}
         <section className="flex flex-col gap-4 mt-6">
           {sortedLinks.length > 0 ? (
             sortedLinks.map((link) => <LinkCard key={link.id} link={link} />)

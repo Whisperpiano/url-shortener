@@ -1,7 +1,6 @@
 import { auth } from "@/app/auth";
 
 import SearchBar from "../header/SearchBar";
-import ToggleTheme from "../header/ToggleTheme";
 import AuthModal from "../header/AuthModal";
 import AccountModal from "../header/AccountModal";
 import Logo from "./logo";
@@ -19,9 +18,6 @@ export default async function Header() {
             <ul className="flex items-center gap-2">
               <li>
                 <SearchBar />
-              </li>
-              <li>
-                <ToggleTheme />
               </li>
               <li className="flex items-center">
                 {session ? <AccountModal session={session} /> : <AuthModal />}

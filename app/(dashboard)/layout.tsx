@@ -6,6 +6,7 @@ import { auth } from "../auth";
 import { redirect } from "next/navigation";
 import { getLinks } from "@/lib/queries/links";
 import { getSettings } from "@/lib/queries/settings";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export default async function DashboardLayout({
   children,
@@ -22,9 +23,16 @@ export default async function DashboardLayout({
   const { limit } = await getSettings();
 
   return (
-    <SidebarProvider defaultOpen={true}>
-      <DashboardSidebar linkCount={links.length} limit={limit || 25} />
-      {children}
-    </SidebarProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <SidebarProvider defaultOpen={true}>
+        <DashboardSidebar linkCount={links.length} limit={limit || 25} />
+        {children}
+      </SidebarProvider>
+    </ThemeProvider>
   );
 }

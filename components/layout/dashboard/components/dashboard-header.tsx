@@ -3,7 +3,6 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 
 import AccountModal from "@/components/header/AccountModal";
 import SearchBar from "@/components/header/SearchBar";
-import ToggleTheme from "@/components/header/ToggleTheme";
 
 type Props = {
   group: "Dashboard" | "Account";
@@ -32,8 +31,6 @@ export default async function DashboardHeader({ group, pageTitle }: Props) {
 
       <nav className="flex items-center gap-2">
         <SearchBar />
-        <ToggleTheme />
-
         {session && <AccountModal session={session} />}
       </nav>
     </section>

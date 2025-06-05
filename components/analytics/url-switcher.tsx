@@ -96,7 +96,7 @@ export default function UrlSwitcher({
             <ChevronsUpDown className="opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[250px] p-0">
+        <PopoverContent className="flex w-[calc(100vw-62px)] sm:w-[250px] sm:translate-x-0 -translate-x-1 mx-7 py-1">
           <Command>
             <CommandInput placeholder="Filter links..." />
             <CommandList>

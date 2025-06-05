@@ -104,7 +104,7 @@ export default function CreateLinkForm() {
       return;
     }
     toast.success("Link created successfully!");
-    setDrawerOpen((prev) => !prev);
+    setDrawerOpen(false);
     setDialogOpen(false);
     reset();
   };

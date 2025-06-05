@@ -5,6 +5,7 @@ import { Marquee } from "../magicui/marquee";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Separator } from "../ui/separator";
+import CreateLinkForm from "./CreateLinkForm";
 
 const LinkCardSkeleton = () => {
   return (
@@ -73,14 +74,9 @@ export default function NoLinksFound() {
           Either they&apos;ve gone undercover or you haven&apos;t created any
           yet. Why not add one now?
         </p>
-        <Button
-          variant="default"
-          className="flex max-w-fit mx-auto cursor-pointer mt-6 px-5"
-          size="default"
-        >
-          Create link
-          <Plus className="ml-2 h-4 w-4" />
-        </Button>
+        <div className="flex items-center justify-center gap-2 mt-6">
+          <CreateLinkForm />
+        </div>
       </div>
     </div>
   );
