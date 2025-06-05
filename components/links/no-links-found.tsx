@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { Plus } from "lucide-react";
 import { Marquee } from "../magicui/marquee";
-import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Separator } from "../ui/separator";
 import CreateLinkForm from "./CreateLinkForm";
