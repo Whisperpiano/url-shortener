@@ -69,7 +69,7 @@ export default function SponsorsSection() {
               </div>
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-16 group-hover:translate-y-6 transition-all duration-300 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)]">
                 <span className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-muted-foreground">
-                  Learn More <ArrowRight size={14} className="sm:size-16" />
+                  Learn More <ArrowRight size={14} />
                 </span>
               </div>
             </Link>
