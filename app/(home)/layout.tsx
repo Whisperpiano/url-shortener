@@ -1,5 +1,3 @@
-import { ThemeProvider } from "@/components/theme-provider";
-
 import React from "react";
 import Header from "@/components/layout/Header";
 import Background from "@/components/layout/Background";
@@ -11,15 +9,11 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ThemeProvider
-      attribute="class"
-      forcedTheme="dark" // Esto fuerza tema oscuro
-      disableTransitionOnChange
-    >
+    <>
       <Background />
       <Header />
       {children}
       <Footer />
-    </ThemeProvider>
+    </>
   );
 }

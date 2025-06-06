@@ -4,6 +4,7 @@ import SearchBar from "../header/SearchBar";
 import AuthModal from "../header/AuthModal";
 import AccountModal from "../header/AccountModal";
 import Logo from "./logo";
+import ToggleTheme from "../header/ToggleTheme";
 
 export default async function Header() {
   const session = await auth();
@@ -18,6 +19,9 @@ export default async function Header() {
             <ul className="flex items-center gap-2">
               <li>
                 <SearchBar isAuth={Boolean(session)} />
+              </li>
+              <li>
+                <ToggleTheme />
               </li>
               <li className="flex items-center">
                 {session ? <AccountModal session={session} /> : <AuthModal />}
