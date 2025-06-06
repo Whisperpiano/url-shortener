@@ -42,18 +42,13 @@ export default async function Analytics({
     <main className="w-full relative">
       <DashboardHeader group="Dashboard" pageTitle="Analytics" />
 
-      {selectedLink !== undefined ? (
+      {selectedLink !== undefined && (
         <Image
           src={getFaviconFromUrl(selectedLink.url)}
           alt={selectedLink.url}
           width={24}
           height={24}
           className="saturate-150 contrast-125 hue-rotate-15 absolute inset-0 w-full h-full object-cover blur-[150px] opacity-25 -z-1 mask-t-from-40% mask-b-from-10%"
-          aria-hidden="true"
-        />
-      ) : (
-        <div
-          className="absolute inset-0 w-full h-full bg-gradient-to-br from-purple-500/50 via-pink-500/50 to-purple-500/50 blur-[150px] opacity-25 -z-1 mask-t-from-40% mask-b-from-10%"
           aria-hidden="true"
         />
       )}
