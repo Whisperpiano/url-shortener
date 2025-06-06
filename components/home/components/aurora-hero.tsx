@@ -48,14 +48,20 @@ export default function AuroraHero() {
           }}
         />
       </div>
-      <div className="relative h-fit w-fit mx-auto rounded-sm animate-fade-in-up animate-delay-300">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative h-fit w-fit mx-auto rounded-sm"
+      >
         <Image
           src={finalImageSrc}
           alt="Dashboard"
           width={1080}
           height={500}
-          className="mx-auto rounded-sm border border-muted-foreground/20 shadow-xl"
+          className="mx-auto rounded-sm border border-muted-foreground/20 shadow-xl shadow-foreground/5"
         />
+
         <BorderBeam
           duration={6}
           size={500}
@@ -67,7 +73,7 @@ export default function AuroraHero() {
           size={500}
           className="from-purple-500/10 via-pink-500/80 to-purple-500/10"
         />
-      </div>
+      </motion.div>
     </div>
   );
 }
