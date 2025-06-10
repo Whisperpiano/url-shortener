@@ -249,7 +249,8 @@ export default function LinkCard({ link }: LinkCardProps) {
                     size={16}
                     className="dark:text-pink-300 text-pink-500"
                   />
-                  {link.clickCount} clicks
+                  {link.clickCount}
+                  <span className="sm:block hidden">clicks</span>
                 </Badge>
               </TooltipTrigger>
               <TooltipContent>
@@ -282,7 +283,7 @@ export default function LinkCard({ link }: LinkCardProps) {
             <span className="relative flex h-2 w-2">
               <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-green-500 dark:bg-green-400 opacity-75"></span>
             </span>
-            <span className="sm:block hidden">Active</span>
+            <span>Active</span>
           </Badge>
         </CardFooter>
       </Card>
