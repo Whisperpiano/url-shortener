@@ -7,6 +7,11 @@ import SearchLinksBar from "@/components/links/search-links-bar";
 import SortLinks from "@/components/links/sort-links";
 import NoLinksFound from "@/components/links/no-links-found";
 
+export const metadata = {
+  title: "Dashboard",
+  description: "Your dashboard for Shortleap",
+};
+
 export default async function Dashboard({
   searchParams,
 }: {

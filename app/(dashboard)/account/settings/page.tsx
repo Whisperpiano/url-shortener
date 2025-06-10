@@ -6,6 +6,12 @@ import NameSettings from "@/components/settings/name-settings";
 import ProductUpdatesSettings from "@/components/settings/product-updates-settings";
 import ThemeSettings from "@/components/settings/theme-settings";
 // import ThemeSettings from "@/components/settings/theme-settings";
+
+export const metadata = {
+  title: "Settings",
+  description: "Your settings for Shortleap",
+};
+
 import {
   Card,
   CardDescription,

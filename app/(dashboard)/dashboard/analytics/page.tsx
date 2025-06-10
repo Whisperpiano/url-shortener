@@ -14,6 +14,11 @@ import { DownloadCSVButton } from "@/components/analytics/download-csv-btn";
 import Image from "next/image";
 import { getFaviconFromUrl } from "@/lib/utils/getFaviconFromUrl";
 
+export const metadata = {
+  title: "Analytics",
+  description: "Your analytics for Shortleap",
+};
+
 export default async function Analytics({
   searchParams,
 }: {
