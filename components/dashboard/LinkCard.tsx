@@ -6,7 +6,6 @@ import {
   Copy,
   CornerDownRight,
   EllipsisVertical,
-  LinkIcon,
   LucideCheckCircle,
   MousePointerClick,
   Pencil,

@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronsUpDown, LinkIcon } from "lucide-react";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { Link } from "@/lib/zod/links";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -123,8 +123,6 @@ export default function UrlSwitcher({
                   />
                 </CommandItem>
                 {links.map((link) => {
-                  const [faviconFallback, setFaviconFallback] = useState(false);
-
                   return (
                     <CommandItem
                       key={link.id}
@@ -136,18 +134,13 @@ export default function UrlSwitcher({
                         handleChange(currentValue, link.url);
                       }}
                     >
-                      {faviconFallback ? (
-                        <FaLink />
-                      ) : (
-                        <Image
-                          src={getFaviconFromUrl(link.url)}
-                          alt={link.url}
-                          width={18}
-                          height={18}
-                          className="rounded-full"
-                          onError={() => setFaviconFallback(true)}
-                        />
-                      )}
+                      <Image
+                        src={getFaviconFromUrl(link.url)}
+                        alt={link.url}
+                        width={18}
+                        height={18}
+                        className="rounded-full"
+                      />
                       /{link.slug}
                       <Check
                         className={cn(
