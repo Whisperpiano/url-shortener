@@ -6,6 +6,7 @@ import {
   Copy,
   CornerDownRight,
   EllipsisVertical,
+  LinkIcon,
   LucideCheckCircle,
   MousePointerClick,
   Pencil,
@@ -49,7 +50,7 @@ import { useState } from "react";
 import { Input } from "../ui/input";
 import { DialogClose } from "@radix-ui/react-dialog";
 import DeleteLinkButton from "../DeleteLinkButton";
-import { FaCrown } from "react-icons/fa";
+import { FaCrown, FaLink } from "react-icons/fa";
 import {
   Drawer,
   DrawerContent,
@@ -67,6 +68,7 @@ export default function LinkCard({ link }: LinkCardProps) {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
   const [value, setValue] = useState("");
+  const [faviconFallback, setFaviconFallback] = useState(false);
 
   const handleOpenDeleteDialog = () => {
     setOpenDeleteDialog(true);
@@ -80,19 +82,29 @@ export default function LinkCard({ link }: LinkCardProps) {
     });
   };
 
+  console.log(getFaviconFromUrl(link.url));
+
   return (
     <MagicCard className="rounded-xl ">
       <Card>
         <CardContent className="flex items-center justify-between ">
           <div className="flex items-center gap-4 min-w-0 flex-1 overflow-hidden">
             <div className="p-2 rounded-full border border-foreground/20 relative overflow-hidden shrink-0">
-              <Image
-                src={getFaviconFromUrl(link.url)}
-                alt={link.url}
-                width={24}
-                height={24}
-                className="rounded-full z-10 relative min-w-6 min-h-6"
-              />
+              {faviconFallback ? (
+                <div className="min-w-6 min-h-6 rounded-full flex items-center justify-center">
+                  <FaLink size={16} />
+                </div>
+              ) : (
+                <Image
+                  src={getFaviconFromUrl(link.url)}
+                  alt={link.url}
+                  width={24}
+                  height={24}
+                  className="rounded-full z-10 relative min-w-6 min-h-6"
+                  onError={() => setFaviconFallback(true)}
+                />
+              )}
+
               <Image
                 src={getFaviconFromUrl(link.url)}
                 alt={link.url}

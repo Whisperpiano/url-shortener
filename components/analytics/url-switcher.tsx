@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/popover";
 
 import Image from "next/image";
+import { FaLink } from "react-icons/fa";
 
 export default function UrlSwitcher({
   links,
@@ -66,7 +67,7 @@ export default function UrlSwitcher({
         )}
       >
         {url === "" ? (
-          <LinkIcon />
+          <FaLink />
         ) : (
           <Image
             src={getFaviconFromUrl(url)}
@@ -74,6 +75,7 @@ export default function UrlSwitcher({
             width={20}
             height={20}
             className="rounded-full"
+            onError={() => setUrl("")}
           />
         )}
       </div>
@@ -111,7 +113,7 @@ export default function UrlSwitcher({
                     handleChange(currentValue, "");
                   }}
                 >
-                  <LinkIcon />
+                  <FaLink />
                   All links
                   <Check
                     className={cn(
@@ -120,33 +122,42 @@ export default function UrlSwitcher({
                     )}
                   />
                 </CommandItem>
-                {links.map((link) => (
-                  <CommandItem
-                    key={link.id}
-                    value={link.slug}
-                    className="cursor-pointer"
-                    onSelect={(currentValue) => {
-                      setValue(currentValue);
-                      setOpen(false);
-                      handleChange(currentValue, link.url);
-                    }}
-                  >
-                    <Image
-                      src={getFaviconFromUrl(link.url)}
-                      alt={link.url}
-                      width={18}
-                      height={18}
-                      className="rounded-full"
-                    />
-                    /{link.slug}
-                    <Check
-                      className={cn(
-                        "ml-auto",
-                        value === link.slug ? "opacity-100" : "opacity-0"
+                {links.map((link) => {
+                  const [faviconFallback, setFaviconFallback] = useState(false);
+
+                  return (
+                    <CommandItem
+                      key={link.id}
+                      value={link.slug}
+                      className="cursor-pointer"
+                      onSelect={(currentValue) => {
+                        setValue(currentValue);
+                        setOpen(false);
+                        handleChange(currentValue, link.url);
+                      }}
+                    >
+                      {faviconFallback ? (
+                        <FaLink />
+                      ) : (
+                        <Image
+                          src={getFaviconFromUrl(link.url)}
+                          alt={link.url}
+                          width={18}
+                          height={18}
+                          className="rounded-full"
+                          onError={() => setFaviconFallback(true)}
+                        />
                       )}
-                    />
-                  </CommandItem>
-                ))}
+                      /{link.slug}
+                      <Check
+                        className={cn(
+                          "ml-auto",
+                          value === link.slug ? "opacity-100" : "opacity-0"
+                        )}
+                      />
+                    </CommandItem>
+                  );
+                })}
               </CommandGroup>
             </CommandList>
           </Command>
