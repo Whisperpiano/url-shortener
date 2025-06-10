@@ -36,7 +36,7 @@ export default function RootLayout({
       <Analytics />
       <SpeedInsights />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased relative h-full w-full min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative h-full w-full min-h-screen overflow-visible!`}
       >
         <ThemeProvider
           attribute="class"

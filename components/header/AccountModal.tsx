@@ -69,6 +69,7 @@ export default function AccountDropdown({ session }: Props) {
           </div>
         </div>
       )}
+
       <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
         <DropdownMenuTrigger
           className={cn(
