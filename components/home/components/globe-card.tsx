@@ -1,4 +1,4 @@
-import { Globe } from "@/components/magicui/globe";
+import { Globe } from "@/components/special/globe";
 
 export default function GlobeCard() {
   return (

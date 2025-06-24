@@ -1,4 +1,4 @@
-import { NumberTicker } from "@/components/magicui/number-ticker";
+import { NumberTicker } from "@/components/special/number-ticker";
 import { fetchGitHubStats } from "@/lib/actions/github/github-stats";
 import { cn } from "@/lib/utils";
 

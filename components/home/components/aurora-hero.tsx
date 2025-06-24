@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BorderBeam } from "@/components/magicui/border-beam";
+import { BorderBeam } from "@/components/special/border-beam";
 
 import Image from "next/image";
 import { useTheme } from "next-themes";

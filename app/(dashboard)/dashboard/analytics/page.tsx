@@ -9,7 +9,7 @@ import DashboardHeader from "@/components/layout/dashboard/components/dashboard-
 import UrlSwitcher from "@/components/analytics/url-switcher";
 import { MainChart } from "@/components/analytics/main-chart";
 import TopChart from "@/components/analytics/top-chart";
-import { NumberTicker } from "@/components/magicui/number-ticker";
+import { NumberTicker } from "@/components/special/number-ticker";
 import { DownloadCSVButton } from "@/components/analytics/download-csv-btn";
 import Image from "next/image";
 import { getFaviconFromUrl } from "@/lib/utils/getFaviconFromUrl";

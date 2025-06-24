@@ -1,18 +1,17 @@
 "use client";
 
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { ParticlesComponent } from "@/components/particles/particles-component";
 
+import Link from "next/link";
+
 export default function NotFound() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center px-4 relative overflow-hidden">
-      {/* Particles background */}
       <ParticlesComponent className="absolute inset-0 pointer-events-none rotate-180" />
 
-      {/* Content */}
       <motion.div
         className="max-w-md mx-auto relative z-10"
         initial={{ opacity: 0, y: 20 }}

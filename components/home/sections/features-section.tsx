@@ -1,6 +1,6 @@
 "use client";
 
-import { MagicCard } from "@/components/magicui/magic-card";
+import { MagicCard } from "@/components/special/magic-card";
 import { features } from "../utils/home-constants";
 import { HorizontalBorder, VerticalBorder } from "../../ui/border";
 import { motion } from "framer-motion";

@@ -1,4 +1,4 @@
-import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
+import { OrbitingCircles } from "@/components/special/orbiting-circles";
 import { OrbitIcon } from "./orbiting-icon";
 
 import {

@@ -41,7 +41,7 @@ import { Card, CardContent, CardFooter } from "../ui/card";
 import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
 import { format } from "date-fns";
-import { MagicCard } from "../magicui/magic-card";
+import { MagicCard } from "../special/magic-card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { CopyButton } from "../ui/copy-button";
 import { toast } from "sonner";

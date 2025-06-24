@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { Marquee } from "../magicui/marquee";
+import { Marquee } from "../special/marquee";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Separator } from "../ui/separator";
 import CreateLinkForm from "./CreateLinkForm";
