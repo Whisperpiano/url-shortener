@@ -49,9 +49,7 @@ export async function middleware(req: NextRequest) {
     const response = await findLink(slug);
 
     if (!response.success) {
-      return NextResponse.redirect(
-        new URL("/404?error=link_not_found", req.url)
-      );
+      return NextResponse.redirect(new URL("/404", req.url));
     }
 
     if (response.data) {

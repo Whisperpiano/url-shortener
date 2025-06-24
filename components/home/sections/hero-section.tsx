@@ -1,4 +1,4 @@
-import AuthModal from "@/components/header/AuthModal";
+import AuthModal from "@/components/header/auth-modal";
 import AuroraHero from "../components/aurora-hero";
 import Link from "next/link";
 
