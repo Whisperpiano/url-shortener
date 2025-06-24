@@ -60,6 +60,7 @@ export default function AuroraHero() {
           width={1080}
           height={500}
           className="mx-auto rounded-sm border border-muted-foreground/20 shadow-xl shadow-foreground/5"
+          priority
         />
 
         <BorderBeam

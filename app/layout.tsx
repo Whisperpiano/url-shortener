@@ -19,11 +19,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Shortleap",
-    template: "%s | Shortleap",
+    default: "Shortleap | Home",
+    template: "Shortleap | %s",
   },
   description:
-    "Shortly is a URL shortener that allows you to create short URLs for your long ones.",
+    "Shortleap is a URL shortener that allows you to create short URLs for your long ones.",
 };
 
 export default function RootLayout({
