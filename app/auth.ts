@@ -1,9 +1,3 @@
-import NextAuth from "next-auth";
-import GitHub from "next-auth/providers/github";
-import Google from "next-auth/providers/google";
-import Credentials from "next-auth/providers/credentials";
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { db } from "@/lib/db/db";
 import {
   accounts,
   authenticators,
@@ -11,7 +5,14 @@ import {
   users,
   verificationTokens,
 } from "@/lib/db/schemas/users";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import { db } from "@/lib/db/db";
 import { eq } from "drizzle-orm";
+
+import NextAuth from "next-auth";
+import GitHub from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
+import Credentials from "next-auth/providers/credentials";
 import userSchema from "@/lib/zod/user";
 import bcrypt from "bcryptjs";
 

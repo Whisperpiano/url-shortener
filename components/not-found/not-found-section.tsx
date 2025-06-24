@@ -8,13 +8,13 @@ import Link from "next/link";
 
 export default function NotFoundSection() {
   return (
-    <motion.div
+    <motion.article
       className="max-w-md mx-auto relative z-10"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="relative mb-8">
+      <header className="relative mb-8">
         <motion.div
           className="font-mono font-bold text-8xl leading-none select-none bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent"
           initial={{ scale: 0.8 }}
@@ -27,7 +27,7 @@ export default function NotFoundSection() {
         >
           404
         </motion.div>
-      </div>
+      </header>
 
       <motion.h2
         className="text-2xl font-medium mb-6"
@@ -48,7 +48,7 @@ export default function NotFoundSection() {
         removed.
       </motion.p>
 
-      <motion.div
+      <motion.footer
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 0.5 }}
@@ -66,7 +66,7 @@ export default function NotFoundSection() {
             <span>Back to Shortleap</span>
           </Button>
         </Link>
-      </motion.div>
-    </motion.div>
+      </motion.footer>
+    </motion.article>
   );
 }

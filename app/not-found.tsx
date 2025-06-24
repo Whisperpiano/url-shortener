@@ -10,10 +10,10 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-center px-4 relative overflow-hidden ">
+    <main className="flex flex-col items-center justify-center min-h-screen text-center px-4 relative overflow-hidden ">
       <ParticlesComponent className="absolute inset-0 pointer-events-none rotate-180" />
       <NotFoundSection />
       <AuraEffect />
-    </div>
+    </main>
   );
 }
