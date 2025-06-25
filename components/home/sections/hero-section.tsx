@@ -1,12 +1,12 @@
-import AuthModal from "@/components/header/auth-modal";
-import AuroraHero from "../components/aurora-hero";
-import Link from "next/link";
-
 import { ParticlesComponent } from "@/components/particles/particles-component";
 import { HorizontalBorder } from "@/components/ui/border";
 import { auth } from "@/app/auth";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+
+import AuroraHero from "../components/aurora-hero";
+import Link from "next/link";
+import AuthModal from "@/components/layout/header/components/auth-modal/auth-modal";
 
 export default async function HeroSection() {
   const session = await auth();

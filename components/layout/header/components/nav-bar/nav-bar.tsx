@@ -1,9 +1,9 @@
 import { auth } from "@/app/auth";
 
-import AuthModal from "./auth-modal";
-import SearchBar from "./search-bar/search-bar";
-import ToggleTheme from "./toggle-theme";
-import AccountModal from "./account-modal";
+import SearchBar from "../search-bar/search-bar";
+import ToggleTheme from "../toggle-theme/toggle-theme";
+import AuthModal from "../auth-modal/auth-modal";
+import AccountModal from "../account-modal/account-modal";
 
 export default async function NavBar() {
   const session = await auth();

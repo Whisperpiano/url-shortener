@@ -1,6 +1,7 @@
-import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 import { FaLink } from "react-icons/fa";
-import { Badge } from "../ui/badge";
+
+import Link from "next/link";
 
 export default function Logo() {
   return (

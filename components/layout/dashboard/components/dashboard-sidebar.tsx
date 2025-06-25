@@ -18,8 +18,8 @@ import { usePathname } from "next/navigation";
 import { DASHBOARD_ITEMS } from "../utils/dashboard-items";
 
 import Link from "next/link";
-import Logo from "../../logo";
 import StorageUsage from "./storage-usage";
+import Logo from "../../header/components/logo/logo";
 
 export default function DashboardSidebar({
   linkCount,

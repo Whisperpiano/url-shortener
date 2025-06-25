@@ -11,15 +11,15 @@ import {
 } from "@/components/ui/sheet";
 
 import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "../ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { useEffect } from "react";
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { login } from "@/lib/actions/auth/login";
 
-import RegisterForm from "../forms/RegisterForm";
-import LoginForm from "../forms/LoginForm";
+import RegisterForm from "@/components/forms/RegisterForm";
+import LoginForm from "@/components/forms/LoginForm";
 
 export default function AuthModal({ btnText = "Sign in" }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);

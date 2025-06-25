@@ -8,8 +8,9 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
-import Link from "next/link";
 import { commandGroups } from "../utils/searchbar-items";
+
+import Link from "next/link";
 
 interface CommandDialogContentProps {
   isOpen: boolean;
