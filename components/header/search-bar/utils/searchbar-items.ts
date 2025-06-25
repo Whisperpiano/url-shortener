@@ -6,13 +6,13 @@ import {
   Mail,
   HeartHandshake,
 } from "lucide-react";
-
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { IconType } from "react-icons/lib";
 
 interface CommandLinkItem {
   href: string;
   label: string;
-  icon: React.ReactNode;
+  icon: IconType;
   external?: boolean;
   authOnly?: boolean;
 }
@@ -27,19 +27,19 @@ export const commandGroups: {
       {
         href: "/",
         label: "Home",
-        icon: <Home />,
+        icon: Home,
         authOnly: true,
       },
       {
         href: "/dashboard",
         label: "Dashboard",
-        icon: <LayoutDashboard />,
+        icon: LayoutDashboard,
         authOnly: true,
       },
       {
         href: "/account/settings",
         label: "Settings",
-        icon: <Settings />,
+        icon: Settings,
         authOnly: true,
       },
     ],
@@ -50,13 +50,13 @@ export const commandGroups: {
       {
         href: "https://github.com/Whisperpiano/url-shortener",
         label: "Contribute",
-        icon: <HeartHandshake />,
+        icon: HeartHandshake,
         external: true,
       },
       {
         href: "https://github.com/Whisperpiano/url-shortener/issues",
         label: "Report a bug",
-        icon: <Bug />,
+        icon: Bug,
         external: true,
       },
     ],
@@ -67,19 +67,19 @@ export const commandGroups: {
       {
         href: "https://github.com/Whisperpiano",
         label: "GitHub",
-        icon: <FaGithub />,
+        icon: FaGithub,
         external: true,
       },
       {
         href: "https://www.linkedin.com/in/jes%C3%BAs-alberola-herrero-896b61189/",
         label: "LinkedIn",
-        icon: <FaLinkedin />,
+        icon: FaLinkedin,
         external: true,
       },
       {
         href: "mailto:jesusalberola90@gmail.com",
         label: "Email",
-        icon: <Mail />,
+        icon: Mail,
         external: true,
       },
     ],

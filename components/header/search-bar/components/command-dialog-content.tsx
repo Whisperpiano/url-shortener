@@ -8,9 +8,8 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
-import { commandGroups } from "./menu-item";
-
 import Link from "next/link";
+import { commandGroups } from "../utils/searchbar-items";
 
 interface CommandDialogContentProps {
   isOpen: boolean;
@@ -36,20 +35,20 @@ export default function CommandDialogContent({
 
             return (
               <CommandGroup key={group.heading} heading={group.heading}>
-                {group.items.map(({ href, label, icon, external }) => (
-                  <CommandItem asChild key={href}>
+                {group.items.map((item) => (
+                  <CommandItem asChild key={item.href}>
                     <Link
-                      href={href}
-                      target={external ? "_blank" : undefined}
+                      href={item.href}
+                      target={item.external ? "_blank" : undefined}
                       onClick={(e) => {
-                        if (!external && pathname === href) {
+                        if (!item.external && pathname === item.href) {
                           e.preventDefault();
                         }
                         setIsOpen(false);
                       }}
                     >
-                      {icon}
-                      {label}
+                      <item.icon />
+                      {item.label}
                     </Link>
                   </CommandItem>
                 ))}
