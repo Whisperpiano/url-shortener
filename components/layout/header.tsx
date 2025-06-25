@@ -1,5 +1,5 @@
-import NavBar from "./header/nav-bar";
-import Logo from "./layout/logo";
+import NavBar from "../header/nav-bar";
+import Logo from "./logo";
 
 export default async function Header() {
   return (
