@@ -12,65 +12,24 @@ import {
 
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { useEffect } from "react";
-import { useState } from "react";
-import { FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { login } from "@/lib/actions/auth/login";
+import { VERSION } from "@/lib/settings/version";
+import { useAuthModal } from "@/lib/hooks/modals/auth-modal/useAuthModal";
+import { authItems } from "./components/auth-button/utils/auth-items";
 
-import RegisterForm from "@/components/forms/RegisterForm";
-import LoginForm from "@/components/forms/LoginForm";
+import RegisterForm from "@/components/layout/header/components/auth-modal/components/register-form/register-form";
+import LoginForm from "@/components/layout/header/components/auth-modal/components/login-form/login-form";
+import AuthButton from "./components/auth-button/auth-button";
+import Separator from "./components/separator/separator";
 
 export default function AuthModal({ btnText = "Sign in" }) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [showRegister, setShowRegister] = useState<boolean>(false);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-
-    if (params.has("login")) {
-      setIsOpen(true);
-      setShowRegister(false);
-    } else if (params.has("register")) {
-      setIsOpen(true);
-      setShowRegister(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-
-    if (isOpen) {
-      if (showRegister) {
-        params.delete("login");
-
-        const paramString = params.toString();
-        const newUrl =
-          window.location.pathname +
-          (paramString ? `?${paramString}&register` : "?register");
-
-        window.history.replaceState({}, "", newUrl);
-      } else {
-        params.delete("register");
-
-        const paramString = params.toString();
-        const newUrl =
-          window.location.pathname +
-          (paramString ? `?${paramString}&login` : "?login");
-
-        window.history.replaceState({}, "", newUrl);
-      }
-    } else {
-      params.delete("login");
-      params.delete("register");
-      const newUrl =
-        window.location.pathname +
-        (params.toString() ? `?${params.toString()}` : "");
-
-      window.history.replaceState({}, "", newUrl);
-    }
-  }, [isOpen, showRegister]);
+  const {
+    isOpen,
+    setIsOpen,
+    showRegister,
+    setShowRegister,
+    isSubmitting,
+    setIsSubmitting,
+  } = useAuthModal();
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -99,62 +58,27 @@ export default function AuthModal({ btnText = "Sign in" }) {
             <LoginForm onSubmitting={setIsSubmitting} setIsOpen={setIsOpen} />
           )}
 
-          {showRegister ? (
-            <Button
-              variant="secondary"
-              onClick={() => setShowRegister(false)}
-              className="w-full p-5 cursor-pointer mt-4"
-              disabled={isSubmitting}
-            >
-              Sign in
-            </Button>
-          ) : (
-            <Button
-              variant="secondary"
-              onClick={() => setShowRegister(true)}
-              className="w-full p-5 cursor-pointer mt-4"
-              disabled={isSubmitting}
-            >
-              Register
-            </Button>
-          )}
+          <Button
+            variant="secondary"
+            onClick={() => setShowRegister(!showRegister)}
+            className="w-full p-5 cursor-pointer mt-4"
+            disabled={isSubmitting}
+          >
+            {showRegister ? "Sign in" : "Register"}
+          </Button>
 
-          <div className="flex items-center">
-            <div className="flex-1 bg-muted-foreground h-0.5 opacity-50"></div>
-            <span className="uppercase px-3 py-6 font-mono font-medium text-muted-foreground text-sm">
-              or
-            </span>
-            <div className="flex-1 bg-muted-foreground h-0.5 opacity-50"></div>
-          </div>
+          <Separator />
 
           <div className="flex flex-col gap-4">
-            <Button
-              variant={"outline"}
-              size={"lg"}
-              className="cursor-pointer font-normal"
-              onClick={() => login("google")}
-              disabled={isSubmitting}
-            >
-              <FcGoogle />
-              Continue with Google
-            </Button>
-
-            <Button
-              variant={"outline"}
-              size={"lg"}
-              className="cursor-pointer font-normal"
-              onClick={() => login("github")}
-              disabled={isSubmitting}
-            >
-              <FaGithub />
-              Continue with GitHub
-            </Button>
+            {authItems.map((item) => (
+              <AuthButton key={item.label} authItem={item} />
+            ))}
           </div>
         </article>
 
         <SheetFooter>
           <span className="font-mono text-xs uppercase text-muted-foreground ml-auto font-medium">
-            Version 1.0.0
+            Version {VERSION}
           </span>
         </SheetFooter>
       </SheetContent>
