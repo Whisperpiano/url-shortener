@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export const useAuthModal = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -19,6 +20,13 @@ export const useAuthModal = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+
+    if (isOpen && params.has("error")) {
+      toast.error("This email is already linked to another account.", {
+        duration: 5000,
+        cancel: true,
+      });
+    }
 
     if (isOpen) {
       if (showRegister) {

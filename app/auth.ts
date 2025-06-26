@@ -95,7 +95,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           .limit(1);
 
         if (existingUser.length > 0 && existingUser[0].id !== user.id) {
-          return "/";
+          return "/?error=email-already-in-use&login";
         }
       }
       return true;

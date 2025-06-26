@@ -31,8 +31,20 @@ export default function AuthModal({ btnText = "Sign in" }) {
     setIsSubmitting,
   } = useAuthModal();
 
+  const handleSetIsOpen = (value: boolean) => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("error")) {
+      setIsOpen(value);
+      params.delete("error");
+      window.history.replaceState(null, "", `?${params.toString()}`);
+    }
+    setIsOpen(value);
+    setIsSubmitting(false);
+  };
+
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+    <Sheet open={isOpen} onOpenChange={handleSetIsOpen}>
       <SheetTrigger
         className={cn(buttonVariants({ variant: "default" }), "cursor-pointer")}
       >
