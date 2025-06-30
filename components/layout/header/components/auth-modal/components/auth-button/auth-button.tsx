@@ -10,7 +10,7 @@ export default function AuthButton({ authItem }: { authItem: AuthItem }) {
       onClick={authItem.onClick}
     >
       <authItem.icon />
-      {authItem.label}
+      Continue with {authItem.label}
     </Button>
   );
 }
