@@ -1,11 +1,10 @@
 import { OrbitingCircles } from "@/components/special/orbiting-circles";
-import { OrbitIcon } from "./orbiting-icon";
-
+import { OrbitIcon } from "@/components/home/components/stack-section/components/orbiting-icon";
 import {
   insideIcons,
   middleIcons,
   outsideIcons,
-} from "../utils/home-constants";
+} from "@/components/home/utils/home-constants";
 
 import NextjsIcon from "@/lib/assets/icons/nextjs.svg";
 

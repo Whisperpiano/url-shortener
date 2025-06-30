@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import { HorizontalBorder, VerticalBorder } from "@/components/ui/border";
 
-import GlobeCard from "../components/globe-card";
-import StackCard from "../components/stack-card";
+import GlobeCard from "@/components/home/components/stack-section/components/globe-card";
+import StackCard from "@/components/home/components/stack-section/components/stack-card";
 
 export default function StackSection() {
   return (

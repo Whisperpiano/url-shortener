@@ -5,8 +5,8 @@ import { HorizontalBorder } from "@/components/ui/border";
 
 import PixelCanvas from "@/components/PixelCanvas";
 import Link from "next/link";
-import GitHubStats from "@/components/home/components/github-stats";
-import AnimatedHeader from "./animated-header";
+import GitHubStats from "@/components/home/components/contribute-section/components/github-stats";
+import AnimatedHeader from "@/components/home/components/contribute-section/components/animated-header";
 
 export default async function ContributeSection() {
   return (

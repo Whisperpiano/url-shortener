@@ -1,8 +1,8 @@
-import ContributeSection from "@/components/home/sections/contribute-section";
-import FeaturesSection from "@/components/home/sections/features-section";
-import HeroSection from "@/components/home/sections/hero-section";
-import SponsorsSection from "@/components/home/sections/sponsors-section";
-import StackSection from "@/components/home/sections/stack-section";
+import HeroSection from "@/components/home/components/hero-section/hero-section";
+import ContributeSection from "@/components/home/components/contribute-section/contribute-section";
+import FeaturesSection from "@/components/home/components/features-section/features-section";
+import SponsorsSection from "@/components/home/components/sponsors-section/sponsors-section";
+import StackSection from "@/components/home/components/stack-section/stack-section";
 import Divider from "@/components/ui/divider";
 
 export default async function Home() {

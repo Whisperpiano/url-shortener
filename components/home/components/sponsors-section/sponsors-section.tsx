@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { HorizontalBorder, VerticalBorder } from "@/components/ui/border";
 import { ArrowRight } from "lucide-react";
-import { sponsors } from "../utils/home-constants";
+import { sponsors } from "@/components/home/utils/home-constants";
 
 import Link from "next/link";
 

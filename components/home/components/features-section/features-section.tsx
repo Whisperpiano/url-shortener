@@ -1,8 +1,8 @@
 "use client";
 
 import { MagicCard } from "@/components/special/magic-card";
-import { features } from "../utils/home-constants";
-import { HorizontalBorder, VerticalBorder } from "../../ui/border";
+import { features } from "@/components/home/utils/home-constants";
+import { HorizontalBorder, VerticalBorder } from "@/components/ui/border";
 import { motion } from "framer-motion";
 
 export default function FeaturesSection() {
