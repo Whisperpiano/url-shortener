@@ -13,7 +13,7 @@ interface Props {
   session: Session;
 }
 
-export default function AccountDropdown({ session }: Props) {
+export default function AccountModal({ session }: Props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
