@@ -3,7 +3,7 @@
 import { Marquee } from "../special/marquee";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Separator } from "../ui/separator";
-import CreateLinkForm from "./CreateLinkForm";
+import CreateLinkForm from "./links-toolbar/components/create-link-form/create-link-form";
 
 const LinkCardSkeleton = () => {
   return (
