@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardSidebar from "@/components/layout/dashboard/components/dashboard-sidebar";
+import DashboardSidebar from "@/components/layout/dashboard/dashboard-sidebar";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { auth } from "../auth";
@@ -23,7 +23,7 @@ export default async function DashboardLayout({
 
   return (
     <SidebarProvider defaultOpen={true}>
-      <DashboardSidebar linkCount={links.length} limit={limit || 25} />
+      <DashboardSidebar linkCount={links.length} limit={limit} />
       {children}
     </SidebarProvider>
   );

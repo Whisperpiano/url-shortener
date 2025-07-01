@@ -2,8 +2,8 @@ import { auth } from "@/app/auth";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 import SearchBar from "@/components/layout/header/components/search-bar/search-bar";
-import ToggleTheme from "../../header/components/toggle-theme/toggle-theme";
-import AccountModal from "../../header/components/account-modal/account-modal";
+import ToggleTheme from "@/components/layout/header/components/toggle-theme/toggle-theme";
+import AccountModal from "@/components/layout/header/components/account-modal/account-modal";
 
 type Props = {
   group: "Dashboard" | "Account";

@@ -2,10 +2,10 @@ import { getLinks } from "@/lib/queries/links";
 import CreateLinkForm from "@/components/links/CreateLinkForm";
 
 import LinkCard from "@/components/dashboard/LinkCard";
-import DashboardHeader from "@/components/layout/dashboard/components/dashboard-header";
 import SearchLinksBar from "@/components/links/search-links-bar";
 import SortLinks from "@/components/links/sort-links";
 import NoLinksFound from "@/components/links/no-links-found";
+import DashboardHeader from "@/components/layout/dashboard/components/dashboard-header";
 
 export const metadata = {
   title: "Dashboard",
@@ -36,12 +36,14 @@ export default async function Dashboard({
     return 0;
   });
 
+  console.log(links.length);
+
   return (
     <main className="w-full ">
       <DashboardHeader group="Dashboard" pageTitle="Links" />
 
       <section className="p-6 max-w-7xl mx-auto animate-fade-in-up">
-        {sortedLinks.length > 0 && (
+        {links.length > 0 && (
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex sm:items-center gap-4 flex-1">
               <SearchLinksBar />
@@ -50,6 +52,7 @@ export default async function Dashboard({
             <CreateLinkForm />
           </div>
         )}
+
         <section className="flex flex-col gap-4 mt-6">
           {sortedLinks.length > 0 ? (
             sortedLinks.map((link) => <LinkCard key={link.id} link={link} />)
