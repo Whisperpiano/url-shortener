@@ -2,7 +2,7 @@ import { getLinks } from "@/lib/queries/links";
 import { filterLinks } from "@/components/links/utils/filter-links";
 import { sortLinks } from "@/components/links/utils/sort-links";
 
-import LinkCard from "@/components/dashboard/LinkCard";
+import LinkCard from "@/components/links/link-card/link-card";
 import NoLinksFound from "@/components/links/no-links-found";
 import DashboardHeader from "@/components/layout/dashboard/components/dashboard-header";
 import LinksToolbar from "@/components/links/links-toolbar/links-toolbar";
