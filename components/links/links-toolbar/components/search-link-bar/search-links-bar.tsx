@@ -2,27 +2,10 @@
 
 import { Search as SearchIcon } from "lucide-react";
 import { Input } from "../../../../ui/input";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";
+import { useLinksSearchBar } from "@/lib/hooks/searchbar/useLinksSearchBar";
 
 export default function SearchLinksBar() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  const handleSearch = useDebouncedCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const params = new URLSearchParams(searchParams);
-
-      if (e.target.value) {
-        params.set("search", e.target.value);
-      } else {
-        params.delete("search");
-      }
-      router.push(`?${params.toString()}`);
-    },
-    200
-  );
+  const { handleSearch, searchParams } = useLinksSearchBar();
 
   return (
     <div className="relative max-w-[300px] w-full">

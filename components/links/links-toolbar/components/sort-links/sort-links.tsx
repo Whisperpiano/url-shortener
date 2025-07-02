@@ -8,20 +8,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { sortLinksItems } from "./utils/sort-links-items";
+import { useSortLinks } from "@/lib/hooks/sort/useSortLinks";
 
 export default function SortLinks() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const [selectOpen, setSelectOpen] = useState(false);
-
-  const handleChange = (value: string) => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set("sort", value);
-    router.push(`?${newParams.toString()}`);
-  };
+  const { handleChange, selectOpen, setSelectOpen } = useSortLinks();
 
   return (
     <>
@@ -41,18 +32,15 @@ export default function SortLinks() {
           </div>
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="newest" className="cursor-pointer">
-            Newest first
-          </SelectItem>
-          <SelectItem value="oldest" className="cursor-pointer">
-            Oldest first
-          </SelectItem>
-          <SelectItem value="clicks-desc" className="cursor-pointer">
-            Most clicked
-          </SelectItem>
-          <SelectItem value="clicks-asc" className="cursor-pointer">
-            Least clicked
-          </SelectItem>
+          {sortLinksItems.map((item) => (
+            <SelectItem
+              key={item.value}
+              value={item.value}
+              className="cursor-pointer"
+            >
+              {item.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </>
