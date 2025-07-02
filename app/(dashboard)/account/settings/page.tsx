@@ -1,109 +1,67 @@
 import { auth } from "@/app/auth";
+import { settingsItems } from "@/components/settings/utils/settings-items";
+import { getUserById } from "@/lib/queries/users";
+import { redirect } from "next/navigation";
+
 import DashboardHeader from "@/components/layout/dashboard/components/dashboard-header";
-import AvatarSettings from "@/components/settings/avatar-settings";
-import DeleteAccountSettings from "@/components/settings/delete-account-settings";
-import NameSettings from "@/components/settings/name-settings";
-import ProductUpdatesSettings from "@/components/settings/product-updates-settings";
-import ThemeSettings from "@/components/settings/theme-settings";
-// import ThemeSettings from "@/components/settings/theme-settings";
+import AvatarSettings from "@/components/settings/avatar-settings/avatar-settings";
+import DeleteAccountSettings from "@/components/settings/delete-account-settings/delete-account-settings";
+import NameSettings from "@/components/settings/name-settings/name-settings";
+import ProductUpdatesSettings from "@/components/settings/product-updates-settings/product-updates-settings";
+import SettingCard from "@/components/settings/setting-card/setting-card";
+import ThemeSettings from "@/components/settings/theme-settings/theme-settings";
+import ErrorMessage from "@/components/settings/error-message/error-message";
 
 export const metadata = {
   title: "Settings",
   description: "Your settings for Shortleap",
 };
 
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-import { getUserById } from "@/lib/queries/users";
-
 export default async function Settings() {
   const session = await auth();
-  const user = await getUserById(session?.user?.id || "");
-
-  console.log(session);
-
-  if (!user.data) {
-    return <div>{user.error}</div>;
-  }
 
   if (!session) {
-    return <div>You are not signed in</div>;
+    redirect("/?login");
   }
+
+  const user = await getUserById(session?.user?.id || "");
+
+  if (!user.data) {
+    return <ErrorMessage error={user.error || "Failed to load user data"} />;
+  }
+
+  const { name, email, avatar, theme, deleteAccount } = settingsItems;
+  const fallbackAvatar =
+    "https://plus.unsplash.com/premium_photo-1674168441558-d73e95b2b751?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   return (
     <main className="w-full">
       <DashboardHeader group="Account" pageTitle="Settings" />
       <section className="p-6 max-w-7xl mx-auto animate-fade-in-up">
         <section className="flex flex-col gap-4">
-          {/* Name */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Name</CardTitle>
-              <CardDescription>
-                Choose a name to represent your profile. It can be your real
-                name or a nickname.
-              </CardDescription>
-            </CardHeader>
+          <SettingCard title={name.title} description={name.description}>
             <NameSettings name={session?.user?.name || ""} />
-          </Card>
-          {/* Email */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Email</CardTitle>
-              <CardDescription>
-                This email address will be used to send account-related
-                notifications.
-              </CardDescription>
-            </CardHeader>
+          </SettingCard>
+
+          <SettingCard title={email.title} description={email.description}>
             <ProductUpdatesSettings user={user.data} />
-          </Card>
+          </SettingCard>
 
-          {/* Avatar*/}
-          <Card>
-            <CardHeader>
-              <CardTitle>Avatar</CardTitle>
-              <CardDescription>
-                Upload a profile picture to represent your account.
-              </CardDescription>
-            </CardHeader>
-            <AvatarSettings
-              userAvatar={
-                user.data.image ||
-                "https://plus.unsplash.com/premium_photo-1674168441558-d73e95b2b751?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              }
-            />
-          </Card>
+          <SettingCard title={avatar.title} description={avatar.description}>
+            <AvatarSettings userAvatar={user.data.image || fallbackAvatar} />
+          </SettingCard>
 
-          {/* Theme options */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Theme</CardTitle>
-              <CardDescription>
-                Select your preferred theme. You can choose dark, light, or
-                follow your system settings.
-              </CardDescription>
-            </CardHeader>
-
+          <SettingCard title={theme.title} description={theme.description}>
             <ThemeSettings />
-          </Card>
+          </SettingCard>
 
-          {/* Delete account */}
-
-          <Card className="border-[var(--destructive)]">
-            <CardHeader>
-              <CardTitle>Delete account</CardTitle>
-              <CardDescription>
-                Permantly delete your account and all associated links and
-                stats. This action cannot be undone.
-              </CardDescription>
-            </CardHeader>
+          <SettingCard
+            title={deleteAccount.title}
+            description={deleteAccount.description}
+            className="border-[var(--destructive)]"
+          >
             <DeleteAccountSettings session={session} />
-          </Card>
+          </SettingCard>
         </section>
       </section>
     </main>

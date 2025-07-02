@@ -1,11 +1,5 @@
 "use client";
 
-import { AlertTriangle, Trash2 } from "lucide-react";
-import { Button } from "../ui/button";
-import { CardFooter } from "../ui/card";
-
-import { Session } from "next-auth";
-import { Input } from "../ui/input";
 import {
   Dialog,
   DialogContent,
@@ -14,58 +8,26 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
+} from "@/components/ui/dialog";
+
+import { AlertTriangle, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CardFooter } from "@/components/ui/card";
+import { Session } from "next-auth";
+import { Input } from "@/components/ui/input";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useForm } from "react-hook-form";
-import {
-  DeleteAccountSettingsSchema,
-  DeleteAccountSettingsTypes,
-} from "@/lib/zod/settings";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { deleteAccount } from "@/lib/actions/account/delete-account";
-import { toast } from "sonner";
-import { logout } from "@/lib/actions/auth/logout";
-import { Spinner } from "../ui/spinner";
-import { useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
+import { useDeleteAccountSettings } from "@/lib/hooks/settings/useDeleteAccountSettings";
 
 export default function DeleteAccountSettings({
   session,
 }: {
   session: Session;
 }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<DeleteAccountSettingsTypes>({
-    resolver: zodResolver(DeleteAccountSettingsSchema),
-  });
-
-  const [isDeleting, setIsDeleting] = useState(false);
-
   const userID = session?.user?.id;
 
-  if (!userID) {
-    return null;
-  }
-
-  const onSubmit = async (data: DeleteAccountSettingsTypes) => {
-    setIsDeleting(true);
-    const confirmed = data.confirmation === "confirm delete account";
-
-    if (!confirmed) {
-      return;
-    }
-    const { success, message } = await deleteAccount(userID);
-
-    if (success) {
-      toast.success(message);
-      await logout();
-    } else {
-      toast.error(message);
-      setIsDeleting(false);
-    }
-  };
+  const { register, handleSubmit, onSubmit, isDeleting, errors } =
+    useDeleteAccountSettings({ userID });
 
   return (
     <Dialog>

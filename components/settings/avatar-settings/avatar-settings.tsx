@@ -1,57 +1,25 @@
 "use client";
 
-import Image from "next/image";
-import { CardContent, CardFooter } from "../ui/card";
-import { Label } from "../ui/label";
+import { CardContent, CardFooter } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import { CloudUpload, Save } from "lucide-react";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
+import { useAvatarSettings } from "@/lib/hooks/settings/useAvatarSettings";
 
-import { useCloudinaryUpload } from "@/lib/hooks/cloudinary/useCloudinaryUpload";
-import { Spinner } from "../ui/spinner";
-import { AvatarSettingsSchema, AvatarSettingsTypes } from "@/lib/zod/settings";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { updateAvatar } from "@/lib/actions/account/update-avatar";
+import Image from "next/image";
 
 export default function AvatarSettings({ userAvatar }: { userAvatar: string }) {
-  const [currentAvatar, setCurrentAvatar] = useState(userAvatar);
-
-  const { imageUrl, isUploading, handleFileChange, resetImageUrl } =
-    useCloudinaryUpload();
-  const { register, handleSubmit, setValue } = useForm<AvatarSettingsTypes>({
-    resolver: zodResolver(AvatarSettingsSchema),
-    defaultValues: {
-      avatarUrl: currentAvatar,
-    },
-  });
-
-  const onSubmit = async (data: AvatarSettingsTypes) => {
-    try {
-      setValue("avatarUrl", data.avatarUrl);
-
-      if (!imageUrl) {
-        throw new Error("No image URL found");
-      }
-
-      const { success, error } = await updateAvatar(imageUrl);
-
-      if (!success || error) {
-        setValue("avatarUrl", imageUrl);
-        throw new Error(error);
-      }
-
-      setCurrentAvatar(imageUrl);
-      resetImageUrl();
-
-      toast.success("Avatar updated successfully.");
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong. Your changes have been reverted.");
-    }
-  };
+  const {
+    register,
+    handleSubmit,
+    onSubmit,
+    isUploading,
+    handleFileChange,
+    currentAvatar,
+    imageUrl,
+  } = useAvatarSettings(userAvatar);
 
   const displayAvatar = imageUrl || currentAvatar;
 
